@@ -32,3 +32,4 @@ reports/*.png
 # 백업 파일 (filter-tune 파라미터 튜닝 시 생성: *.bak.YYYYMMDD_HHmmss — TS-2)
 *.bak.*
 reports/
+data/.token_cache.json
