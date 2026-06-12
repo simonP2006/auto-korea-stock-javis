@@ -1,0 +1,70 @@
+round: 4
+folder: "round-04/"
+title: "4차 심층조사 — 외부 연동 기술 축 5-Teammate 병렬 심층조사"
+date: "2026-05-26"
+status: "complete"
+investigation_axis: "external-integration"
+assumption_axis: "5개 연동 축별 상충 관점 (풍부/최소, 적극/최소, 클라우드/로컬, 실시간/배치, Fail-fast/Graceful)"
+teammates:
+  - id: T01
+    role: "MCP Server Specialist"
+    axis: "mcp-ecosystem"
+    branch_a: "Rich MCP Ecosystem"
+    branch_b: "Minimal MCP + Custom Servers"
+    file: "raw/T01-mcp-server-specialist.md"
+  - id: T02
+    role: "Local Tool Integration Expert"
+    axis: "local-tooling"
+    branch_a: "Heavy Local Tooling"
+    branch_b: "Light Local Tooling"
+    file: "raw/T02-local-tool-integration-expert.md"
+  - id: T03
+    role: "API & Service Connector"
+    axis: "external-api-services"
+    branch_a: "Cloud/External Services"
+    branch_b: "Fully Local/Offline"
+    file: "raw/T03-api-service-connector.md"
+  - id: T04
+    role: "Data Flow Architect"
+    axis: "data-flow"
+    branch_a: "Real-Time Streaming"
+    branch_b: "Batch File Exchange"
+    file: "raw/T04-data-flow-architect.md"
+  - id: T05
+    role: "Reliability & Fallback Engineer"
+    axis: "reliability-strategy"
+    branch_a: "Fail-Fast"
+    branch_b: "Graceful Degradation"
+    file: "raw/T05-reliability-fallback-engineer.md"
+    canonical_file: "../../research/reliability-fallback/branch-5-reliability-fallback-analysis.md"
+synthesis:
+  - id: S01
+    topic: "integration-spectrum"
+    file: "synthesis/S01-integration-spectrum.md"
+  - id: S02
+    topic: "discussion-scenarios"
+    file: "synthesis/S02-discussion-scenarios.md"
+  - id: S03
+    topic: "key-findings"
+    file: "synthesis/S03-key-findings.md"
+  - id: S04
+    topic: "prd-direction"
+    file: "synthesis/S04-prd-direction.md"
+key_outcomes:
+  - "Phase 1 needs ZERO MCP servers — batch pipeline has no interactive MCP context"
+  - "Korean stock MCP servers exist (pykrx-mcp, kospi-kosdaq-stock-server, korea-stock-mcp)"
+  - "OpenAI Codex CLI [LOCAL-OK] — ChatGPT OAuth, no API key"
+  - "Gemini CLI [LOCAL-OK] — Google Account auth, 60 RPM / 1,000 RPD free tier"
+  - "Light local tooling wins — uv + Python packages + macOS built-ins (0 brew packages)"
+  - "pandas-ta archival risk — July 2026 deadline, pandas-ta-classic fallback"
+  - "jq now built-in on macOS Tahoe (/usr/bin/jq v1.7.1-apple)"
+  - "Phase 1 is 100% batch — no streaming infrastructure needed"
+  - "Atomic writes (tmp→rename) essential for all file handoffs"
+  - "summary.md: YAML frontmatter + Markdown body optimal"
+  - "DuckDB ~40-80MB for 5 years, no cleanup for a decade"
+  - "28 failure modes cataloged, PK-3/4/5 'lethal trio' (silent pykrx failures)"
+  - "Fail-fast default + selective narrow degradation recommended"
+  - "Custom circuit breaker (file-based, ~230 lines) over pybreaker"
+  - "Notification: osascript (macOS native) + Telegram (Phase 2+)"
+  - "Total reliability infrastructure: ~2,360 lines (2.4x core pipeline)"
+  - "LOCAL-BLOCKED: 0 items across all 5 domains"

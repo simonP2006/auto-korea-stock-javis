@@ -1,0 +1,16 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+Full tree confirmed. Both orphaned files identified. Now delivering the required output.
+
+---
+
+## Output A: 전체 prd-research/ 트리
+
+```
+prompt/prd-research/
+├── README.md                                          ← 확장 규칙·네이밍 규약
+├── _index.yaml                                        ← 마스터 인덱스 (round 1-3)
+────────────────────────────────────────
+

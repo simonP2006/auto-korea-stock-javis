@@ -1,0 +1,16 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+All edits confirmed. Here's the summary:
+
+---
+
+## A. Diff 요약
+
+| # | 개선안 | 위치 | 변경 내용 | 줄 수 변경 |
+|---|--------|------|----------|-----------|
+| 1 | D-1 (RED: @reviewer 실패 처리) | Error Handling 섹션 | `on_review_failure` 블록 추가 (severity_low/high/timeout 3분기) | +10 |
+| 2 | D-5 (YELLOW: Failure Recovery 우선
+────────────────────────────────────────
+

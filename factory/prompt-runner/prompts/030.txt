@@ -1,0 +1,53 @@
+[ABSOLUTE ANCHOR]
+① 품질 절대우선 — PRD의 목적은 "무엇을 만들 것인가" 한 가지.
+   기술·구현·절차 디테일을 PRD 본문에 섞지 말라. 그것은 final-research.md의 역할.
+
+② 로컬 실행 불변 — PRD 초안의 모든 요구사항은 "사용자의 로컬 컴퓨터에서 자동 실행"을 전제로 기술.
+   SaaS·클라우드 의존 전제가 섞이면 실패.
+
+③ 제1 핵심 목적 고정 — 아래 "제1 핵심 목적"은 PRD의 모든 섹션·모든 요구사항에
+   절대 목표로 고정한다. 제1 목적과 무관한 항목은 PRD에 넣지 말라.
+
+④ 승인 후 최종 산출 — 이번 턴의 산출물은 /prompt/prd.md 초안 하나뿐.
+   workflow.md는 작성 금지. PRD는 "초안"이며 이후 성찰·수정이 계속된다.
+   승인 요청 시: 구현 의도(1문장) + 영향 파일 + 위험 지점 + 가정 사항.
+
+→ 충돌 시 ①②③ 중 상위 기준 절대 우선.
+[/ABSOLUTE ANCHOR]
+
+[SESSION HEADER]
+이전 단계: /prompt/prd-research/final-research.md 최종 반영 완료.
+이번 단계: final-research.md를 입력 자료로 prd.md 초안 작성 → /prompt/prd.md.
+핵심 참조 파일: /prompt/prd-research/final-research.md (백데이터)
+[/SESSION HEADER]
+
+[사용자의 목적·의도]
+1) KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템 을 사용자의 로컬 컴퓨터에서 자동 구현하는
+   AI agentic workflow automation system의 PRD.md 작성.
+2) 사용자는 코드 구현 능력이 전혀 없다. Claude Code가 처음부터 끝까지 완벽 자동 구현해준다.
+
+[★ 제1 핵심 목적 — 절대 목표로 모든 단계·기능에 고정]
+[KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]는 첫째, [종목 스크리너]에게 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 종목들을 저장하고 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건에 의해 해당 종목들을 screen하게 시킬 수 있어야 한다. 둘째, 내가 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건을 fine tuning 하기 쉽게 도울 수 있어야 한다. 이 것이 가장 큰 목표이다. 구체적으로, 나는 이미 /tajun/spJavis/Kiwoon-rest-trader/에 이미 키움 REST-API를 이용해 특정일의 종목별 database를 구축하는 python code기반의 [종목 스크리너]를 이미 구축해 놓았다. 이 database는 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 최대 2500이내 종목별로 자동 저장된다. 각 종목별로 각 봉챠트 정보 chart60.md, chart120.md, chart240.md, chartDay.md가 있고, 각 봉챠트 md file은 MA10(=10일선), MA20, MA60, MA240, MA306, MA612 정보를 각각 최근부터 16개 분량씩 가지게 된다. finance.md는 PER, EPS, ROE, PBR, 당기순이익 정보가 있다. investor.md는 개인, 외국인, 기관계 정보가 있다. 내가 [KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]이 [종목 스크리너]에게 특정일(YYYYMMDD)의 종목 database를 수집하도록 명령하면, 위에서 설명한 종목별 database가 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 저장된다. [종목 스크리너]는 종목별 database가 저장완료되면, 미리 구축된 filtering 조건에 의해 종목을 분석 및 분류 선별한 결과를 자동으로 저장한다. Filter조건은 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/에 chart60_120Filer.md, chart120Filter.md, chart240Filter.md, chartDayFilter.md, chartDayPreFilter.md, financeFilter.md, investorFilter.md가 미리 저장되어 있다. 위 세부사항은 /tajun/spJavis/Kiwoon-rest-trader/user_connamd_manual.md/## 표준 사용 순서 요약에 자세히 적혀 있다.
+
+[작업 지시]
+1. teammate를 활용해 final-research.md를 백데이터로 하여 prd.md 초안을 작성한다.
+2. PRD 범위 원칙:
+   - 담는 것: "무엇을 만들 것인가" — 제품 정체성, 사용자 문제, 요구사항, 성공 기준, 제약.
+   - 담지 않는 것: 구체 스택 선택, 구현 절차, 코드 설계, 백엔드 아키텍처 세부.
+     (이것은 workflow.md 단계에서 다룬다.)
+3. 각 요구사항은 제1 핵심 목적과의 연결을 한 줄로 명시하라.
+   제1 목적과 연결되지 않는 항목은 PRD에서 제외한다.
+4. 로컬 실행 전제를 모든 요구사항에 암묵적으로 전제. 예외가 있다면 '제약' 섹션에 명시.
+5. 저장 위치: /prompt/prd.md
+
+[초안 품질 검증 — 출력 전 자기 점검]
+1층위 (사실 확인): 제1 핵심 목적 ↔ 요구사항 매핑 표. 연결되지 않은 항목만 나열.
+2층위 (구조 분석): 이 PRD로 workflow.md 제작에 들어갔을 때 어디가 먼저 흔들리는가.
+                   (예: 요구사항 모호성, 성공 기준 부재, 제약 누락)
+3층위 (역방향 점검): 이 PRD가 다루지 않는 것 중 제1 목적 달성에 필요한 것은 무엇인가.
+                     없는 것을 찾는 점검이다.
+
+[출력 형식 — 이 턴의 출력물]
+A. /prompt/prd.md 초안 목차와 각 섹션 요약.
+B. 제1 핵심 목적 ↔ 요구사항 매핑.
+C. 제외된 항목 목록 (왜 제외했는지).

@@ -1,0 +1,71 @@
+# Round 02 Metadata
+round: 2
+title: "2차 심층조사 — 기술·이론 축 5-Teammate 병렬 조사"
+date: "2026-05-25"
+status: "complete"
+framework: "Technology_Development_DeepDive_PRD_Teammate_Executable.md (PHASE 1-4)"
+investigation_axis: "technology-theory"
+investigation_axis_korean: "기술·이론 축"
+prior_round: 1
+prior_round_dependency: >
+  1차 조사에서 확정된 Hybrid 아키텍처(Python pipeline + Claude Code interpretation),
+  Branch B(통합) 선택, 토큰 경제 분석을 전제로 기술·이론 심층 탐색.
+
+purpose: >
+  1차 조사(일반 축)에서 확정된 아키텍처 방향을 기반으로,
+  PRD의 기술 섹션 구성에 필요한 '기술·이론' 축의 심층 조사 수행.
+  각 기술·이론에 대해 (작동 원리 → 전제 조건 → 트레이드오프 → 한계 → 반증 사례)까지 탐색.
+  모든 선택지에 [LOCAL-OK / LOCAL-PARTIAL / LOCAL-BLOCKED] 태그 부여.
+
+assumption_axis:
+  name: "Maximum Utilization vs Limitation-Aware (5개 축별 상충 관점)"
+  rationale: >
+    5개 기술 영역(플랫폼 역량, 설정 아키텍처, 오케스트레이션, 통합, 이론)에서
+    각각 상충하는 2가지 접근(최대 활용 vs 한계 인식)을 병렬 탐색.
+    Fork-based 10개 Branch 구조.
+  branches_per_team:
+    - team: "Platform Capability"
+      branch_a: "Maximum Utilization (플랫폼 최대 활용)"
+      branch_b: "Limitation-Aware (한계 인식 관점)"
+    - team: "Configuration Architect"
+      branch_a: "Minimal Configuration (단순 설정)"
+      branch_b: "Precision Configuration (정밀 설정)"
+    - team: "Orchestration Engineer"
+      branch_a: "Lightweight Orchestration (경량)"
+      branch_b: "Advanced Orchestration (고도)"
+    - team: "Integration Specialist"
+      branch_a: "Minimal Integration (최소 연동)"
+      branch_b: "Active Integration (적극 연동)"
+    - team: "Theory Foundation Expert"
+      branch_a: "Modern Agentic Theory (최신 이론)"
+      branch_b: "Established Automation Theory (검증된 원칙)"
+
+execution:
+  method: "Claude Code Agent tool — 5 sub-agents 병렬 발진 (model: opus)"
+  total_tool_uses: 98
+  total_web_searches: "80+ (5개 에이전트 합산)"
+  total_duration_minutes: ~40
+  orchestration: "메인 컨텍스트에서 Phase 2(토론), Phase 3(시나리오), Phase 4(통합) 수행"
+
+input_files:
+  - "/prompt/Technology_Development_DeepDive_PRD_Teammate_Executable.md"
+  - "/prompt/prd-research/round-01/synthesis/S03-key-findings.md"
+  - "/prompt/prd-research/round-01/synthesis/S04-prd-direction.md"
+
+output_files:
+  raw:
+    - "raw/T01-platform-capability.md"
+    - "raw/T02-configuration-architect.md"
+    - "raw/T03-orchestration-engineer.md"
+    - "raw/T04-integration-specialist.md"
+    - "raw/T05-theory-foundation.md"
+  synthesis:
+    - "synthesis/S01-tech-discussion.md"
+    - "synthesis/S02-scenarios.md"
+    - "synthesis/S03-key-findings.md"
+    - "synthesis/S04-prd-direction.md"
+
+quality_verification:
+  layer_1_fact_check: "PASS — 9개 기술·이론 축 전체 커버, 불일치 항목 없음"
+  layer_2_structure: "VCP 간소화 프록시 경계 모호, 시장별 가중치 차등화 미결정, 수정주가 처리 미확인"
+  layer_3_reverse: "pykrx 데이터 가용 시점, 초기 역사 데이터 로딩 시간, claude -p 구독 계정 호환, 한국어 금융 용어 정확도, numba Apple Silicon 호환성"

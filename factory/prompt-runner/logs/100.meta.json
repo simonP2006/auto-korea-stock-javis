@@ -1,0 +1,10 @@
+{
+  "step": 100,
+  "exit_code": 0,
+  "verdict": "success",
+  "duration_sec": 246,
+  "new_session": false,
+  "session_id": "51535f55-b276-4c98-8bf9-e078d8c2db1f",
+  "timestamp": "2026-05-26T09:35:20.388301",
+  "prompt_md5": "5ca0de15489d76ebb80915ea8d9a14c3"
+}

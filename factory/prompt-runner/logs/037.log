@@ -1,0 +1,18 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+두 파일을 모두 읽었습니다. 이제 역추적 매핑과 성찰 보고서를 작성합니다.
+
+---
+
+# 3차 성찰 보고서: PRD ↔ final-research.md 역추적 가능성 검증
+
+## A. 요구사항 ↔ final-research.md 매핑 표
+
+### 핵심 발견: PRD와 Research의 근본적 범위 차이
+
+PRD는 **기존 kiwoom-rest-trader를 AI가 운전하는 프롬프트/스킬 문서 세트**를 산출물로 정의한다.
+final-research.md는 **새로운 stock-scanner 시스템(DuckDB, pandas-ta-c
+────────────────────────────────────────
+

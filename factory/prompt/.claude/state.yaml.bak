@@ -1,0 +1,58 @@
+workflow:
+  name: "stock-filtering-collector"
+  version: "1.0.0"
+  current_step: 12
+  status: "in_progress"
+  degradation_notes: []
+  parent_genome:
+    version: "2026-05-26"
+    source: "AgenticWorkflow"
+  outputs:
+    step-1-param-inventory: "prompt/outputs/step-1-param-inventory.md"
+    step-1-param-inventory-ko: "prompt/outputs/step-1-param-inventory.ko.md"
+    step-1-pipeline-analysis: "prompt/outputs/step-1-pipeline-analysis.md"
+    step-1-pipeline-analysis-ko: "prompt/outputs/step-1-pipeline-analysis.ko.md"
+    step-1-error-patterns: "prompt/outputs/step-1-error-patterns.md"
+    step-1-error-patterns-ko: "prompt/outputs/step-1-error-patterns.ko.md"
+    step-2-research-report: "prompt/outputs/step-2-research-report.md"
+    step-2-research-report-ko: "prompt/outputs/step-2-research-report.ko.md"
+    step-4-architecture: "prompt/outputs/step-4-architecture.md"
+    step-4-architecture-ko: "prompt/outputs/step-4-architecture.ko.md"
+    step-5-claude-md-blueprint: "prompt/outputs/step-5-claude-md-blueprint.md"
+    step-5-claude-md-blueprint-ko: "prompt/outputs/step-5-claude-md-blueprint.ko.md"
+    step-6-stock-scan-blueprint: "prompt/outputs/step-6-stock-scan-blueprint.md"
+    step-6-stock-scan-blueprint-ko: "prompt/outputs/step-6-stock-scan-blueprint.ko.md"
+    step-6-filter-tune-blueprint: "prompt/outputs/step-6-filter-tune-blueprint.md"
+    step-6-filter-tune-blueprint-ko: "prompt/outputs/step-6-filter-tune-blueprint.ko.md"
+    step-8-claude-md: "/Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md"
+    step-9-stock-scan-skill: "/Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/stock-scan/"
+    step-9-filter-tune-skill: "/Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/filter-tune/"
+    step-10-validation-report: "prompt/outputs/step-10-validation-report.md"
+    step-10-validation-report-ko: "prompt/outputs/step-10-validation-report.ko.md"
+    step-11-smoke-test: "prompt/outputs/step-11-smoke-test.md"
+    step-11-smoke-test-ko: "prompt/outputs/step-11-smoke-test.ko.md"
+  translation_tasks:
+    step-1-param-inventory: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 318}
+    step-1-pipeline-analysis: {status: "completed", attempt: 1, pacs_score: null, duration_sec: 391}
+    step-1-error-patterns: {status: "completed", attempt: 1, pacs_score: 92, duration_sec: 327}
+    step-2-research-report: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 376}
+    step-4-architecture: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 343}
+    step-5-claude-md-blueprint: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 261}
+    step-6-stock-scan-blueprint: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 871}
+    step-6-filter-tune-blueprint: {status: "completed", attempt: 1, pacs_score: 87, duration_sec: 720}
+    step-10-validation-report: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 282}
+    step-11-smoke-test: {status: "completed", attempt: 1, pacs_score: 88, duration_sec: 2202}
+  autopilot:
+    mode: "enabled"
+    decisions:
+      - {step: 3, gate: "review-research", decision: "approved", date: "2026-05-30", note: "Research phase accepted; 4 Open Questions forwarded to Step 4 architect as open inputs"}
+      - {step: 4, gate: "reviewer-pacs-delta", decision: "F-14-surgical-fix", date: "2026-05-30", note: "Reviewer pACS=70 (Delta ~20 vs generator). 6 surgical fixes applied: pre-flight (d) script bug, §3 permission caveat for cd+python compound, §9 wording, §10 risk count, §2 line count, +R-9/R-10/R-11 risks. Step 10 must verify Bash permission probe + venv symlink dereference."}
+      - {step: 5, gate: "reviewer", decision: "surgical-fix", date: "2026-05-30", note: "Reviewer pACS=82 (Delta ~8, no F-14). 2 CRITICAL fixes applied: TS-1 and TS-5 verbatim restored from PRD §5.5. 3 Warnings (line budget, KiwoomAuthError jargon, onboarding b timing) deferred to Step 10."}
+      - {step: 6, gate: "reviewer", decision: "surgical-fix", date: "2026-05-30", note: "Reviewer pACS=80 (cross-skill review, both blueprints). 3 CRITICAL fixes applied: tuning-log 8-column schema reconciled (scan Ch7), R-9 lock made atomic via mkdir/rmdir, filter-tune §3 Step 1.0 keyword pre-check added for Stage 5 hard-block (cup_nga, 당기순이익, financeFilter, Stage 5). 9 warnings/suggestions (TOCTOU/orphan/disclaimer/etc.) deferred to Step 10."}
+      - {step: 7, gate: "review-design", decision: "approved", date: "2026-05-30", note: "Planning Phase (Steps 4-5-6) accepted. Implementation Phase begins. Step 8 will WRITE first file to kiwoom-rest-trader (CLAUDE.md). All 11 surgical fixes baked into blueprints."}
+      - {step: 8, gate: "reviewer", decision: "approved-with-minor-fix", date: "2026-05-30", note: "Reviewer pACS=90 (Delta ~5, no F-14). 1 Suggestion applied: TS-1 self-reference clarified as (PRD §5.1 Stage 5 참조). settings.local.json untouched (71B, May 13 mtime preserved). CLAUDE.md 14.3KB / 122 lines within 80-130. 7/7 pytest PASS."}
+      - {step: 9, gate: "reviewer-cross-skill", decision: "approved", date: "2026-05-30", note: "Reviewer pACS=88 (Delta ~4, no F-14). 0 Critical. 4 Warnings + 3 Suggestions deferred to Step 10 (infra-validator): (W1) CLAUDE.md vs filter-tune routing mismatch for ASK_MODULE/COMPARE, (W2) range-map Stage 5 row-specific Korean, (W3) SHORTCUT predicate ordering explicitness, (W4) RESTORE branch rmdir finally. Stage 5 hard-block 4-place defence verified. All 3 Step 6 surgical fixes survived deployment (Step 1.0 keyword pre-check, mkdir/rmdir lock, 8-col tuning-log). 75 Final constants covered in range-map. CLAUDE.md/settings.local.json/src/kiwoom/ all untouched. 9/9 pytest PASS."}
+      - {step: 10, gate: "reviewer-post-validation", decision: "approved-with-minor-fix", date: "2026-05-30", note: "Reviewer pACS=82 (Delta ~5). 1 Critical applied post-validation: KiwoomAuthError 사용자 행동 column jargon (APP_KEY·SECRET_KEY → 키움 API 인증 설정(키/시크릿)). Infra-validator achievements: Bash probe PASS exit 0 (R-11/R-10 retired), 25/25 deferred items handled (5 Critical DONE + 7 Should DONE + 13 Documented), Stage 5 hard-block 3/3 trace, Quality min/avg/max=78/87.2/95. Files modified by validator: CLAUDE.md (ASK_MODULE/COMPARE_PARAMS rows), filter-tune SKILL.md (§3 SHORTCUT order, §4 RESTORE rmdir), filter-tune range-map.md (Stage 5 6 row-specific Korean). settings.local.json/stock-scan/src untouched. 5 Suggestions/Warnings (line count drift, exit code echo, ADR-013 stub) deferred to known-issues."}
+      - {step: 11, gate: "smoke-test", decision: "PASS-dry-run", date: "2026-05-30", note: "DRY-RUN end-to-end smoke. 10/10 scenarios PASS, Stage 5 4/4 variants caught at PRIMARY guard (Step 1.0 keyword pre-check), Pre-flight (a)(b)(c) ALL PASS. 0 blocking, 6 advisory items for Step 12: (1) 30-min watchdog orphan, (2) cross-machine mkdir atomicity unverified, (3) prefetchManifest schema variation, (4) mixed-intent regex 바꿔 morphology, (5) R-9 BLOCKED wording asymmetry, (6) stock-scan Chain 8 cross-write trace visibility. READ-ONLY preserved: no actual pipeline executed, no deployed file modified."}
+  active_team: null
+  completed_teams: []

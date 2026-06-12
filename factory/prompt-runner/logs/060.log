@@ -1,0 +1,17 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+Full workflow.md and reference files are loaded. Now producing the unresolved decisions analysis.
+
+---
+
+## A. 미결정 사항 권장안 목록
+
+---
+
+### UR-1. Stage 5 (financeFilter) 변경 요청 거부 인코딩 위치
+
+**현상**: C-4에서 "CLAUDE.md에 명시적 한계 인코딩"으로 해결 방향을 제시했으나, workflow.md Step 5의 CLAUDE.md 블루프린트 10개 섹션(lines 209-219) 어디에도 St
+────────────────────────────────────────
+

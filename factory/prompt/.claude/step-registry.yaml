@@ -1,0 +1,189 @@
+# Step Registry — Stock Filtering Collector Workflow
+# Authoritative step-level metadata. Derived from infra_schema.py STEP_DISPATCH + AGENT_ROSTER.
+# Used by: orchestrator (dispatch), tests (validation), commands (human gates), diagnostics.
+
+steps:
+  - step: 1
+    name: "Code Analysis & Parameter Extraction"
+    phase: "Research"
+    type: "team"
+    agents:
+      - name: "param-extractor"
+        output_key: "step-1-param-inventory"
+        model: "opus"
+        maxTurns: 30
+      - name: "pipeline-analyzer"
+        output_key: "step-1-pipeline-analysis"
+        model: "opus"
+        maxTurns: 40
+      - name: "error-analyzer"
+        output_key: "step-1-error-patterns"
+        model: "sonnet"
+        maxTurns: 20
+    review: "fact-checker"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_01_research.py"
+
+  - step: 2
+    name: "Research Integration & Synthesis"
+    phase: "Research"
+    type: "single"
+    agents:
+      - name: "research-integrator"
+        output_key: "step-2-research-report"
+        model: "opus"
+        maxTurns: 25
+    review: "fact-checker"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_02_integration.py"
+
+  - step: 3
+    name: "Research Review (Human Gate)"
+    phase: "Research"
+    type: "human"
+    agents: []
+    review: null
+    translate: false
+    human_gate: true
+    command: "/review-research"
+    verification_test: null
+
+  - step: 4
+    name: "Deployment Architecture Design"
+    phase: "Planning"
+    type: "single"
+    agents:
+      - name: "architect"
+        output_key: "step-4-architecture"
+        model: "opus"
+        maxTurns: 25
+    review: "reviewer"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_04_architecture.py"
+
+  - step: 5
+    name: "CLAUDE.md Blueprint Design"
+    phase: "Planning"
+    type: "single"
+    agents:
+      - name: "claude-md-designer"
+        output_key: "step-5-claude-md-blueprint"
+        model: "opus"
+        maxTurns: 30
+    review: "reviewer"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_05_blueprint.py"
+
+  - step: 6
+    name: "Skill Specification Design"
+    phase: "Planning"
+    type: "team"
+    agents:
+      - name: "scan-designer"
+        output_key: "step-6-stock-scan-blueprint"
+        model: "opus"
+        maxTurns: 35
+      - name: "tune-designer"
+        output_key: "step-6-filter-tune-blueprint"
+        model: "opus"
+        maxTurns: 40
+    review: "reviewer"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_06_skill_design.py"
+
+  - step: 7
+    name: "Design Review (Human Gate)"
+    phase: "Planning"
+    type: "human"
+    agents: []
+    review: null
+    translate: false
+    human_gate: true
+    command: "/review-design"
+    verification_test: null
+
+  - step: 8
+    name: "CLAUDE.md Implementation"
+    phase: "Implementation"
+    type: "single"
+    agents:
+      - name: "claude-md-builder"
+        output_key: "step-8-claude-md"
+        model: "opus"
+        maxTurns: 25
+    review: "reviewer"
+    translate: false
+    human_gate: false
+    verification_test: "test_step_08_claude_md.py"
+
+  - step: 9
+    name: "Skill Implementation (Sequential)"
+    phase: "Implementation"
+    type: "sequential"
+    agents:
+      - name: "scan-builder"
+        output_key: "step-9-stock-scan-skill"
+        model: "opus"
+        maxTurns: 40
+        order: 1
+      - name: "tune-builder"
+        output_key: "step-9-filter-tune-skill"
+        model: "opus"
+        maxTurns: 50
+        order: 2
+    review: "reviewer"
+    translate: false
+    human_gate: false
+    verification_test: "test_step_09_skills.py"
+
+  - step: 10
+    name: "Integration Validation"
+    phase: "Implementation"
+    type: "single"
+    agents:
+      - name: "infra-validator"
+        output_key: "step-10-validation-report"
+        model: "opus"
+        maxTurns: 30
+    review: "reviewer"
+    translate: true
+    human_gate: false
+    verification_test: "test_step_10_infra.py"
+
+  - step: 11
+    name: "Smoke Testing & Deployment Verification"
+    phase: "Implementation"
+    type: "single"
+    agents:
+      - name: "smoke-tester"
+        output_key: "step-11-smoke-test"
+        model: "opus"
+        maxTurns: 25
+    review: null
+    translate: true
+    human_gate: false
+    verification_test: "test_step_11_smoke.py"
+
+  - step: 12
+    name: "Final Acceptance (Human Gate — NEVER auto-approve)"
+    phase: "Implementation"
+    type: "human"
+    agents: []
+    review: null
+    translate: false
+    human_gate: true
+    command: "/accept-system"
+    verification_test: null
+    autopilot_override: "always_block"
+
+# Quality gate pipeline per step (when review is non-null):
+#   L0: Anti-Skip Guard (output exists + ≥100 bytes)
+#   L1: Verification Gate (pytest test_step_N*.py)
+#   L1.5: pACS Self-Rating (agent-emitted, pre-mortem + F/C/L)
+#   L2: Adversarial Review (@reviewer or @fact-checker)
+#   Translation: @translator (if translate: true)

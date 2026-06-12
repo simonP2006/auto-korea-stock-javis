@@ -1,0 +1,20 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+🤖 [자동 응답] 1 (Yes) — 대화형 프롬프트 감지
+
+────────────────────────────────────────
+📋 결과 요약:
+workflow.md가 생성되었습니다. 이제 요청된 출력 형식 A-D를 제공합니다.
+
+---
+
+## A. 생성된 /prompt/workflow.md 목차
+
+```
+# KOSPI/KOSDAQ Stock Technical Analysis Filter Orchestration System — Build Workflow
+
+## Overview
+  - Core Purpose Anchor (PG-1, PG-2)
+  - Target Deployment (7개 파일/디렉터리)
+  - Key Design Decisions (D-1 ~ D-7, 7개
+────────────────────────────────────────
+

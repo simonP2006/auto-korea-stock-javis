@@ -1,0 +1,11 @@
+{
+  "step": 96,
+  "exit_code": 0,
+  "verdict": "suspicious",
+  "failure_keyword": "context window",
+  "duration_sec": 286,
+  "new_session": true,
+  "session_id": "4b22a440-7999-49ce-80e0-f782257ccb6a",
+  "timestamp": "2026-05-26T09:15:54.832218",
+  "prompt_md5": "bf4b8bf4f46117cd82368aed8d885b77"
+}
