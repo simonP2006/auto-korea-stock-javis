@@ -1,0 +1,32 @@
+# === HTTP & 비동기 ===
+httpx>=0.27.0
+websockets>=12.0
+aiolimiter>=1.1.0
+
+# === 환경설정 & 검증 ===
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# === 데이터 처리 ===
+pandas>=2.2.0
+numpy>=1.26.0
+
+# === 기술적 지표 ===
+ta>=0.11.0
+
+# === 로깅 ===
+loguru>=0.7.2
+
+# === 분석 리포트 생성 ===
+openpyxl>=3.1.2
+xlsxwriter>=3.2.0
+matplotlib>=3.8.0
+mplfinance
+plotly>=5.20.0
+
+# === 개발 도구 ===
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+black>=24.0.0
+ruff>=0.3.0

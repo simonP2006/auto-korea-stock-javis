@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "thresholds": {
+    "close_over_ma20": {
+      "lo": -0.21309427584687013,
+      "hi": 13.913639479095274
+    },
+    "close_over_ma10": {
+      "lo": 0.7671879610504639,
+      "hi": 12.670784203630925
+    },
+    "ma20_over_ma60": {
+      "lo": -0.8290271675099992,
+      "hi": 15.351282291238588
+    },
+    "close_over_ma306": {
+      "lo": -10.718680441238405,
+      "hi": 75.64699814841431
+    }
+  },
+  "accumulated_dates": [
+    "20260518",
+    "20260519",
+    "20260520",
+    "20260521",
+    "20260522"
+  ],
+  "history": [
+    {
+      "date": "20260518",
+      "action": "init",
+      "masters_in": 10,
+      "expansions": [],
+      "thresholds_after": {
+        "close_over_ma20": {
+          "lo": -0.1590186278964123,
+          "hi": 5.151128139633876
+        },
+        "close_over_ma10": {
+          "lo": 0.7671879610504639,
+          "hi": 6.282368835847785
+        },
+        "ma20_over_ma60": {
+          "lo": 1.4227291054662805,
+          "hi": 6.701243378997623
+        },
+        "close_over_ma306": {
+          "lo": 2.2897931373982994,
+          "hi": 27.8392916909636
+        }
+      }
+    },
+    {
+      "date": "20260519",
+      "action": "expand",
+      "masters_in": 5,
+      "expansions": [
+        {
+          "trigger_master": "아나패스",
+          "feature": "close_over_ma20",
+          "side": "hi",
+          "old": 5.151128139633876,
+          "new": 8.76646367370062
+        },
+        {
+          "trigger_master": "아나패스",
+          "feature": "close_over_ma10",
+          "side": "hi",
+          "old": 6.282368835847785,
+          "new": 8.874397504961728
+        },
+        {
+          "trigger_master": "SKAI",
+          "feature": "close_over_ma20",
+          "side": "hi",
+          "old": 8.76646367370062,
+          "new": 13.913639479095274
+        },
+        {
+          "trigger_master": "SKAI",
+          "feature": "close_over_ma10",
+          "side": "hi",
+          "old": 8.874397504961728,
+          "new": 10.873915943962631
+        },
+        {
+          "trigger_master": "SKAI",
+          "feature": "close_over_ma306",
+          "side": "hi",
+          "old": 27.8392916909636,
+          "new": 75.64699814841431
+        },
+        {
+          "trigger_master": "코나아이",
+          "feature": "ma20_over_ma60",
+          "side": "lo",
+          "old": 1.4227291054662805,
+          "new": -0.8290271675099992
+        }
+      ],
+      "thresholds_after": {
+        "close_over_ma20": {
+          "lo": -0.1590186278964123,
+          "hi": 13.913639479095274
+        },
+        "close_over_ma10": {
+          "lo": 0.7671879610504639,
+          "hi": 10.873915943962631
+        },
+        "ma20_over_ma60": {
+          "lo": -0.8290271675099992,
+          "hi": 6.701243378997623
+        },
+        "close_over_ma306": {
+          "lo": 2.2897931373982994,
+          "hi": 75.64699814841431
+        }
+      }
+    },
+    {
+      "date": "20260520",
+      "action": "expand",
+      "masters_in": 3,
+      "expansions": [
+        {
+          "trigger_master": "인스피언",
+          "feature": "ma20_over_ma60",
+          "side": "hi",
+          "old": 6.701243378997623,
+          "new": 8.533587776435692
+        },
+        {
+          "trigger_master": "인스피언",
+          "feature": "close_over_ma306",
+          "side": "lo",
+          "old": 2.2897931373982994,
+          "new": -4.679348364994929
+        }
+      ],
+      "thresholds_after": {
+        "close_over_ma20": {
+          "lo": -0.1590186278964123,
+          "hi": 13.913639479095274
+        },
+        "close_over_ma10": {
+          "lo": 0.7671879610504639,
+          "hi": 10.873915943962631
+        },
+        "ma20_over_ma60": {
+          "lo": -0.8290271675099992,
+          "hi": 8.533587776435692
+        },
+        "close_over_ma306": {
+          "lo": -4.679348364994929,
+          "hi": 75.64699814841431
+        }
+      }
+    },
+    {
+      "date": "20260521",
+      "action": "expand",
+      "masters_in": 9,
+      "expansions": [
+        {
+          "trigger_master": "애드바이오텍",
+          "feature": "close_over_ma10",
+          "side": "hi",
+          "old": 10.873915943962631,
+          "new": 12.670784203630925
+        },
+        {
+          "trigger_master": "애드바이오텍",
+          "feature": "ma20_over_ma60",
+          "side": "hi",
+          "old": 8.533587776435692,
+          "new": 12.182692467956734
+        }
+      ],
+      "thresholds_after": {
+        "close_over_ma20": {
+          "lo": -0.1590186278964123,
+          "hi": 13.913639479095274
+        },
+        "close_over_ma10": {
+          "lo": 0.7671879610504639,
+          "hi": 12.670784203630925
+        },
+        "ma20_over_ma60": {
+          "lo": -0.8290271675099992,
+          "hi": 12.182692467956734
+        },
+        "close_over_ma306": {
+          "lo": -4.679348364994929,
+          "hi": 75.64699814841431
+        }
+      }
+    },
+    {
+      "date": "20260522",
+      "action": "expand",
+      "masters_in": 10,
+      "expansions": [
+        {
+          "trigger_master": "어보브반도체",
+          "feature": "close_over_ma20",
+          "side": "lo",
+          "old": -0.1590186278964123,
+          "new": -0.21309427584687013
+        },
+        {
+          "trigger_master": "LB세미콘",
+          "feature": "ma20_over_ma60",
+          "side": "hi",
+          "old": 12.182692467956734,
+          "new": 15.351282291238588
+        },
+        {
+          "trigger_master": "셀리드",
+          "feature": "close_over_ma306",
+          "side": "lo",
+          "old": -4.679348364994929,
+          "new": -10.718680441238405
+        }
+      ],
+      "thresholds_after": {
+        "close_over_ma20": {
+          "lo": -0.21309427584687013,
+          "hi": 13.913639479095274
+        },
+        "close_over_ma10": {
+          "lo": 0.7671879610504639,
+          "hi": 12.670784203630925
+        },
+        "ma20_over_ma60": {
+          "lo": -0.8290271675099992,
+          "hi": 15.351282291238588
+        },
+        "close_over_ma306": {
+          "lo": -10.718680441238405,
+          "hi": 75.64699814841431
+        }
+      }
+    }
+  ]
+}
