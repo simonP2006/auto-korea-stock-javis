@@ -1,7 +1,7 @@
 """Measure which masterReference stocks pass run_filters (in researchedCompany.md)."""
 import sys, re
 from pathlib import Path
-REPORTS = Path("/Users/tajun/spJavis/kiwoom-rest-trader/reports")
+REPORTS = Path(__file__).resolve().parents[1] / "reports"
 NAMECODE = re.compile(r"^(?P<nm>.*?)\((?P<cd>\d{4,6})\)\s*$")
 
 def ref_names(date):

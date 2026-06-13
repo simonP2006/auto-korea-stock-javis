@@ -1,7 +1,7 @@
 # 사용자 명령어 설명서 (User Command Manual)
 
 kiwoom-rest-trader 에서 `python -m ...` 로 실행 가능한 명령들을 용도별로 정리한다.
-모든 명령은 프로젝트 루트(`/Users/tajun/spJavis/kiwoom-rest-trader`)에서,
+모든 명령은 프로젝트 루트(`/Users/tajun/spJavis/auto-korea-stock-javis/engine`)에서,
 가상환경(`source .venv/bin/activate`) 활성화 후 실행한다.
 
 명령의 `YYYYMMDD` 부분은 실제 날짜(예: 20260516)로 바꿔서 실행한다. 날짜를

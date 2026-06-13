@@ -4,7 +4,7 @@
 
 ## Path Constants
 
-KRT_ROOT     = /Users/tajun/spJavis/kiwoom-rest-trader
+KRT_ROOT     = /Users/tajun/spJavis/auto-korea-stock-javis/engine
 KRT_PYTHON   = ${KRT_ROOT}/.venv/bin/python              # Python 3.12.7 (verified)
 KRT_REPORTS  = ${KRT_ROOT}/reports                       # scan outputs + screener_state.json + tuning-log.md
 KRT_FILTERS  = ${KRT_ROOT}/src/kiwoom/itemFilter         # 9 filter modules (Final constants live here)
