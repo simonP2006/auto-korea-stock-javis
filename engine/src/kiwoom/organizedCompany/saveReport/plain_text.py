@@ -11,9 +11,10 @@
 
 확장자는 ``.md`` 지만 실제 본문은 마크다운 표가 아니다(사용자 요청).
 
-부가 동작: organizedCompany.md 저장 직후 동일 디렉터리에 항상
-``masterReference.md`` 를 빈 파일(0바이트)로 생성한다. 기존 파일이
-있어도 매번 빈 파일로 덮어쓴다(사용자 명시 — 항상 비어있어야 함).
+부가 동작: organizedCompany.md 저장 직후 동일 디렉터리에
+``masterReference.md`` 가 **없을 때만** 빈 파일(0바이트)로 생성한다.
+기존 파일이 있으면(사용자 수기 기입 포함) 절대 덮어쓰지 않는다 —
+재스캔 시 같은 날 수기 기입 내용이 소실되던 버그 수선 (과업 1-5).
 """
 
 from __future__ import annotations
@@ -69,10 +70,14 @@ def save_organized_company(
         p=out_path, n=len(stocks), b=len(text.encode("utf-8")),
     )
 
-    # organizedCompany.md 생성 직후 동일 디렉터리에 빈 masterReference.md 를
-    # 항상 생성한다. 기존 내용이 있어도 매번 0바이트로 덮어쓴다.
+    # organizedCompany.md 생성 직후 동일 디렉터리에 masterReference.md 가
+    # 없을 때만 빈 파일을 생성한다. 기존 파일(사용자 수기 기입 포함)은
+    # 절대 덮어쓰지 않는다 — 재스캔 시 수기 내용 소실 버그 수선 (과업 1-5).
     master_path = out_dir / _MASTER_REFERENCE_FILENAME
-    master_path.write_text("", encoding="utf-8")
-    logger.info("masterReference.md 생성(빈 파일): {p}", p=master_path)
+    if not master_path.exists():
+        master_path.write_text("", encoding="utf-8")
+        logger.info("masterReference.md 생성(빈 파일): {p}", p=master_path)
+    else:
+        logger.info("masterReference.md 기존 파일 보존(덮어쓰기 안 함): {p}", p=master_path)
 
     return out_path
