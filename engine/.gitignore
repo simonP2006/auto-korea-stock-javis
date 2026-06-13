@@ -31,5 +31,11 @@ reports/*.png
 
 # 백업 파일 (filter-tune 파라미터 튜닝 시 생성: *.bak.YYYYMMDD_HHmmss — TS-2)
 *.bak.*
-reports/
+# reports: 대용량 스캔 데이터는 제외하되, 튜닝 핵심 자원은 추적 (주인님 지령 2026-06-13)
+reports/*
+!reports/*/
+reports/*/*
+!reports/*/masterReference.md
+!reports/*/masterReference.log
+!reports/tuning-log.md
 data/.token_cache.json

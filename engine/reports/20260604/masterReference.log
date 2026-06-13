@@ -1,0 +1,40 @@
+==============================================================================
+[2026-06-04 21:41:48] masterReference 분석 (date=20260604, 대상 5종목)
+==============================================================================
+
+### 국보디자인
+- (전 Stage 통과 — 기록 대상 없음)
+(기록 2026-06-04 21:41:48)
+
+### 한빛소프트
+- Stage 1 — chart60_120 (stage1_chart60_120_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+- Stage 2 — chart240 (stage2_chart240_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+- Stage 2-1 — chartDayPre (stage2_1_chartDayPre_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+- Stage 3 — chartDay (stage3_chartDay_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+- Stage 5 — finance (stage5_finance_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한빛소프트' date_dir=20260604
+(기록 2026-06-04 21:41:48)
+
+### 한국타이어앤테크놀로지
+- Stage 1 — chart60_120 (stage1_chart60_120_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+- Stage 2 — chart240 (stage2_chart240_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+- Stage 2-1 — chartDayPre (stage2_1_chartDayPre_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+- Stage 3 — chartDay (stage3_chartDay_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+- Stage 5 — finance (stage5_finance_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='한국타이어앤테크놀로지' date_dir=20260604
+(기록 2026-06-04 21:41:48)
+
+### 오리온홀딩스
+- Stage 4 — investor (stage4_investor_passed.md): [제외] 기관계 10회 연속 매도 (≥ 8)
+- Stage 5 — finance (stage5_finance_passed.md): [선정] 본 단계 자체는 통과(재평가) — 이전 단계 탈락으로 미도달 / 사유: 당기순이익 3,378억원 ≥ 0
+(기록 2026-06-04 21:41:48)
+
+### 아이컴포넌트
+- Stage 1 — chart60_120 (stage1_chart60_120_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+- Stage 2 — chart240 (stage2_chart240_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+- Stage 2-1 — chartDayPre (stage2_1_chartDayPre_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+- Stage 3 — chartDay (stage3_chartDay_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+- Stage 5 — finance (stage5_finance_passed.md): 필터 평가 불가 — 입력 데이터 없음: 종목 폴더 없음: stock='아이컴포넌트' date_dir=20260604
+(기록 2026-06-04 21:41:48)
+

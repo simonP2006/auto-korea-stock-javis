@@ -1,0 +1,57 @@
+==============================================================================
+[2026-05-16 16:26:04] masterReference 분석 (date=20260514, 대상 10종목)
+==============================================================================
+
+### 아이언디바이스
+- Stage 1 — chart60_120 (stage1_chart60_120_passed.md): [제외] 전 타입 미매칭 — A:120분 4선정배열 실패: ts=2026-05-14 09:00 MA10(3,638) < MA20×0.985(3,648); B:120분 Type B 조건 실패: ts=2026-05-13 09:00 MA10(3,723) > MA60×0.97(3,645) — MA60 대비 3% 이상 아래여야 함; C:120분 수렴 실패: ts=2026-05-13 13:00 수렴 폭 2.08% > 2.0% (min=3,683 max=3,760); D:120분 엉킴 조건 실패: ts=2026-05-13 13:00 MA10(3,683) < MA60×0.980(3,685); E:120분 close(3,695) ≤ MA60(3,763) — 60선 위 지지 X
+- Stage 2 — chart240 (stage2_chart240_passed.md): 필터 평가 불가 — 입력 데이터 없음: chart240.md 없음: reports/20260514/아이언디바이스(464500)/chart240.md
+- Stage 2-1 — chartDayPre (stage2_1_chartDayPre_passed.md): 필터 평가 불가 — 입력 데이터 없음: chartDay.md 없음: reports/20260514/아이언디바이스(464500)/chartDay.md
+- Stage 3 — chartDay (stage3_chartDay_passed.md): 필터 평가 불가 — 입력 데이터 없음: chartDay.md 없음: reports/20260514/아이언디바이스(464500)/chartDay.md
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: investor.md 없음: reports/20260514/아이언디바이스(464500)/investor.md
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/아이언디바이스(464500)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 피에이치에이
+- Stage 3 — chartDay (stage3_chartDay_passed.md): [제외] MA612 밴드/양봉 실패 — 종가(13,370) vs MA612(11,042.09) +21.08% — 밴드 [-10.0%, +20.0%] 이탈
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: investor.md 없음: reports/20260514/피에이치에이(043370)/investor.md
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/피에이치에이(043370)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 쇼박스
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/쇼박스(086980)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 한성크린텍
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/한성크린텍(066980)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 두산로보틱스
+- Stage 3 — chartDay (stage3_chartDay_passed.md): [제외] MA612 밴드/양봉 실패 — 종가(106,500) vs MA612(73,461.36) +44.97% — 밴드 [-10.0%, +20.0%] 이탈
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: investor.md 없음: reports/20260514/두산로보틱스(454910)/investor.md
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/두산로보틱스(454910)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 디알젬
+- Stage 3 — chartDay (stage3_chartDay_passed.md): [제외] MA612 밴드/양봉 실패 — 종가(5,690) vs MA612(7,074.62) -19.57% — 밴드 [-10.0%, +20.0%] 이탈
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: investor.md 없음: reports/20260514/디알젬(263690)/investor.md
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/디알젬(263690)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 경동나비엔
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/경동나비엔(009450)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 팬젠
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/팬젠(222110)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 아가방컴퍼니
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/아가방컴퍼니(013990)/finance.md
+(기록 2026-05-16 16:26:04)
+
+### 나이스정보통신
+- Stage 3 — chartDay (stage3_chartDay_passed.md): [제외] MA612 밴드/양봉 실패 — 종가(29,350) vs MA612(21,669.74) +35.44% — 밴드 [-10.0%, +20.0%] 이탈
+- Stage 4 — investor (stage4_investor_passed.md): 필터 평가 불가 — 입력 데이터 없음: investor.md 없음: reports/20260514/나이스정보통신(036800)/investor.md
+- Stage 5 — finance (stage5_finance_passed.md)  (※ 결과 파일 부재): 필터 평가 불가 — 입력 데이터 없음: finance.md 없음: reports/20260514/나이스정보통신(036800)/finance.md
+(기록 2026-05-16 16:26:04)
+
