@@ -1,0 +1,210 @@
+# PRD Research Master Index
+# All research rounds are listed here in chronological order.
+# This file is the entry point for the synthesis/integration stage.
+
+project: "KOSPI/KOSDAQ Stock Technical Completeness Analysis & Selection System"
+product_korean: "KOSPI/KOSDAQ 종목 기술적 완성도 분석 및 선별 시스템"
+target_deliverable: "PRD.md"
+local_execution_constraint: true
+
+rounds:
+  - round: 1
+    folder: "round-01/"
+    title: "1차 광범위 리서치 — 4-Teammate 병렬 심층조사"
+    date: "2026-05-25"
+    status: "complete"
+    assumption_axis: "Claude Code standalone vs external tool integration"
+    teammates:
+      - id: T01
+        role: "Workflow Architect"
+        axis: "workflow-architecture"
+        file: "raw/T01-workflow-architect.md"
+      - id: T02
+        role: "Scenario Explorer"
+        axis: "scenario-landscape"
+        file: "raw/T02-scenario-explorer.md"
+      - id: T03
+        role: "Operator Analyst"
+        axis: "user-experience"
+        file: "raw/T03-operator-analyst.md"
+      - id: T04
+        role: "Sustainability Strategist"
+        axis: "sustainability"
+        file: "raw/T04-sustainability-strategist.md"
+    synthesis:
+      - id: S01
+        topic: "convergence"
+        file: "synthesis/S01-convergence.md"
+      - id: S02
+        topic: "risk-register"
+        file: "synthesis/S02-risk-register.md"
+      - id: S03
+        topic: "key-findings"
+        file: "synthesis/S03-key-findings.md"
+      - id: S04
+        topic: "prd-direction"
+        file: "synthesis/S04-prd-direction.md"
+    key_outcomes:
+      - "Hybrid architecture (Python pipeline + Claude Code interpretation) is the only sustainable path"
+      - "'Technical completeness' has no standard definition — PRD must construct one"
+      - "Token economics: Branch B saves 80-90% vs Branch A"
+      - "Highest risk: pykrx/KRX data source instability"
+      - "Target user is non-technical — installation UX is critical"
+
+  - round: 2
+    folder: "round-02/"
+    title: "2차 심층조사 — 기술·이론 축 5-Teammate 병렬 조사"
+    date: "2026-05-25"
+    status: "complete"
+    investigation_axis: "technology-theory"
+    assumption_axis: "Maximum Utilization vs Limitation-Aware (5개 축별 상충 관점)"
+    teammates:
+      - id: T01
+        role: "Platform Capability Researcher"
+        axis: "platform-capability"
+        file: "raw/T01-platform-capability.md"
+      - id: T02
+        role: "Configuration Architect"
+        axis: "configuration-architecture"
+        file: "raw/T02-configuration-architect.md"
+      - id: T03
+        role: "Orchestration Engineer"
+        axis: "orchestration-scheduling"
+        file: "raw/T03-orchestration-engineer.md"
+      - id: T04
+        role: "Integration Specialist"
+        axis: "integration-stack"
+        file: "raw/T04-integration-specialist.md"
+      - id: T05
+        role: "Theory Foundation Expert"
+        axis: "theory-foundation"
+        file: "raw/T05-theory-foundation.md"
+    synthesis:
+      - id: S01
+        topic: "tech-discussion"
+        file: "synthesis/S01-tech-discussion.md"
+      - id: S02
+        topic: "scenarios"
+        file: "synthesis/S02-scenarios.md"
+      - id: S03
+        topic: "key-findings"
+        file: "synthesis/S03-key-findings.md"
+      - id: S04
+        topic: "prd-direction"
+        file: "synthesis/S04-prd-direction.md"
+    key_outcomes:
+      - "Claude Code natively covers 90%+ orchestration — no Prefect/Dagster needed"
+      - "Silent failure is the single biggest risk — data validation gates mandatory"
+      - "Tech stack: 4 dependencies only (pykrx, DuckDB, pandas-ta, uv)"
+      - "Scoring weights (20/20/20/15/15/10) are hypotheses — backtesting mandatory"
+      - "Pragmatic scenario selected over Experimental and Established"
+      - "Most valuable agentic patterns (ReAct, CoT) already built into Claude Code"
+      - "VCP detection simplified to BBand squeeze proxy for Phase 1"
+      - "Token economics confirmed: ~25K/day, ~$1.50/month Agent SDK"
+
+  - round: 3
+    folder: "round-03/"
+    title: "3차 조사 — 코딩·구현 축 5-Teammate 병렬 심층조사"
+    date: "2026-05-26"
+    status: "complete"
+    investigation_axis: "coding-implementation"
+    assumption_axis: "5개 구현 축별 상충 관점 (절차/선언, 중앙/분산, 범용/특화, 엄격/선택, 파일/FSM)"
+    teammates:
+      - id: T01
+        role: "Workflow Script Architect"
+        axis: "workflow-script-design"
+        file: "raw/T01-workflow-script-architect.md"
+      - id: T02
+        role: "Agent Orchestration Coder"
+        axis: "orchestration-pattern"
+        file: "raw/T02-agent-orchestration-coder.md"
+      - id: T03
+        role: "Skills & Hooks Developer"
+        axis: "skills-hooks-commands"
+        file: "raw/T03-skills-hooks-developer.md"
+      - id: T04
+        role: "Verification & Quality Coder"
+        axis: "verification-strategy"
+        file: "raw/T04-verification-quality-coder.md"
+      - id: T05
+        role: "State & Recovery Coder"
+        axis: "state-management"
+        file: "raw/T05-state-recovery-coder.md"
+    synthesis:
+      - id: S01
+        topic: "spectral-positioning"
+        file: "synthesis/S01-spectral-positioning.md"
+      - id: S02
+        topic: "implementation-scenarios"
+        file: "synthesis/S02-implementation-scenarios.md"
+      - id: S03
+        topic: "key-findings"
+        file: "synthesis/S03-key-findings.md"
+      - id: S04
+        topic: "prd-direction"
+        file: "synthesis/S04-prd-direction.md"
+    key_outcomes:
+      - "Hybrid workflow.md: procedural (Stage 1-3) + declarative (Stage 4), ~350-400 lines"
+      - "Centralized orchestration: Claude Code is the orchestrator (7-1-4 verdict)"
+      - "Specific skills 85%: domain SKILL.md + scoring_config.yaml SOT"
+      - "Targeted Strict 4-Gate verification: ~780 lines, 6/6 failure modes covered"
+      - "File-based state management: ~520 lines with guard/JSONL borrowing"
+      - "Balanced scenario selected: ~3,300 lines total, all [LOCAL-OK]"
+      - "scoring_config.yaml emerged as SOT for scoring parameters (4 consumers)"
+      - "15 integrated parking lot items (5 carried from round 2 + 10 new)"
+
+  - round: 4
+    folder: "round-04/"
+    title: "4차 심층조사 — 외부 연동 기술 축 5-Teammate 병렬 심층조사"
+    date: "2026-05-26"
+    status: "complete"
+    investigation_axis: "external-integration"
+    assumption_axis: "5개 연동 축별 상충 관점 (풍부/최소, 적극/최소, 클라우드/로컬, 실시간/배치, Fail-fast/Graceful)"
+    teammates:
+      - id: T01
+        role: "MCP Server Specialist"
+        axis: "mcp-ecosystem"
+        file: "raw/T01-mcp-server-specialist.md"
+      - id: T02
+        role: "Local Tool Integration Expert"
+        axis: "local-tooling"
+        file: "raw/T02-local-tool-integration-expert.md"
+      - id: T03
+        role: "API & Service Connector"
+        axis: "external-api-services"
+        file: "raw/T03-api-service-connector.md"
+      - id: T04
+        role: "Data Flow Architect"
+        axis: "data-flow"
+        file: "raw/T04-data-flow-architect.md"
+      - id: T05
+        role: "Reliability & Fallback Engineer"
+        axis: "reliability-strategy"
+        file: "raw/T05-reliability-fallback-engineer.md"
+    synthesis:
+      - id: S01
+        topic: "integration-spectrum"
+        file: "synthesis/S01-integration-spectrum.md"
+      - id: S02
+        topic: "discussion-scenarios"
+        file: "synthesis/S02-discussion-scenarios.md"
+      - id: S03
+        topic: "key-findings"
+        file: "synthesis/S03-key-findings.md"
+      - id: S04
+        topic: "prd-direction"
+        file: "synthesis/S04-prd-direction.md"
+    key_outcomes:
+      - "Phase 1 needs ZERO MCP servers — batch pipeline has no interactive MCP context"
+      - "Korean stock MCP servers exist (pykrx-mcp, kospi-kosdaq-stock-server, korea-stock-mcp)"
+      - "OpenAI Codex CLI [LOCAL-OK] — ChatGPT OAuth, no API key needed"
+      - "Gemini CLI [LOCAL-OK] — Google Account auth, 60 RPM / 1,000 RPD free tier"
+      - "Light local tooling wins — uv + Python packages + macOS built-ins (0 brew packages)"
+      - "pandas-ta archival risk — July 2026 deadline, pandas-ta-classic fallback"
+      - "Phase 1 is 100% batch — no streaming infrastructure needed"
+      - "28 failure modes cataloged — PK-3/4/5 silent 'lethal trio' are primary threat"
+      - "Fail-fast default + selective narrow degradation recommended"
+      - "Custom FileCircuitBreaker (~230 lines) over pybreaker for daily batch"
+      - "Selective Integration scenario recommended with phased expansion (C→B→B+α)"
+      - "LOCAL-BLOCKED: 0 items across all 5 domains (4th consecutive round)"
+      - "25 integrated parking lot items (15 carried + 10 new)"

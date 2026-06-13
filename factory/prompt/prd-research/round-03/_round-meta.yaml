@@ -1,0 +1,112 @@
+# Round 03 Metadata — Coding & Implementation Deep-Dive
+# Follows Coding_Implementation_DeepDive_PRD_Teammate_Executable.md framework
+# 5 Teams × 2 Branches = 10 Branch parallel investigation
+
+round: 3
+title: "3차 조사 — 코딩·구현 축 5-Teammate 병렬 심층조사"
+date: "2026-05-26"
+status: "complete"
+investigation_axis: "coding-implementation"
+assumption_axis: "5개 구현 축별 상충 관점 (절차/선언, 중앙/분산, 범용/특화, 엄격/선택, 파일/FSM)"
+framework: "Coding_Implementation_DeepDive_PRD_Teammate_Executable.md"
+
+scope: >
+  5개 코딩·구현 축에 대해 각 2개 상충 브랜치 조사.
+  Phase 1(10 branch 병렬) → Phase 2(4 관점 토론) → Phase 3(3 시나리오) → Phase 4(PRD 방향 통합).
+  모든 선택지에 [LOCAL-OK/PARTIAL/BLOCKED] 태깅 완료.
+
+inputs:
+  - "round-01/ (all synthesis)"
+  - "round-02/ (all raw + synthesis)"
+  - "prompt/Coding_Implementation_DeepDive_PRD_Teammate_Executable.md"
+
+teammates:
+  - id: T01
+    role: "Workflow Script Architect"
+    axis: "workflow-script-design"
+    file: "raw/T01-workflow-script-architect.md"
+    branches:
+      - "1.1: Declarative workflow.md (WHAT only, orchestrator interprets)"
+      - "1.2: Procedural workflow.md (HOW step-by-step, deterministic)"
+    status: "complete"
+    key_finding: "Hybrid 75% procedural — Stage 1-3 procedural, Stage 4 declarative (~350-400 lines)"
+
+  - id: T02
+    role: "Agent Orchestration Coder"
+    axis: "orchestration-pattern"
+    file: "raw/T02-agent-orchestration-coder.md"
+    branches:
+      - "2.1: Centralized orchestration (Claude Code = orchestrator)"
+      - "2.2: Distributed orchestration (Agent Swarm / Agent Teams)"
+    status: "complete"
+    key_finding: "Centralized 90% — 7-1-4 verdict, Claude Code self-orchestrates, sub-agent fork only in Phase 2+ deep analysis"
+
+  - id: T03
+    role: "Skills & Hooks Developer"
+    axis: "skills-hooks-commands"
+    file: "raw/T03-skills-hooks-developer.md"
+    branches:
+      - "3.1: General-purpose skills/hooks (reusable across domains)"
+      - "3.2: Workflow-specific skills/hooks (domain knowledge embedded)"
+    status: "complete"
+    key_finding: "Hybrid 85% specific — domain SKILL.md + 6 commands + session hook, ~1,250 tokens/day savings"
+
+  - id: T04
+    role: "Verification & Quality Coder"
+    axis: "verification-strategy"
+    file: "raw/T04-verification-quality-coder.md"
+    branches:
+      - "4.1: Strict Verification (verify EVERYTHING at every gate)"
+      - "4.2: Selective Verification (verify only critical paths)"
+    status: "complete"
+    key_finding: "Targeted Strict — Gate 1,3 strict + Gate 2,4 selective, 6/6 FM coverage, ~780 lines"
+
+  - id: T05
+    role: "State & Recovery Coder"
+    axis: "state-management"
+    file: "raw/T05-state-recovery-coder.md"
+    branches:
+      - "5.1: File-based state (JSON + lock + JSONL log)"
+      - "5.2: Structured state machine (FSM with formal transitions)"
+    status: "complete"
+    key_finding: "File-based 80% + guard borrowing — ~520 lines, FSM ~900 lines is over-engineering for 4-stage sequential"
+
+synthesis:
+  - id: S01
+    topic: "spectral-positioning"
+    file: "synthesis/S01-spectral-positioning.md"
+    description: "5개 영역 스펙트럼 포지셔닝 + 4 관점 토론 결과"
+
+  - id: S02
+    topic: "implementation-scenarios"
+    file: "synthesis/S02-implementation-scenarios.md"
+    description: "3가지 구현 시나리오 비교 (Full-Defensive / Balanced / Rapid-Prototype)"
+
+  - id: S03
+    topic: "key-findings"
+    file: "synthesis/S03-key-findings.md"
+    description: "10개 핵심 발견 + 15개 미해결 항목 통합 파킹 로트"
+
+  - id: S04
+    topic: "prd-direction"
+    file: "synthesis/S04-prd-direction.md"
+    description: "PRD 섹션별 코딩·구현 축 반영 방향 + 3층위 자기 점검"
+
+key_outcomes:
+  - "Hybrid workflow.md: procedural (Stage 1-3) + declarative (Stage 4), ~350-400 lines"
+  - "Centralized orchestration: Claude Code is the orchestrator (7-1-4 verdict)"
+  - "Specific skills 85%: domain SKILL.md + scoring_config.yaml SOT"
+  - "Targeted Strict 4-Gate verification: ~780 lines, 6/6 failure modes covered"
+  - "File-based state management: ~520 lines with guard/JSONL borrowing"
+  - "Balanced scenario selected: ~3,300 lines total implementation"
+  - "scoring_config.yaml emerged as SOT for scoring parameters (4 consumers)"
+  - "All selections [LOCAL-OK], 0 [LOCAL-BLOCKED], 3 [LOCAL-PARTIAL] (all avoidable)"
+  - "15 integrated parking lot items (5 carried from round 2 + 10 new)"
+
+local_execution_summary:
+  LOCAL_OK: "all primary selections"
+  LOCAL_BLOCKED: 0
+  LOCAL_PARTIAL:
+    - "Agent Teams — experimental, not used in Phase 1"
+    - "pykrx network — cache fallback for offline"
+    - "Mermaid rendering — text alternative available"

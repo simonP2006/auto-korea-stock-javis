@@ -1,0 +1,49 @@
+workflow:
+  name: "stock-filtering-collector"
+  version: "1.0.0"
+  current_step: 1
+  status: "not_started"
+  degradation_notes: []
+  parent_genome:
+    version: "2026-05-26"
+    source: "AgenticWorkflow"
+  outputs:
+    step-1-param-inventory: null
+    step-1-param-inventory-ko: null
+    step-1-pipeline-analysis: null
+    step-1-pipeline-analysis-ko: null
+    step-1-error-patterns: null
+    step-1-error-patterns-ko: null
+    step-2-research-report: null
+    step-2-research-report-ko: null
+    step-4-architecture: null
+    step-4-architecture-ko: null
+    step-5-claude-md-blueprint: null
+    step-5-claude-md-blueprint-ko: null
+    step-6-stock-scan-blueprint: null
+    step-6-stock-scan-blueprint-ko: null
+    step-6-filter-tune-blueprint: null
+    step-6-filter-tune-blueprint-ko: null
+    step-8-claude-md: null
+    step-9-stock-scan-skill: null
+    step-9-filter-tune-skill: null
+    step-10-validation-report: null
+    step-10-validation-report-ko: null
+    step-11-smoke-test: null
+    step-11-smoke-test-ko: null
+  translation_tasks:
+    step-1-param-inventory: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-1-pipeline-analysis: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-1-error-patterns: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-2-research-report: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-4-architecture: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-5-claude-md-blueprint: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-6-stock-scan-blueprint: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-6-filter-tune-blueprint: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-10-validation-report: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+    step-11-smoke-test: {status: "pending", attempt: 0, pacs_score: null, duration_sec: null}
+  autopilot:
+    mode: "enabled"
+    decisions: []
+  active_team: null
+  completed_teams: []

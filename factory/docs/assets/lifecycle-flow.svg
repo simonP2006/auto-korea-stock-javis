@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1180" viewBox="0 0 900 1180" font-family="'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR','Helvetica Neue',sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5f6368"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f9ab00"/>
+    </marker>
+    <filter id="soft" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="900" height="1180" fill="#ffffff"/>
+
+  <!-- header -->
+  <rect x="0" y="0" width="900" height="70" fill="#1f2933"/>
+  <text x="450" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">연관 실행 생애주기 — 공장에서 제품으로</text>
+  <text x="450" y="57" text-anchor="middle" font-size="13" fill="#cbd5e1">AgenticWorkflow(부모) 가 kiwoom-rest-trader(자식) 를 낳고, 자식은 사용 모드로만 동작</text>
+
+  <!-- ================= ZONE 1: PARENT FACTORY ================= -->
+  <rect x="24" y="86" width="852" height="410" rx="16" fill="#f5f9ff" stroke="#4285f4" stroke-width="2"/>
+  <text x="44" y="116" font-size="16" font-weight="700" fill="#1a56c4">AgenticWorkflow — 부모 · 공장  (설계 → 12단계 빌드)</text>
+
+  <!-- c1 -->
+  <rect x="190" y="132" width="520" height="50" rx="10" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="162" text-anchor="middle" font-size="15" font-weight="600" fill="#102a56">아이디어 / PRD  ·  prompt/prd.md</text>
+  <line x1="450" y1="182" x2="450" y2="202" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c2 -->
+  <rect x="190" y="204" width="520" height="50" rx="10" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="227" text-anchor="middle" font-size="15" font-weight="700" fill="#102a56">① workflow-generator</text>
+  <text x="450" y="245" text-anchor="middle" font-size="12" fill="#3b4a66">워크플로우 설계 (스킬)</text>
+  <line x1="450" y1="254" x2="450" y2="274" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c3 -->
+  <rect x="190" y="276" width="520" height="50" rx="10" fill="#dbe7ff" stroke="#4285f4" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="306" text-anchor="middle" font-size="15" font-weight="600" fill="#102a56">workflow.md  ·  12단계 빌드 스펙</text>
+  <line x1="450" y1="326" x2="450" y2="346" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c4 -->
+  <rect x="190" y="348" width="520" height="50" rx="10" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="371" text-anchor="middle" font-size="15" font-weight="700" fill="#102a56">② workflow-executor</text>
+  <text x="450" y="389" text-anchor="middle" font-size="12" fill="#3b4a66">빌드 구동 · state.yaml (SOT) · 휴먼게이트 3·7·12</text>
+  <line x1="450" y1="398" x2="450" y2="418" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c5 -->
+  <rect x="190" y="420" width="520" height="54" rx="10" fill="#cfe0ff" stroke="#4285f4" stroke-width="2" filter="url(#soft)"/>
+  <text x="450" y="443" text-anchor="middle" font-size="15" font-weight="700" fill="#0b1f44">③ 산출물</text>
+  <text x="450" y="462" text-anchor="middle" font-size="12.5" fill="#23365e">CLAUDE.md + stock-scan · filter-tune 스킬</text>
+
+  <!-- ================= BRIDGE ================= -->
+  <line x1="450" y1="496" x2="450" y2="512" stroke="#f9ab00" stroke-width="4" marker-end="url(#arrowAmber)"/>
+  <rect x="250" y="514" width="400" height="44" rx="22" fill="#fef7e0" stroke="#f9ab00" stroke-width="2" filter="url(#soft)"/>
+  <text x="450" y="542" text-anchor="middle" font-size="14" font-weight="700" fill="#8a5a00">🌉 배포 · 1회성 genesis  (단 하나의 다리)</text>
+  <line x1="450" y1="558" x2="450" y2="574" stroke="#f9ab00" stroke-width="4" marker-end="url(#arrowAmber)"/>
+
+  <!-- ================= ZONE 2: CHILD PRODUCT ================= -->
+  <rect x="24" y="576" width="852" height="466" rx="16" fill="#f3fbf5" stroke="#34a853" stroke-width="2"/>
+  <text x="44" y="606" font-size="16" font-weight="700" fill="#137333">kiwoom-rest-trader — 자식 · 제품  (사용 모드만)</text>
+
+  <!-- c6 -->
+  <rect x="190" y="620" width="520" height="50" rx="10" fill="#e6f4ea" stroke="#34a853" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="650" text-anchor="middle" font-size="15" font-weight="700" fill="#0d3d1e">④ 오케스트레이션 레이어 (배포된 제품)</text>
+  <line x1="450" y1="670" x2="450" y2="690" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c7 -->
+  <rect x="190" y="692" width="520" height="50" rx="10" fill="#e6f4ea" stroke="#34a853" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="450" y="722" text-anchor="middle" font-size="15" font-weight="600" fill="#0d3d1e">자연어 '시작' — Start Routing · Onboarding</text>
+  <line x1="450" y1="742" x2="450" y2="762" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c8 intent (decision pill) -->
+  <rect x="240" y="764" width="420" height="50" rx="25" fill="#fff4d6" stroke="#f9ab00" stroke-width="2" filter="url(#soft)"/>
+  <text x="450" y="794" text-anchor="middle" font-size="15" font-weight="700" fill="#7a4f00">14 Intent Routing  (자연어 → 동작)</text>
+  <!-- branch arrows -->
+  <path d="M390,814 C360,840 330,850 305,866" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M510,814 C540,840 570,850 595,866" fill="none" stroke="#5f6368" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- c9a stock-scan -->
+  <rect x="160" y="868" width="290" height="62" rx="10" fill="#d6efdd" stroke="#34a853" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="305" y="893" text-anchor="middle" font-size="14" font-weight="700" fill="#0d3d1e">stock-scan</text>
+  <text x="305" y="912" text-anchor="middle" font-size="11.5" fill="#235c37">run_full_research_flow → 5-Stage</text>
+
+  <!-- c9b filter-tune -->
+  <rect x="470" y="868" width="290" height="62" rx="10" fill="#d6efdd" stroke="#34a853" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="615" y="893" text-anchor="middle" font-size="14" font-weight="700" fill="#0d3d1e">filter-tune</text>
+  <text x="615" y="912" text-anchor="middle" font-size="11.5" fill="#235c37">Master Sequence (8-step)</text>
+
+  <!-- one-way wall arrow (product back to factory = blocked) -->
+  <path d="M118,810 C70,640 70,360 150,300" fill="none" stroke="#ea4335" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="150" y1="300" x2="172" y2="292" stroke="#ea4335" stroke-width="2.5"/>
+  <line x1="150" y1="300" x2="158" y2="320" stroke="#ea4335" stroke-width="2.5"/>
+  <circle cx="96" cy="556" r="17" fill="#fce8e6" stroke="#ea4335" stroke-width="2.5"/>
+  <line x1="85" y1="545" x2="107" y2="567" stroke="#ea4335" stroke-width="3"/>
+  <text x="96" y="592" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c5221f">차단</text>
+
+  <!-- ================= WALL BAND ================= -->
+  <rect x="24" y="1058" width="852" height="56" rx="14" fill="#fce8e6" stroke="#ea4335" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="450" y="1083" text-anchor="middle" font-size="14.5" font-weight="700" fill="#c5221f">🧱 모드 경계 (절대 규칙) — 일방향 벽</text>
+  <text x="450" y="1103" text-anchor="middle" font-size="12.5" fill="#b31412">제품 → 빌드(12단계)로 가는 분기·플래그·경로가 구조적으로 없음 · CLAUDE.md:58</text>
+
+  <!-- ================= LEGEND ================= -->
+  <rect x="150" y="1132" width="18" height="18" rx="4" fill="#e8f0fe" stroke="#4285f4"/>
+  <text x="176" y="1146" font-size="12.5" fill="#333">부모 공장 (설계·빌드)</text>
+  <rect x="370" y="1132" width="18" height="18" rx="4" fill="#e6f4ea" stroke="#34a853"/>
+  <text x="396" y="1146" font-size="12.5" fill="#333">자식 제품 (사용)</text>
+  <rect x="560" y="1132" width="18" height="18" rx="4" fill="#fce8e6" stroke="#ea4335" stroke-dasharray="3 2"/>
+  <text x="586" y="1146" font-size="12.5" fill="#333">차단 (일방향 벽)</text>
+</svg>

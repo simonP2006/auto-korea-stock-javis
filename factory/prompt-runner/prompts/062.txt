@@ -1,0 +1,42 @@
+[ABSOLUTE ANCHOR]
+① 품질 절대우선 — 이번 성찰은 workflow.md의 "정확성·수준" 검증.
+   "실행 가능성 + 제1 목적 구현 능력"이 판정 축.
+
+② 로컬 실행 불변 — 각 단계의 로컬 실행 가능성이 유지되는지 확인.
+
+③ 제1 핵심 목적 고정 — 성찰 전 과정에서 제1 목적을 절대 잊지 말라.
+
+④ 승인 후 최종 산출 — 이 턴의 출력은 "성찰 보고서"뿐.
+   /prompt/workflow.md 본문 수정 금지. 수정은 다음 단계 별도 지시로.
+   실제 코드 구현은 시작 금지.
+   승인 요청 시: 구현 의도(1문장) + 영향 파일 + 위험 지점 + 가정 사항.
+
+→ 충돌 시 상위 기준 절대 우선.
+[/ABSOLUTE ANCHOR]
+
+[SESSION HEADER]
+이전 단계: /prompt/workflow.md 설계도 작성 완료.
+이번 단계: teammate 기반 성찰 — workflow.md의 정확성·수준 검증.
+핵심 참조 파일: /prompt/workflow.md
+[/SESSION HEADER]
+
+[★ 제1 핵심 목적]
+[KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]는 첫째, [종목 스크리너]에게 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 종목들을 저장하고 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건에 의해 해당 종목들을 screen하게 시킬 수 있어야 한다. 둘째, 내가 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건을 fine tuning 하기 쉽게 도울 수 있어야 한다. 이 것이 가장 큰 목표이다. 구체적으로, 나는 이미 /tajun/spJavis/Kiwoon-rest-trader/에 이미 키움 REST-API를 이용해 특정일의 종목별 database를 구축하는 python code기반의 [종목 스크리너]를 이미 구축해 놓았다. 이 database는 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 최대 2500이내 종목별로 자동 저장된다. 각 종목별로 각 봉챠트 정보 chart60.md, chart120.md, chart240.md, chartDay.md가 있고, 각 봉챠트 md file은 MA10(=10일선), MA20, MA60, MA240, MA306, MA612 정보를 각각 최근부터 16개 분량씩 가지게 된다. finance.md는 PER, EPS, ROE, PBR, 당기순이익 정보가 있다. investor.md는 개인, 외국인, 기관계 정보가 있다. 내가 [KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]이 [종목 스크리너]에게 특정일(YYYYMMDD)의 종목 database를 수집하도록 명령하면, 위에서 설명한 종목별 database가 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 저장된다. [종목 스크리너]는 종목별 database가 저장완료되면, 미리 구축된 filtering 조건에 의해 종목을 분석 및 분류 선별한 결과를 자동으로 저장한다. Filter조건은 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/에 chart60_120Filer.md, chart120Filter.md, chart240Filter.md, chartDayFilter.md, chartDayPreFilter.md, financeFilter.md, investorFilter.md가 미리 저장되어 있다. 위 세부사항은 /tajun/spJavis/Kiwoon-rest-trader/user_connamd_manual.md/## 표준 사용 순서 요약에 자세히 적혀 있다.
+
+[읽기 프로토콜 — 4단계]
+1차: 본질(What/Why).
+2차: 연관 확장 — 단계·과정·기능·구현.
+3차: 중간 부분 정밀 보충.
+4차: [역방향] workflow.md가 다루지 않는 것 중 실제 실행에 필요한 것 목록화.
+
+[성찰 품질 검증 — 3층위]
+1층위 (사실 확인): 각 단계가 입력/출력/판단/복구를 모두 갖췄는가. 결손 항목만 나열.
+2층위 (구조 분석): Claude Code가 이 설계도로 처음부터 끝까지 자동 실행할 때
+                   어디가 먼저 실행 불가능해지는가. 6개월 후 재실행 시나리오 포함.
+3층위 (철학 정합성): 제1 핵심 목적을 실제로 구현하는가. 증거 기반.
+
+[출력 형식]
+A. 단계별 결손 항목 (입력/출력/판단/복구).
+B. 실행 불가능 지점 분석.
+C. 제1 목적 매핑 재확인.
+D. 수정 권고 

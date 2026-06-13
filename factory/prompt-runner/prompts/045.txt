@@ -1,0 +1,30 @@
+[ABSOLUTE ANCHOR]
+① 품질 절대우선 — 성찰 기준은 사용자 목적·의도 + 제1 핵심 목적 정합성.
+② 로컬 실행 불변 — 로컬 실행 전제를 흔드는 아이디어는 즉시 표시.
+③ 제1 핵심 목적 고정 — 성찰 전 과정에서 제1 목적을 절대 잊지 말라.
+④ 승인 후 최종 산출 — 출력은 "성찰 보고서"뿐. /prompt/workflow-idea/workflow-idea.md 수정 금지.
+   수정은 다음 단계 별도 지시로. workflow.md 금지.
+   승인 요청 시: 구현 의도(1문장) + 영향 파일 + 위험 지점 + 가정 사항.
+→ 충돌 시 상위 기준 절대 우선.
+[/ABSOLUTE ANCHOR]
+
+[SESSION HEADER]
+이전 단계: /prompt/workflow-idea/workflow-idea.md 저장 완료.
+이번 단계: 아이디어 회의 결과 성찰 — 사용자 목적·의도 + 제1 목적 정합성.
+핵심 참조 파일: /prompt/workflow-idea/workflow-idea.md
+[/SESSION HEADER]
+
+[사용자의 목적·의도]
+1) KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템 을 로컬 컴퓨터에서 자동 구현하는 AI agentic workflow automation system.
+2) 사용자는 코드 구현 능력이 전혀 없다. Claude Code가 처음부터 끝까지 완벽 자동 구현.
+
+[★ 제1 핵심 목적]
+[KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]는 첫째, [종목 스크리너]에게 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 종목들을 저장하고 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건에 의해 해당 종목들을 screen하게 시킬 수 있어야 한다. 둘째, 내가 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/의 filtering 조건을 fine tuning 하기 쉽게 도울 수 있어야 한다. 이 것이 가장 큰 목표이다. 구체적으로, 나는 이미 /tajun/spJavis/Kiwoon-rest-trader/에 이미 키움 REST-API를 이용해 특정일의 종목별 database를 구축하는 python code기반의 [종목 스크리너]를 이미 구축해 놓았다. 이 database는 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 최대 2500이내 종목별로 자동 저장된다. 각 종목별로 각 봉챠트 정보 chart60.md, chart120.md, chart240.md, chartDay.md가 있고, 각 봉챠트 md file은 MA10(=10일선), MA20, MA60, MA240, MA306, MA612 정보를 각각 최근부터 16개 분량씩 가지게 된다. finance.md는 PER, EPS, ROE, PBR, 당기순이익 정보가 있다. investor.md는 개인, 외국인, 기관계 정보가 있다. 내가 [KOSPI과 KOSDQ 종목의 기술적 완성도 분석 및 선별 시스템]이 [종목 스크리너]에게 특정일(YYYYMMDD)의 종목 database를 수집하도록 명령하면, 위에서 설명한 종목별 database가 /tajun/spJavis/Kiwoon-rest-trader/reports/YYYYMMDD/에 저장된다. [종목 스크리너]는 종목별 database가 저장완료되면, 미리 구축된 filtering 조건에 의해 종목을 분석 및 분류 선별한 결과를 자동으로 저장한다. Filter조건은 /tajun/spJavis/Kiwoon-rest-trader/src/itemFilter/에 chart60_120Filer.md, chart120Filter.md, chart240Filter.md, chartDayFilter.md, chartDayPreFilter.md, financeFilter.md, investorFilter.md가 미리 저장되어 있다. 위 세부사항은 /tajun/spJavis/Kiwoon-rest-trader/user_connamd_manual.md/## 표준 사용 순서 요약에 자세히 적혀 있다.
+
+[성찰 품질 검증 — 3층위]
+1층위 (사실 확인): 각 아이디어 ↔ 사용자 목적 + 제1 목적 매핑. 연결 없는 항목만 나열.
+2층위 (구조 분석): 이 아이디어로 workflow.md 설계에 들어갔을 때 어디가 먼저 무너지는가.
+3층위 (철학 정합성): 제1 목적을 실제 구현하는 방향인가. "좋아 보인다" 금지.
+
+[출력 형식]
+A. 목적 매핑 표. B. 희석·누락 지점. C. 3층위 판정 + 권고. 

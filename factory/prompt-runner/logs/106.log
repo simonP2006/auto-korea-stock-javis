@@ -1,0 +1,19 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+모든 수정 완료. 최종 검증 결과를 정리합니다.
+
+---
+
+## B. Diff 요약
+
+### 1. `.claude/skills/workflow-executor/SKILL.md`
+**변경**: Core Loop step 4 재구조화 — 3개 하위 단계로 분리
+
+| 변경 전 | 변경 후 |
+|---------|---------|
+| `4. Dispatch → pytest → PASS → Update SOT` | `4. Dispatch → pytest` |
+| (review gate 없음) | `4b. [REVIEW GATE]` — @f
+────────────────────────────────────────
+

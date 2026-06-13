@@ -1,0 +1,16 @@
+🚀 모델: claude-opus-4-6 | 도구: 
+
+────────────────────────────────────────
+📋 결과 요약:
+All 5 PostToolUse hooks now use consistent `if test -f` existence guard pattern. Fix verified.
+
+---
+
+## B. 반영 Diff 요약
+
+| 파일 | 변경 | 근거 |
+|------|------|------|
+| `.claude/settings.json` 줄 73 | `python3 ...validate_state_yaml.py` → `if test -f ...; then python3 ...; fi` | 시스템 생존 보장 |
+| `.claude/settin
+────────────────────────────────────────
+

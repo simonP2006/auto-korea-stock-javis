@@ -1,0 +1,45 @@
+# Round 01 Metadata
+round: 1
+title: "1차 광범위 리서치 — 4-Teammate 병렬 심층조사"
+date: "2026-05-25"
+status: "complete"
+framework: "prd_teammate_executable.md (PHASE 1 병렬 조사)"
+
+purpose: >
+  PRD.md 제작 전 가장 넓은 그물을 던지는 1차 조사.
+  4개 전문 관점에서 '선택지 + 근거 + 트레이드오프'를 도출하여
+  PRD 방향 결정에 필요한 축을 누락 없이 커버한다.
+
+assumption_axis:
+  name: "Claude Code standalone vs external tool integration"
+  rationale: >
+    주식 데이터는 본질적으로 외부 소스(KRX, pykrx 등)가 필요하므로,
+    이 축이 PRD 방향 결정에 가장 의미 있는 대립을 만든다.
+  branch_a: "Self-Contained (Claude Code 단독 완결)"
+  branch_b: "Integrated (외부 도구 연동 전제)"
+
+execution:
+  method: "Claude Code Agent tool — 4 sub-agents 병렬 발진 (model: opus)"
+  total_web_searches: 103
+  total_duration_minutes: ~27
+  orchestration: "메인 컨텍스트에서 Phase 2-4 통합 분석 수행"
+
+input_files:
+  - "/prompt/prd_teammate_executable.md"
+
+output_files:
+  raw:
+    - "raw/T01-workflow-architect.md"
+    - "raw/T02-scenario-explorer.md"
+    - "raw/T03-operator-analyst.md"
+    - "raw/T04-sustainability-strategist.md"
+  synthesis:
+    - "synthesis/S01-convergence.md"
+    - "synthesis/S02-risk-register.md"
+    - "synthesis/S03-key-findings.md"
+    - "synthesis/S04-prd-direction.md"
+
+quality_verification:
+  layer_1_fact_check: "PASS — 12개 축 전체 커버, 불일치 항목 없음"
+  layer_2_structure: "점수 체계 정의 + Python 부트스트랩이 가장 먼저 무너지는 지점"
+  layer_3_reverse: "장 종료 후 데이터 확정 시점, 수정주가 반영 방식, 사용자 투자 스타일 미조사"
