@@ -57,6 +57,10 @@ ENGINE_PYTHON = ${ENGINE_ROOT}/.venv/bin/python     # Python 3.12.7
 - **시간 기준 경고:** engine 문서 곳곳의 "10-15분" 표기는 **진부(stale)하다 — 신뢰 금지.**
   실측치 80분~6시간을 기준으로 소요 안내·watchdog·완료 판단을 한다
   (실측 근거: EXECUTION_REPORT. watchdog은 7시간 기준으로 보정 완료 — phase2/timing-fix.md).
+- **masterReference 영구 보존(주인님 지령 2026-06-13):** 날짜별 `masterReference.md`/`.log`와 `tuning-log.md`는
+  **튜닝 핵심 자원**으로 git 추적 대상이다. 스캔·탈락분석·수기 기입 후 변경분을 커밋·push하라
+  (`git add engine/reports/*/masterReference.* engine/reports/tuning-log.md && git commit && git push`).
+  재스캔 시 수기 입력은 코드가 보존한다(plain_text.py 보존 분기 — 빈 초기화 금지).
 - 백그라운드 시작 안내·완료 4-step 핸들러는 engine/CLAUDE.md Execution Template을 따르되,
   사용자에게 말하는 소요 시간만 위 실측치로 정정해 안내한다.
 - `source .venv/bin/activate && python …` 형태 금지 — `${ENGINE_PYTHON}` 직접 호출만 허용.

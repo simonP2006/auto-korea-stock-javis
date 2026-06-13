@@ -45,6 +45,17 @@ cd /Users/tajun/spJavis/auto-korea-stock-javis/engine && .venv/bin/python -m scr
 - 특정 날짜는 `$(date +%Y%m%d)` 자리에 `YYYYMMDD`(예: `20260613`)를 직접 넣는다. 날짜 생략 시 오늘 기준.
 - `source .venv/bin/activate && python …` 형태는 **금지** — `.venv/bin/python` 직접 호출만 허용한다. (루트 `CLAUDE.md` §3)
 
+### 스캔 후 한 가지 더 — masterReference 커밋 (튜닝 자원 영구 보존)
+
+날짜별 `masterReference.md`(수기 기준 종목)·`masterReference.log`(탈락 분석)·`tuning-log.md`(튜닝 이력)는
+**필터 튜닝의 핵심 자원**으로 git에 영구 보존한다 (주인님 지령 2026-06-13). 스캔·탈락분석·수기 기입 뒤:
+
+```
+cd /Users/tajun/spJavis/auto-korea-stock-javis && git add engine/reports/*/masterReference.* engine/reports/tuning-log.md && git commit -m "data: masterReference $(date +%Y%m%d)" && git push
+```
+
+(Claude 세션에서는 "masterReference 커밋해줘" 한마디면 된다. 재스캔해도 수기 입력은 코드가 보존한다.)
+
 ### 소요 시간 — 반드시 알아둘 것
 
 | 모듈 | 실행 방식 | 소요 (실측) |
