@@ -1,0 +1,50 @@
+# 키움증권 REST API 차트분석 & 종목스크리닝 프로젝트
+
+## 프로젝트 목적
+- 키움 REST API로 시세/종목 데이터 수집
+- 기술적 지표 계산 및 차트 패턴 분석
+- 매매 후보 종목 스크리닝 및 리포트 생성
+- **매매는 사용자가 직접 HTS/MTS에서 수행 (이 시스템은 분석만)**
+
+## 사용자 컨텍스트
+- 한국 거주, 한국어/영어 모두 가능
+- OS: macOS Apple Silicon M4
+- Python 3.12, 가상환경 .venv
+- 분석 결과는 Excel/HTML 리포트로 출력
+
+## API 사용 범위 (조회 전용)
+- 실전: https://api.kiwoom.com
+- 모의: https://mockapi.kiwoom.com
+- 인증: OAuth 2.0, access_token 24시간 캐싱
+- **사용 카테고리: 시세조회, 종목정보, 일봉/분봉, 호가만**
+- **금지 카테고리: 주문, 계좌, 잔고, 체결 (분석에 불필요)**
+
+## 코딩 규칙
+- HTTP 호출: httpx 비동기 클라이언트(httpx.AsyncClient)
+- 응답 검증: pydantic v2 모델
+- 로깅: loguru (print 금지)
+- 환경변수: pydantic-settings
+- 한국어 주석 OK, 변수/함수/클래스명은 영어 snake_case/PascalCase
+- 타입 힌트 필수 (Python 3.12 문법)
+
+## 절대 금지 사항
+- **주문/매매/체결/잔고 관련 API 호출 코드 작성 금지**
+- API Key 하드코딩 금지 (반드시 환경변수)
+- 종목 추천 결과를 "매수/매도 신호"로 단정하지 말고 "분석 결과/후보"로 표현
+
+## 분석 모듈 구조
+- src/kiwoom/: REST 클라이언트 (auth, quote, stock_info)
+- src/indicators/: 기술적 지표 (MA, MACD, RSI, 볼린저밴드, 이격도 등)
+- src/screener/: 종목 스크리닝 로직 (조건식, 점수화)
+- src/report/: 분석 리포트 생성 (Excel, HTML)
+- src/utils/: 공용 유틸
+
+## 출력물 표준
+- 분석 결과는 reports/ 폴더에 날짜별로 저장
+- 파일명 형식: YYYYMMDD_분석유형_v1.xlsx
+- 각 종목 분석에는 반드시 다음 포함:
+  * 기본정보 (종목코드, 종목명, 시가총액, 업종)
+  * 기술적 지표 현재값
+  * 차트 신호 요약 (예: "MA20 골든크로스 2일 전 발생")
+  * 점수 (0~100)
+  * 사용자 검토 필요 코멘트

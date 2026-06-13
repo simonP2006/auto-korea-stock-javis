@@ -1,0 +1,35 @@
+# 환경변수 및 시크릿
+.env
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# 로그 및 데이터
+logs/*.log
+data/*.csv
+data/*.parquet
+data/*.feather
+
+# 분석 결과 (개인 투자 기록이므로 Git 비공개)
+reports/*.xlsx
+reports/*.html
+reports/*.png
+
+# macOS
+.DS_Store
+
+# 백업 파일 (filter-tune 파라미터 튜닝 시 생성: *.bak.YYYYMMDD_HHmmss — TS-2)
+*.bak.*
+reports/
+data/.token_cache.json
