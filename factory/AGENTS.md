@@ -1278,7 +1278,7 @@ AGENTS.md의 절대 기준이 변경되면, 모든 Spoke 파일의 인라인 복
 
 ## 10. 제품 빌드 인스턴스 (Stock-Filter Build)
 
-이 저장소는 현재 **프레임워크가 자기 자신을 사용해 만든 첫 자식 시스템**의 빌드 흔적을 품고 있다. soul.md의 "DNA 유전"이 추상적 선언이 아니라 실제로 작동했음을 보여주는 worked instance다. `workflow-generator`로 설계하고 `workflow-executor`로 실행한 **키움 REST 기반 주식 스크리너(kiwoom-rest-trader)** 빌드가 그것이며, 산출 제품은 별도 저장소(`/Users/tajun/spJavis/kiwoom-rest-trader`)에 배포되었다. `prompt/`는 그 제품을 만든 **공장이자 비행기록장치(flight recorder)**이지 제품 자체가 아니다.
+이 저장소는 현재 **프레임워크가 자기 자신을 사용해 만든 첫 자식 시스템**의 빌드 흔적을 품고 있다. soul.md의 "DNA 유전"이 추상적 선언이 아니라 실제로 작동했음을 보여주는 worked instance다. `workflow-generator`로 설계하고 `workflow-executor`로 실행한 **키움 REST 기반 주식 스크리너(kiwoom-rest-trader)** 빌드가 그것이며, 산출 제품은 별도 저장소(`/Users/tajun/spJavis/auto-korea-stock-javis/engine`)에 배포되었다. `prompt/`는 그 제품을 만든 **공장이자 비행기록장치(flight recorder)**이지 제품 자체가 아니다.
 
 ### 구성 요소
 

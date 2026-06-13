@@ -7,7 +7,7 @@ Each ADR: Context → Decision → Alternatives → Rationale → Source
 
 ### ADR-001: Deploy to kiwoom-rest-trader
 - Context: Where should CLAUDE.md + skills live?
-- Decision: /Users/tajun/spJavis/kiwoom-rest-trader/
+- Decision: /Users/tajun/spJavis/auto-korea-stock-javis/engine/
 - Alternatives: (a) same dir [chosen], (b) separate orchestration repo
 - Rationale: User opens Claude Code there; shortest path constants; .claude/ exists
 - Source: workflow.md D-1

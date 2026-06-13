@@ -196,8 +196,8 @@ flowchart TB
 
 | 저장소 | 절대 경로 | 역할 | 본 매뉴얼 |
 |---|---|---|---|
-| AgenticWorkflow (부모) | `/Users/tajun/spJavis/AgenticWorkflow-main-stock-filtering-collector` | 설계·빌드 공장 + 비행기록(`prompt/`) | Part 2 |
-| kiwoom-rest-trader (자식) | `/Users/tajun/spJavis/kiwoom-rest-trader` | 배포된 제품 (실제 스캔 실행) | Part 3 |
+| AgenticWorkflow (부모) | `/Users/tajun/spJavis/auto-korea-stock-javis/factory` | 설계·빌드 공장 + 비행기록(`prompt/`) | Part 2 |
+| kiwoom-rest-trader (자식) | `/Users/tajun/spJavis/auto-korea-stock-javis/engine` | 배포된 제품 (실제 스캔 실행) | Part 3 |
 
 ---
 
@@ -639,8 +639,8 @@ sequenceDiagram
 
 ```
 # 제품 저장소에서, 백그라운드 필수 (10-15분)
-cd /Users/tajun/spJavis/kiwoom-rest-trader && \
-  /Users/tajun/spJavis/kiwoom-rest-trader/.venv/bin/python -m scripts.run_full_research_flow $(date +%Y%m%d)
+cd /Users/tajun/spJavis/auto-korea-stock-javis/engine && \
+  /Users/tajun/spJavis/auto-korea-stock-javis/engine/.venv/bin/python -m scripts.run_full_research_flow $(date +%Y%m%d)
 ```
 
 또는 그냥 제품 세션에서 **"오늘 스캔해줘"**.
@@ -675,7 +675,7 @@ cd /Users/tajun/spJavis/kiwoom-rest-trader && \
 
 **부모 (AgenticWorkflow)**
 ```
-ROOT     = /Users/tajun/spJavis/AgenticWorkflow-main-stock-filtering-collector
+ROOT     = /Users/tajun/spJavis/auto-korea-stock-javis/factory
 SOT      = prompt/.claude/state.yaml          (빌드 단일 진실 원천)
 WORKFLOW = prompt/workflow.md                 (12단계 스펙)
 RUNNER   = prompt-runner/run.py               (무인 하니스, 110/35)
@@ -684,7 +684,7 @@ COMMANDS = .claude/commands/                  (슬래시 10개)
 
 **자식 (kiwoom-rest-trader)**
 ```
-KRT_ROOT     = /Users/tajun/spJavis/kiwoom-rest-trader
+KRT_ROOT     = /Users/tajun/spJavis/auto-korea-stock-javis/engine
 KRT_PYTHON   = ${KRT_ROOT}/.venv/bin/python   (Python 3.12.7)
 KRT_REPORTS  = ${KRT_ROOT}/reports            (스캔 산출 + screener_state.json + tuning-log.md)
 KRT_FILTERS  = ${KRT_ROOT}/src/kiwoom/itemFilter (9 필터, Final 상수)
