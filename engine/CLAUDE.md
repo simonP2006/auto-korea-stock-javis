@@ -10,7 +10,7 @@ KRT_REPORTS  = ${KRT_ROOT}/reports                       # scan outputs + screen
 KRT_FILTERS  = ${KRT_ROOT}/src/kiwoom/itemFilter         # 9 filter modules (Final constants live here)
 KRT_SCRIPTS  = ${KRT_ROOT}/scripts                       # run_full_research_flow / run_prefetch / run_filters
 EXEC_PATTERN = cd ${KRT_ROOT} && ${KRT_PYTHON} -m {module} {args}
-RUN_IN_BACKGROUND = true    # MANDATORY for run_full_research_flow + run_prefetch (10-15+ min, exceeds Bash 600s cap — ADR-012)
+RUN_IN_BACKGROUND = true    # MANDATORY for run_full_research_flow + run_prefetch (실측 80분~6시간, exceeds Bash 600s cap — ADR-012)
 RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 
 ## Intent Routing — 한국어 → Skill Action
@@ -114,13 +114,13 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
    - (c) `test -w ${KRT_REPORTS}` → 실패 시 권한·디스크 확인 안내 + 실행 차단
    - **(a)(b)(c) 모두 통과 시에만** → 인사 직전 한 줄 상태 가시화: `"환경 확인 완료 — 스캔 준비됨"` (어느 하나라도 실패·차단되면 이 상태줄을 출력하지 않음 — 게이트가 실패 경로에서 항상 거짓; 실패 분기에서만 한국어를 내던 비대칭 해소)
 2. **`screener_state.json` 존재 여부로 인사/맥락 분기**:
-   - **(신규 — 부재)**: 한 줄 환영 + 가장 쉬운 첫걸음 제안 `"오늘 한 번 스캔해볼까요? (약 10-15분 소요됩니다.)"`. 첫 스캔 완료 후 결과 해석 가이드 1회(Stage별 통과 수 표 + 1-2개 종목 예시 해석).
+   - **(신규 — 부재)**: 한 줄 환영 + 가장 쉬운 첫걸음 제안 `"오늘 한 번 스캔해볼까요? (실측 기준 80분~6시간 걸립니다 — 데이터량·시간대에 따라 달라요. 백그라운드로 돌고 끝나면 보고드립니다.)"`. 첫 스캔 완료 후 결과 해석 가이드 1회(Stage별 통과 수 표 + 1-2개 종목 예시 해석).
    - **(재방문 — 존재)**: `last_scan_date`, `last_param_changes` 읽어 2-3줄 요약 — `"지난 스캔: {last_scan_date}. 변경 이력: {N}건 ({param} 등). 무엇을 도와드릴까요?"`. 외부 변경 감지(아래 Session Continuity 참조) 트리거 시 요약 직후 경고 동반.
 3. **모드 메뉴 — 무엇을 할 수 있고, 각 선택이 무엇을 만드는가** (구체 행위 Intent가 아직 없을 때 노출; 직접 Intent 발화 시에는 Start Routing 우선순위 규칙에 따라 메뉴를 생략하고 해당 Intent로 진행):
 
    | 하고 싶은 것 | 말 예시 | 결과 |
    |---|---|---|
-   | 종목 스캔 | "오늘 스캔해줘" · "{날짜} 스캔" · "이번 주 전부" | 5-Stage 필터 실행 → 통과 종목 목록 (약 10-15분) |
+   | 종목 스캔 | "오늘 스캔해줘" · "{날짜} 스캔" · "이번 주 전부" | 5-Stage 필터 실행 → 통과 종목 목록 (실측 80분~6시간, 데이터량·시간대 따라 변동) |
    | 나눠서 스캔 (단계별) | "나눠서 해줘" · "단계별로 해줘" | 먼저 데이터 수집만 끝내고(시간이 오래 걸리는 단계), 필터는 다음 단계에서 따로 실행 — 긴 작업을 끊어서 진행 |
    | 결과 보기·탈락 분석 | "오늘 결과 보여줘" · "OO전자 왜 빠졌어?" | 통과 종목 종합 · 특정 종목 탈락 체인 추적 |
    | 파라미터 조회·변경·복원 | "Stage 1 조건 보여줘" · "허용오차 -5%로 완화" · "원래대로 복원" | 필터 상수 가시화 · 안전 변경(백업+범위검증) · 백업 복원 |
@@ -134,7 +134,7 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 ## Execution Template
 
 EXEC_PATTERN: `cd ${KRT_ROOT} && ${KRT_PYTHON} -m {module} {args}`
-- `run_full_research_flow`, `run_prefetch` → **반드시 Bash(run_in_background:true)** (10-15+ min, 600s Bash cap 초과 — ADR-012). 백그라운드 시작 즉시 한국어 안내 "약 10-15분 소요됩니다. 완료되면 자동으로 결과를 보고합니다." + 완료 알림 4-step 핸들러 (count → stderr → classify → Korean report) + 30분 timeout watchdog → "SCAN_SEPARATED 모드로 다시 시도하시겠습니까?".
+- `run_full_research_flow`, `run_prefetch` → **반드시 Bash(run_in_background:true)** (실측 80분~6시간, 600s Bash cap 초과 — ADR-012). 백그라운드 시작 즉시 한국어 안내 "실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동). 완료되면 자동으로 결과를 보고합니다." + 완료 알림 4-step 핸들러 (count → stderr → classify → Korean report) + **7시간 watchdog** (실측 최대 6시간 + 여유 1시간 — 7시간 무완료 시 이상으로 판정) → "SCAN_SEPARATED 모드로 다시 시도하시겠습니까?".
 - `run_filters`, `Filter_condition_update`, 개별 filter 모듈 → 동기 실행 (전형적 < 3분, foreground 가능).
 - 절대 금지: `source .venv/bin/activate && python …` 형태 (D-7 — 쉘 상태 비의존성). `.venv/bin/python` 직접 호출만 허용.
 

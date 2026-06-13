@@ -6,12 +6,12 @@ ADR-012 enforcement reference. SKILL.md §3 Chain 1 / Chain 2가 본 파일을 �
 
 ## §1. ADR-012 mandate — `run_in_background: true` 필수 명령
 
-Bash tool의 hard cap은 **600,000 ms (10분)**. 다음 명령은 실 runtime이 10-15분 이상이므로 **반드시** `Bash(run_in_background: true)`로 실행한다:
+Bash tool의 hard cap은 **600,000 ms (10분)**. 다음 명령은 실 runtime이 **실측 80분~6시간**(데이터량·시간대 따라 변동)으로 cap을 크게 초과하므로 **반드시** `Bash(run_in_background: true)`로 실행한다:
 
 | 명령 | 체인 | 실 runtime | 백그라운드? |
 |---|---|---|---|
-| `cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_full_research_flow {date}` | Chain 1 SCAN_TODAY | ~10-15분 | **YES (필수)** |
-| `cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_prefetch {date}` | Chain 2 SCAN_SEPARATED Step 1 | ~10-15분 | **YES (필수)** |
+| `cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_full_research_flow {date}` | Chain 1 SCAN_TODAY | 실측 80분~6시간 | **YES (필수)** |
+| `cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_prefetch {date}` | Chain 2 SCAN_SEPARATED Step 1 | 실측 80분~6시간 | **YES (필수)** |
 | `cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_filters {date}` | Chain 2 Step 2, Chain 8 RERUN_FILTERS | < 3분 | NO (foreground) |
 | `cd ${KRT_ROOT} && ${KRT_PYTHON} -m src.kiwoom.itemFilter.Filter_condition_update {date}` | Chain 5 WHY_REJECTED | ~30s | NO (foreground) |
 
@@ -24,24 +24,26 @@ Bash tool의 hard cap은 **600,000 ms (10분)**. 다음 명령은 실 runtime이
 체인이 백그라운드 명령을 launch한 직후, 즉시 emit:
 
 ```
-약 10-15분 소요됩니다. 완료되면 자동으로 결과를 보고합니다.
+실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동). 완료되면 자동으로 결과를 보고합니다.
 ```
 
-(Chain 2 Step 2에서는 동일 의미를 prefetch context로 풀어 `"먼저 데이터 수집(prefetch)을 시작합니다. 약 10-15분 소요됩니다."`로 emit — `output-templates.md` §9 참조.)
+(Chain 2 Step 2에서는 동일 의미를 prefetch context로 풀어 `"먼저 데이터 수집(prefetch)을 시작합니다. 실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동)."`로 emit — `output-templates.md` §9 참조.)
 
 ---
 
-## §3. 30분 watchdog
+## §3. 7시간 watchdog
 
-백그라운드 launch 후 완료 알림이 30분 안에 오지 않으면, 한국어 fallback emit + SCAN_SEPARATED 제안:
+기준: **실측 80분~6시간**(EXECUTION_REPORT §4 결함 #4, screener_state.json 실측 — 0611 ~80분 / 0610 야간 ~6h). 정상 범위 최대 6시간 + 여유 1시간 = **7시간 무완료 시 이상으로 판정**한다. (구 watchdog 기준은 진부화된 추정 소요시간에 기반한 것으로 폐기 — 정상 실행을 오탐한다. 구 수치는 §7 ADR-012 verbatim 인용 및 보정 노트 참조.)
+
+백그라운드 launch 후 완료 알림이 7시간 안에 오지 않으면, 한국어 fallback emit + SCAN_SEPARATED 제안:
 
 ```
-실행이 예상보다 길어지고 있습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?
+실행이 실측 범위(80분~6시간)를 넘겼습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?
 ```
 
 watchdog 구현 노트:
 - harness가 백그라운드 process exit 시 stdout/stderr stream을 emit한다 (Monitor tool 또는 자동 완료 notification).
-- Skill은 30분 timer를 별도 유지하지 않고 — 사용자가 다른 interaction 없이 백그라운드 launch 후 30분 경과를 인식 시 위 메시지를 emit. 실용적으로는 사용자가 다시 말을 걸어 "아직 안 끝났어?"라고 물을 때 시간 경과를 확인하고 watchdog message를 emit하는 것이 자연스럽다.
+- Skill은 7시간 timer를 별도 유지하지 않고 — 사용자가 다른 interaction 없이 백그라운드 launch 후 7시간 경과를 인식 시 위 메시지를 emit. 실용적으로는 사용자가 다시 말을 걸어 "아직 안 끝났어?"라고 물을 때 시간 경과를 확인하고, 7시간 미만이면 "실측 범위(80분~6시간) 내 정상 진행 중" 안내를, 7시간 이상이면 watchdog message를 emit하는 것이 자연스럽다.
 - watchdog 발화 후 사용자가 SCAN_SEPARATED를 선택하면 Chain 2 invocation으로 전환 (단, 백그라운드 process는 별도로 계속 진행 중일 수 있음을 사용자에게 알림).
 
 ---
@@ -97,9 +99,9 @@ r'\b(Kiwoom[A-Z][a-zA-Z]+Error|OrganizeError|ResearchError|PrefetchError|FileNot
 
 ## §6. Notification 미수신 escalation
 
-30분 watchdog이 trigger되었는데 사용자가 SCAN_SEPARATED 제안을 거부한 경우:
+7시간 watchdog이 trigger되었는데 사용자가 SCAN_SEPARATED 제안을 거부한 경우:
 - 백그라운드 process는 계속 진행 중 (Skill이 자의적으로 kill하지 않음).
-- 추가 30분 (총 60분) 경과 시 추가 escalation: `"실행이 60분 넘게 진행 중입니다. 프로세스를 확인하시거나 새 터미널에서 종료 후 다시 시도해주세요."`
+- 추가 1시간 (총 8시간) 경과 시 추가 escalation: `"실행이 8시간 넘게 진행 중입니다 — 실측 최대치(6시간)를 크게 초과했습니다. 프로세스를 확인하시거나 새 터미널에서 종료 후 다시 시도해주세요."`
 - 사용자가 명시적으로 kill 요청 시: 해당 백그라운드 job ID를 KillShell 등 표준 메커니즘으로 종료 (구체 도구는 harness 제공). Skill은 강제 종료 명령을 자의적으로 실행하지 않는다.
 
 ---
@@ -113,3 +115,5 @@ r'\b(Kiwoom[A-Z][a-zA-Z]+Error|OrganizeError|ResearchError|PrefetchError|FileNot
 > - Rationale: Preserves PRD FR-1.1 contract; background notification eliminates timeout pressure; explicit `"나눠서 해줘"` trigger gives user control over split mode.
 
 본 Skill은 ADR-012의 "MUST"를 그대로 enforce한다 — Chain 1 Step 5와 Chain 2 Step 3에서 `Bash(run_in_background: true)`는 negotiable 하지 않다.
+
+> **시간 수치 보정 노트 (Phase 2-1a)**: 위 인용문은 역사적 verbatim이므로 보존하나, 인용문 속 시간 수치("10-15+ min", "30-min timeout safeguard")는 **진부화**되었다. 실측(EXECUTION_REPORT §4 결함 #4, screener_state.json — 0611 ~80분, 0610 야간 ~6h) 기준 **실 runtime 80분~6시간 · watchdog 7시간**(§3)으로 대체 적용한다. 백그라운드 실행 mandate 자체는 그대로 유효하다(실측이 길수록 mandate는 오히려 강화).

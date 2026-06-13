@@ -17,22 +17,22 @@
 - 세션 첫 Bash 호출 직전 (b) + 권한 probe (R-11) — 동.
 - `${KRT_REPORTS}/filter-tune.lock` 존재 시 거부 (R-9) → 한국어: `"파라미터 변경 중이라 스캔을 시작할 수 없습니다. 변경이 끝난 뒤 다시 시도해주세요."`
 
-**Background execution mandate (ADR-012)**: `Bash(run_in_background: true)` — **필수** (10-15분 실 runtime vs 600s Bash cap).
+**Background execution mandate (ADR-012)**: `Bash(run_in_background: true)` — **필수** (실측 80분~6시간 runtime vs 600s Bash cap).
 
 **Steps**:
 
 1. Validate `date` 형식 `^[0-9]{8}$`. 실패 → 한국어: `"날짜 형식이 올바르지 않습니다 (YYYYMMDD). 예: 20260530"`.
 2. `date_int <= today_int` 확인. 미래 날짜 → 사용자 확인 prompt.
 3. `${KRT_REPORTS}/screener_state.json` Read. `last_results_summary.scan_date == date && last_scan_date == date` 이면 cache-hit 단축: `"이미 스캔된 결과가 있습니다. 다시 실행할까요?"` (선택지: 재실행 / SHOW_RESULTS로 단축).
-4. 예상 소요 안내 (verbatim Step 4 §7 / ADR-012):
+4. 예상 소요 안내 (verbatim Step 4 §7 / ADR-012, 실측치 보정):
    ```
-   약 10-15분 소요됩니다. 완료되면 자동으로 결과를 보고합니다.
+   실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동). 완료되면 자동으로 결과를 보고합니다.
    ```
 5. 실행:
    ```
    Bash(run_in_background: true): cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_full_research_flow {date}
    ```
-6. **30분 watchdog**: 완료 알림이 30분 안에 없으면 → `"실행이 예상보다 길어지고 있습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?"` + `scan_separated({date})` 옵션 제공.
+6. **7시간 watchdog** (실측 최대 6시간 + 여유 1시간): 완료 알림이 7시간 안에 없으면 이상으로 판정 → `"실행이 실측 범위(80분~6시간)를 넘겼습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?"` + `scan_separated({date})` 옵션 제공.
 7. **완료 알림 수신 — 4-step 완료 핸들러** (PRD B-4 + Step 5 §5, `background-execution.md` 상세):
    - (1) **stock count 추출** — stdout의 최종 단계 라인 (`save_researched_company`가 emit하는 `"researchedCompany.md: N종목 저장"` 형식); fallback = `wc -l < researchedCompany.md`.
    - (2) **stderr 스캔** — traceback / `Exception: …` 존재 시 + exit ≠ 0 → 에러 분기.
@@ -67,12 +67,12 @@
 **Steps**:
 
 1. date 검증 (Chain 1 Step 1-2).
-2. 안내: `"먼저 데이터 수집(prefetch)을 시작합니다. 약 10-15분 소요됩니다."`
+2. 안내: `"먼저 데이터 수집(prefetch)을 시작합니다. 실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동)."`
 3. Step 1 — prefetch 실행 (ADR-012 mandate):
    ```
    Bash(run_in_background: true): cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_prefetch {date}
    ```
-4. 30분 watchdog (Chain 1과 동일). 완료 시 4-step 핸들러 — `prefetchManifest.json` (`len(by_stock)`)에서 수집 종목 수 + 비-ok sentinel 카운트 (value ∉ {`"ok"`,`"empty"`,`"null"`,`null`,`""`}) 추출.
+4. 7시간 watchdog (Chain 1과 동일 — 실측 최대 6시간 + 여유 1시간). 완료 시 4-step 핸들러 — `prefetchManifest.json` (`len(by_stock)`)에서 수집 종목 수 + 비-ok sentinel 카운트 (value ∉ {`"ok"`,`"empty"`,`"null"`,`null`,`""`}) 추출.
 5. 한국어 prefetch 통계 보고 emit — `output-templates.md` 프리페치 stats 템플릿 (B-11 verbatim).
 6. AskUserQuestion (단일 질문, 2 옵션, PRD P4): `"필터를 실행할까요?"` 옵션 = ["네, 지금 필터 실행", "잠시 후 직접 실행"].
 7. 사용자 확인 시 → Step 2 — filter 동기 실행:
@@ -85,7 +85,7 @@
 
 **Checkpoint**: Step 4 후 `prefetchManifest.json` 미존재 → manifest 생성 실패; `"prefetchManifest.json 이 생성되지 않았습니다. Stage 0 prefetch 가 실패한 것으로 보입니다."` + stderr tail.
 
-**Retry budget**: 동일 오류 2회 → 중단. prefetch 성공 + filters 실패 시 prefetch artifact 보존되므로 사용자가 Chain 8(RERUN_FILTERS)로 10-15분 비용 없이 재시도 가능.
+**Retry budget**: 동일 오류 2회 → 중단. prefetch 성공 + filters 실패 시 prefetch artifact 보존되므로 사용자가 Chain 8(RERUN_FILTERS)로 장시간 prefetch(실측 80분~6시간) 비용 없이 재시도 가능.
 
 ---
 

@@ -45,8 +45,8 @@ CLAUDE.md `Path Constants` 섹션의 값을 그대로 사용한다 (재정의 �
   ```
   Bash(run_in_background: true): cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_full_research_flow {date}
   ```
-- **백그라운드 안내**: `"약 10-15분 소요됩니다. 완료되면 자동으로 결과를 보고합니다."`
-- **30분 watchdog**: 완료 알림 없으면 → `"실행이 예상보다 길어지고 있습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?"`
+- **백그라운드 안내**: `"실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동). 완료되면 자동으로 결과를 보고합니다."`
+- **7시간 watchdog** (실측 최대 6시간 + 여유 1시간): 7시간 무완료 시 이상으로 판정 → `"실행이 실측 범위(80분~6시간)를 넘겼습니다. SCAN_SEPARATED 모드로 다시 시도하시겠습니까?"`
 - **완료 처리 4-step**: (1) stdout 종목 수 추출 → (2) stderr 오류 스캔 → (3) §6 에러 분류 → (4) §5 SHOW_RESULTS 한국어 보고서 + screener_state 갱신.
 - **재시도 예산**: 동일 `type(exc).__name__` 2회 연속 시 중단.
 
@@ -176,7 +176,7 @@ korean = KOREAN_ERROR_TABLE.get(exc_name, KOREAN_ERROR_TABLE["Exception"])
 - `references/pre-flight-checks.md` — (a)~(e) 5개 체크 + 한국어 오류 메시지 + 복구 안내
 - `references/output-templates.md` — 모든 한국어 출력 템플릿 verbatim (SHOW_RESULTS, prefetch stats, WHY_REJECTED, SCAN_RANGE, COMPARE, COMPARE_PARAMS, error report) + 숫자 형식 5종
 - `references/disclaimer.md` — 면책조항 풀/축약 + O/X 표현 정책 + 부착 면제 조건
-- `references/background-execution.md` — ADR-012 mandate + 30분 watchdog + 4-step 완료 핸들러
+- `references/background-execution.md` — ADR-012 mandate + 7시간 watchdog + 4-step 완료 핸들러
 
 ## §9. 안전 규칙 (TS-1 ~ TS-5)
 
@@ -201,7 +201,7 @@ stock-scan은 PG-1(스크리너 실행) 전담이며 `Final` 상수를 절대 �
 - [x] 사전점검 (a)~(e) §4에 시점별로 명시 — session-start/first-Bash/per-chain/out-of-scope 분류.
 - [x] §5에서 PRD §7.3 한국어 숫자 형식 verbatim — 가격/등락률/배수/횟수/금액/비율.
 - [x] §6에서 ADR-011 `type(exc).__name__` STRING 분기 명시 + pseudocode + isinstance 금지 사유.
-- [x] §3 Chain 1, Chain 2에 ADR-012 `Bash(run_in_background: true)` mandate + 30분 watchdog.
+- [x] §3 Chain 1, Chain 2에 ADR-012 `Bash(run_in_background: true)` mandate + 7시간 watchdog (실측 80분~6시간 기반).
 - [x] §3 Chain 4에 Pre-Resolved Decision Option (b) 명시 + 한국어 안내 `"* Type 상세는 Stage 1 재평가로 확인 가능"`.
 - [x] §6 + 각 체인에 재시도 예산 — 동일 `type(exc).__name__` 2회 → 중단.
 - [x] Chain 5에 masterReference.md `Edit` only (NEVER `Write`) 명시.
