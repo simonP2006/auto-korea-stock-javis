@@ -16,7 +16,7 @@ Verify with automated checks.
 - docs/code-convention.md (formatting rules)
 
 ## Output Specification
-- Deploy to: /Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md
+- Deploy to: /Users/tajun/spJavis/auto-korea-stock-javis/engine/CLAUDE.md
 - Single Write tool operation (complete file)
 - Post-write verification: test -d paths, wc -l, grep TODO/PLACEHOLDER
 
@@ -33,8 +33,8 @@ Verify with automated checks.
 
 ## Pre-Write Protocol (CCP)
 Before any Write operation to kiwoom-rest-trader:
-1. `ls -la /Users/tajun/spJavis/kiwoom-rest-trader/` — inventory existing files
-2. `ls -la /Users/tajun/spJavis/kiwoom-rest-trader/.claude/` — inventory .claude/ contents
+1. `ls -la /Users/tajun/spJavis/auto-korea-stock-javis/engine/` — inventory existing files
+2. `ls -la /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/` — inventory .claude/ contents
 3. Verify: no file at target path (CLAUDE.md must not exist)
 4. Verify: .claude/settings.local.json exists and will NOT be touched
 5. Plan: single Write tool call for complete CLAUDE.md (no partial writes)

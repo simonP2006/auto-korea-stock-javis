@@ -13,8 +13,8 @@ WORKFLOW_STATUS_ENUM = {"not_started", "in_progress", "completed", "completed_de
 TRANSLATION_STATUS_ENUM = {"pending", "in_progress", "completed", "retry", "timeout", "degraded"}
 
 # === Path Constants ===
-KRT_ROOT = "/Users/tajun/spJavis/kiwoom-rest-trader"
-AW_ROOT = "/Users/tajun/spJavis/AgenticWorkflow-main-stock-filtering-collector"
+KRT_ROOT = "/Users/tajun/spJavis/auto-korea-stock-javis/engine"
+AW_ROOT = "/Users/tajun/spJavis/auto-korea-stock-javis/factory"
 
 # === Agent Roster (13 agents — authoritative for teammate configuration) ===
 AGENT_ROSTER = [

@@ -11,9 +11,9 @@ Three sub-tasks: (a) trace execution pipeline call chain, (b) verify output file
 (c) analyze masterReference.log format in depth.
 
 ## Context (Injected by Orchestrator)
-- KRT_SCRIPTS = /Users/tajun/spJavis/kiwoom-rest-trader/scripts
-- KRT_REPORTS = /Users/tajun/spJavis/kiwoom-rest-trader/reports
-- KRT_FILTERS = /Users/tajun/spJavis/kiwoom-rest-trader/src/kiwoom/itemFilter
+- KRT_SCRIPTS = /Users/tajun/spJavis/auto-korea-stock-javis/engine/scripts
+- KRT_REPORTS = /Users/tajun/spJavis/auto-korea-stock-javis/engine/reports
+- KRT_FILTERS = /Users/tajun/spJavis/auto-korea-stock-javis/engine/src/kiwoom/itemFilter
 
 ## Output Specification
 - File: `prompt/outputs/step-1-pipeline-analysis.md`

@@ -6,8 +6,8 @@ from pathlib import Path
 
 # === [CODEGEN:START — from infra_schema.py] ===
 # ... generated content — DO NOT EDIT ...
-KRT_ROOT = Path(os.environ.get("KRT_ROOT", "/Users/tajun/spJavis/kiwoom-rest-trader"))
-AW_ROOT = Path(os.environ.get("AW_ROOT", "/Users/tajun/spJavis/AgenticWorkflow-main-stock-filtering-collector"))
+KRT_ROOT = Path(os.environ.get("KRT_ROOT", "/Users/tajun/spJavis/auto-korea-stock-javis/engine"))
+AW_ROOT = Path(os.environ.get("AW_ROOT", "/Users/tajun/spJavis/auto-korea-stock-javis/factory"))
 OUTPUTS = AW_ROOT / "prompt" / "outputs"
 GLOSSARY = AW_ROOT / "translations" / "glossary.yaml"
 KRT_PYTHON = KRT_ROOT / ".venv" / "bin" / "python"

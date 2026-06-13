@@ -4,9 +4,9 @@ Guide the user through 10 test scenarios for final acceptance (Step 12 gate).
 This step ALWAYS requires human verification — never auto-approve.
 
 ## Source Files
-- Deployed: `/Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md`
-- Deployed: `/Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/stock-scan/SKILL.md`
-- Deployed: `/Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/filter-tune/SKILL.md`
+- Deployed: `/Users/tajun/spJavis/auto-korea-stock-javis/engine/CLAUDE.md`
+- Deployed: `/Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/stock-scan/SKILL.md`
+- Deployed: `/Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/filter-tune/SKILL.md`
 - Smoke test: `prompt/outputs/step-11-smoke-test.ko.md`
 - Validation: `prompt/outputs/step-10-validation-report.ko.md`
 

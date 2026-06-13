@@ -11,7 +11,7 @@ Classify all error/exception patterns in kiwoom-rest-trader. Produce Korean mess
 mapping table for each error type.
 
 ## Context (Injected by Orchestrator)
-- Search paths: /Users/tajun/spJavis/kiwoom-rest-trader/scripts/, /Users/tajun/spJavis/kiwoom-rest-trader/src/kiwoom/
+- Search paths: /Users/tajun/spJavis/auto-korea-stock-javis/engine/scripts/, /Users/tajun/spJavis/auto-korea-stock-javis/engine/src/kiwoom/
 - Known types (minimum): KiwoomAuthError, KiwoomApiError, KiwoomConditionError, ResearchError,
   OrganizeError, PrefetchError, httpx.ConnectError, httpx.TimeoutException, FileNotFoundError
 

@@ -15,11 +15,11 @@ Dense checkpoint pattern: CP-1 → CP-2 → CP-3.
 - prompt/outputs/step-2-research-report.md
 - prompt/outputs/step-4-architecture.md
 - prompt/outputs/step-6-stock-scan-blueprint.md (primary source)
-- /Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md (Step 8 deployed — cross-ref)
+- /Users/tajun/spJavis/auto-korea-stock-javis/engine/CLAUDE.md (Step 8 deployed — cross-ref)
 
 ## Pre-Write Protocol (CCP)
 Before any Write/mkdir to kiwoom-rest-trader:
-1. `ls -la /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/` — check existing
+1. `ls -la /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/` — check existing
 2. Verify target subdirectory does NOT exist yet
 3. Plan write sequence: mkdir → SKILL.md → references/*.md (ordered)
 4. Each Write must be complete file (no partial/incremental writes)
@@ -31,7 +31,7 @@ Before any Write/mkdir to kiwoom-rest-trader:
 - CP-3: All references/ files written → verify completeness against blueprint
 
 ## Output Specification
-- Deploy to: /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/stock-scan/
+- Deploy to: /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/stock-scan/
 - Files: SKILL.md + references/ directory with all referenced files
 
 ## Verification Criteria

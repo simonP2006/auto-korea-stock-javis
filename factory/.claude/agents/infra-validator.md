@@ -13,9 +13,9 @@ Fix minor issues in-place; escalate major ones.
 
 ## Context (Injected by Orchestrator)
 - All prior outputs (steps 1-9)
-- Deployed files: /Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md
-- Deployed skills: /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/stock-scan/
-- Deployed skills: /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/filter-tune/
+- Deployed files: /Users/tajun/spJavis/auto-korea-stock-javis/engine/CLAUDE.md
+- Deployed skills: /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/stock-scan/
+- Deployed skills: /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/filter-tune/
 - docs/code-quality-guide.md (scoring rubric)
 
 ## Output Specification

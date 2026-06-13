@@ -12,9 +12,9 @@ Read-only — does NOT modify any deployed files. Tests that Claude Code would
 correctly route intents and execute chains based on deployed CLAUDE.md + skills.
 
 ## Context (Injected by Orchestrator)
-- Deployed: /Users/tajun/spJavis/kiwoom-rest-trader/CLAUDE.md
-- Deployed: /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/stock-scan/SKILL.md
-- Deployed: /Users/tajun/spJavis/kiwoom-rest-trader/.claude/skills/filter-tune/SKILL.md
+- Deployed: /Users/tajun/spJavis/auto-korea-stock-javis/engine/CLAUDE.md
+- Deployed: /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/stock-scan/SKILL.md
+- Deployed: /Users/tajun/spJavis/auto-korea-stock-javis/engine/.claude/skills/filter-tune/SKILL.md
 - All references/ files in both skill directories
 
 ## Output Specification

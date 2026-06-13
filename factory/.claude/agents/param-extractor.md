@@ -11,8 +11,8 @@ Extract a complete inventory of all `Final` typed constants from kiwoom-rest-tra
 filter modules. Produce a structured Markdown table grouped by Stage (1-5).
 
 ## Context (Injected by Orchestrator)
-- Pre-extracted: `grep -rn 'Final\[' /Users/tajun/spJavis/kiwoom-rest-trader/src/kiwoom/itemFilter/*.py`
-- Constants: KRT_FILTERS = /Users/tajun/spJavis/kiwoom-rest-trader/src/kiwoom/itemFilter
+- Pre-extracted: `grep -rn 'Final\[' /Users/tajun/spJavis/auto-korea-stock-javis/engine/src/kiwoom/itemFilter/*.py`
+- Constants: KRT_FILTERS = /Users/tajun/spJavis/auto-korea-stock-javis/engine/src/kiwoom/itemFilter
 
 ## Output Specification
 - File: `prompt/outputs/step-1-param-inventory.md`
