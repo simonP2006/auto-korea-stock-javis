@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -81,6 +82,12 @@ _OPTIONAL_FEATURES: Final[frozenset[str]] = frozenset({"close_over_ma306"})
 
 # 경계값 부동소수점 노이즈 마진.
 _EPS: Final[float] = 1e-6
+
+# masterReference.md 신형 포맷 "종목명(코드)" 분리용 — Filter_condition_update.
+# _parse_entry 와 동일 규칙 (끝의 4~6자리 코드 괄호만 코드로 인정).
+_NAME_CODE_RE: Final[re.Pattern[str]] = re.compile(
+    r"^(?P<nm>.*?)\((?P<cd>\d{4,6})\)\s*$"
+)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -137,11 +144,25 @@ def save_state(state: FilterState, path: Path = _STATE_PATH) -> None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+def _split_name_code(line: str) -> tuple[str, str]:
+    """한 줄을 ``(종목명, 종목코드)`` 로 분리. 코드 없으면 빈 문자열.
+
+    구형 "종목명" / 신형 "종목명(코드)" 양 포맷 호환 —
+    :func:`Filter_condition_update._parse_entry` 와 동등 규칙.
+    """
+    s = line.strip()
+    m = _NAME_CODE_RE.match(s)
+    if m:
+        return m.group("nm").strip(), m.group("cd")
+    return s, ""
+
+
 def _read_name_list(path: Path) -> list[str]:
     if not path.exists():
         return []
     return [
-        ln.strip() for ln in path.read_text(encoding="utf-8").splitlines()
+        _split_name_code(ln)[0]
+        for ln in path.read_text(encoding="utf-8").splitlines()
         if ln.strip()
     ]
 
@@ -161,14 +182,24 @@ def read_master_reference(
 def _stock_dir(
     date: str, name: str, reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> Path | None:
-    """종목명 → ``<name>(코드)`` 형식 폴더 경로. 없으면 None."""
+    """종목명 → ``<name>(코드)`` 형식 폴더 경로. 없으면 None.
+
+    ``name`` 은 구형 "종목명" / 신형 "종목명(코드)" 모두 허용.
+    코드가 있으면 정확 일치 폴더를 우선하고, 없거나 미발견 시
+    기존과 동일하게 ``이름( `` 접두 매칭으로 해석한다.
+    """
     date_dir = reports_root / date
     if not date_dir.exists():
         return None
+    nm, cd = _split_name_code(name)
+    if cd:
+        exact = date_dir / f"{nm}({cd})"
+        if exact.is_dir():
+            return exact
     for p in date_dir.iterdir():
         if not p.is_dir():
             continue
-        if p.name.startswith(name + "(") and p.name.endswith(")"):
+        if p.name.startswith(nm + "(") and p.name.endswith(")"):
             return p
     return None
 
