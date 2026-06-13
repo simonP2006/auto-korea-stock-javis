@@ -1,0 +1,6 @@
+.DS_Store
+engine/.env
+engine/.venv/
+engine/reports/
+engine/data/
+engine/logs/
