@@ -22,9 +22,9 @@ ENGINE_PYTHON = ${ENGINE_ROOT}/.venv/bin/python     # Python 3.12.7
 
 스캔·튜닝·조회·비교·복원·이론 질문 등 **모든 사용 발화는 engine 구역**이다.
 
-- **14 Intent는 이름만 인지하고, 상세 라우팅(발화 예시·Action·분기 규칙)은 `engine/CLAUDE.md`의
+- **15 Intent는 이름만 인지하고, 상세 라우팅(발화 예시·Action·분기 규칙)은 `engine/CLAUDE.md`의
   Intent Routing 표에 위임한다 — 여기 복제 금지:**
-  `SCAN_TODAY · SCAN_SEPARATED · SCAN_RANGE · SHOW_RESULTS · WHY_REJECTED · SHOW_PARAMS · CHANGE_PARAM ·
+  `SCAN_TODAY · SCAN_SEPARATED · SCAN_RANGE · SCAN_PAST · SHOW_RESULTS · WHY_REJECTED · SHOW_PARAMS · CHANGE_PARAM ·
   RERUN_FILTERS · RESTORE · COMPARE · COMPARE_PARAMS · THEORY_GUIDE · CONFIRM · ASK_MODULE`
 - "시작" / "시작하자" / "워크플로우 시작하자" 류 **진입 발화 → engine/CLAUDE.md의 Start Routing 절**(사용 모드 진입).
   루트 세션에서는 factory의 스킬(workflow-executor·workflow-generator)이 함께 노출되지만,

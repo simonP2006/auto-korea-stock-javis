@@ -17,9 +17,10 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 
 | Cluster | 한국어 발화 예시 (≥2) | Skill | Action |
 |---|---|---|---|
-| SCAN_TODAY    | "오늘 종목 스캔해줘" / "오늘 돌려줘" / "오늘 스캔 돌려줘" / "{YYYYMMDD} 스캔" | stock-scan | scan_today(date=오늘 또는 인자) — **default = run_full_research_flow ; run_in_background:true** (ADR-012) |
+| SCAN_TODAY    | "오늘 종목 스캔해줘" / "오늘 돌려줘" / "오늘 스캔 돌려줘" / "{YYYYMMDD} 스캔" | stock-scan | scan_today(date=오늘 또는 인자) — **default = run_full_research_flow ; run_in_background:true** (ADR-012). (과거 날짜 인자는 SCAN_PAST 참조) |
 | SCAN_SEPARATED | "나눠서 해줘" / "단계별로 해줘" / "분리해서 실행" | stock-scan | scan_separated(date) — Chain 2. prefetch(데이터 수집)만 실행, 필터 미실행(`run_filters` 미호출) (B-11) |
 | SCAN_RANGE    | "이번 주 월~금 전부 수집해줘" / "{start}부터 {end}까지 스캔" / "지난 한 주 다 돌려줘" | stock-scan | scan_range(start, end) — 영업일 루프, 각 날짜에 SCAN_TODAY 적용 (B-24) |
+| SCAN_PAST     | "지난 6월 18일 수집해줘" / "20260618 백필" / "6월 18일자 과거 수집" / "과거 날짜로 돌려줘" | stock-scan | scan_past(date, stocks?) — Chain 9. `run_backfill`로 과거 기준일 부분수집(조회전용). **날짜 인자가 오늘보다 과거이면 SCAN_TODAY가 아니라 SCAN_PAST로 라우팅**하고, 사용자에게 1줄로 이유 고지: 과거 유니버스는 실시간 TR(상하한가·조건검색)로 재현 불가 → `reports/<date>/` 동결본 재사용 또는 사용자 제공 목록 사용 · 재무(Stage 5)는 판정 제외. 산출은 `reports_backfill/<date>/`(실스캔 이력과 분리) |
 | SHOW_RESULTS  | "오늘 결과 보여줘" / "통과 종목 알려줘" / "최종 선별 목록" | stock-scan | show_results(date) — Read `researchedCompany.md` + stage*_passed.md 종합 |
 | WHY_REJECTED  | "삼성전자가 왜 빠졌어?" / "OO전자 탈락 이유" / "왜 떨어졌어?" | stock-scan | why_rejected(stock_name, date) — masterReference 체인 (B-5) |
 | SHOW_PARAMS   | "Stage 1 조건 보여줘" / "전체 필터 설정 요약" / "지금 파라미터 뭐야?" | filter-tune | show_params(stage 또는 'all') — Read Final 상수 + 한국어 의미 테이블 |
@@ -79,11 +80,12 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 | `OrganizeError`         | 수집된 종목 데이터가 없습니다.           | conditionResearch.md·upperLowerPrice.md 두 입력 모두 부재    | 조건검색·상하한가 수집을 먼저 실행해주세요. |
 | `ResearchError`         | 필터링에 필요한 데이터 파일이 없습니다.  | organizedCompany.md 또는 prefetchManifest.json 부재         | 먼저 데이터 수집을 실행해주세요. |
 | `PrefetchError`         | 종목 사전 수집을 시작할 데이터가 없습니다. | Stage 0 prefetch 진입 전 organizedCompany.md 부재          | 조건검색·상하한가 단계를 먼저 완료해주세요. |
+| `BackfillError`         | 과거 수집을 진행할 수 없습니다.          | 과거일 부분수집(SCAN_PAST) 진행 불가: 출력 루트 충돌 / 과거 유니버스 부재(동결본·종목목록 모두 없음) / 분봉 보존범위 밖(실측 1~2년) / 비거래일 기준일 | 거래일 여부·종목 목록·날짜 범위를 확인하고, 필요 시 `--stocks-file` 또는 `--allow-nonbusiness` 로 다시 시도해주세요. |
 | `FileNotFoundError`     | 필요한 데이터 파일을 찾을 수 없습니다.   | 보고서 폴더·종목 폴더·chart/finance/investor.md 부재         | 먼저 해당 단계의 데이터 수집을 실행해주세요. |
 | `ValueError`            | 데이터 형식이 올바르지 않습니다.         | 시계열 표 파싱 실패, 잘못된 인자                            | 수집된 데이터가 손상되었을 수 있으니 다시 수집해보세요. |
 | `Exception` (generic)   | 예기치 못한 오류가 발생했습니다.         | 분류되지 않은 모든 예외                                     | 잠시 후 다시 시도하거나 로그를 확인해주세요. |
 
-> **래핑 노트**: `httpx.HTTPError`(ConnectError/TimeoutException 포함) → 자동으로 `KiwoomApiError(code="HTTP")` 또는 `KiwoomAuthError`로 래핑되어 사용자에게는 위 9종 표면 클래스만 노출됨. `asyncio.TimeoutError`·`ConnectionClosed` → `KiwoomConditionError(code="LOGIN_TIMEOUT"|"WS")`로 래핑됨.
+> **래핑 노트**: `httpx.HTTPError`(ConnectError/TimeoutException 포함) → 자동으로 `KiwoomApiError(code="HTTP")` 또는 `KiwoomAuthError`로 래핑되어 사용자에게는 위 10종 표면 클래스만 노출됨. `asyncio.TimeoutError`·`ConnectionClosed` → `KiwoomConditionError(code="LOGIN_TIMEOUT"|"WS")`로 래핑됨.
 > **Exit code 1차 분류**: `1` = 도메인 입력 부재(OrganizeError/ResearchError/PrefetchError), `2` = 그 외 모든 예외.
 
 ## Output Format Rules
@@ -102,6 +104,7 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 - `어제`               → 이전 영업일 (주말은 건너뜀, 공휴일 하드코딩 없음 — 디렉터리 존재로 보정)
 - `이번 주 X요일` / `지난주 금요일` → 해당 요일의 YYYYMMDD 산출 후 한국어 확인 ("2026-05-29(금) 맞으신가요?")
 - `이번 주 전부` / `이번 주 월~금` → 오늘 이하의 영업일 목록 → SCAN_RANGE
+- **과거일(SCAN_PAST) 저장 위치**: 오늘보다 과거인 날짜로 수집(백필)하면 결과는 `${KRT_REPORTS}`(`reports/`)가 **아니라** `${KRT_ROOT}/reports_backfill/<date>/`에 저장된다 — 실시간 실스캔 이력과 분리. 따라서 과거일 결과 조회·해석은 backfill 루트를 대상으로 안내한다(오늘/영업일 당일 스캔만 `reports/`).
 - **유효성 검사**: SHOW_RESULTS / WHY_REJECTED 등 결과 조회 요청 시 `test -d ${KRT_REPORTS}/{YYYYMMDD}` 선행. 미존재 → "{date} 결과가 없습니다. 스캔을 먼저 실행할까요?" + SCAN_TODAY/SCAN_RANGE 제안.
 
 ## Onboarding Flow (= 사용자 안내 모드)
@@ -136,6 +139,7 @@ RUN_IN_FOREGROUND = ok      # for run_filters (typically < 3 min)
 EXEC_PATTERN: `cd ${KRT_ROOT} && ${KRT_PYTHON} -m {module} {args}`
 - `run_full_research_flow`, `run_prefetch` → **반드시 Bash(run_in_background:true)** (실측 80분~6시간, 600s Bash cap 초과 — ADR-012). 백그라운드 시작 즉시 한국어 안내 "실측 기준 80분~6시간 소요됩니다(데이터량·시간대에 따라 변동). 완료되면 자동으로 결과를 보고합니다." + 완료 알림 4-step 핸들러 (count → stderr → classify → Korean report) + **7시간 watchdog** (실측 최대 6시간 + 여유 1시간 — 7시간 무완료 시 이상으로 판정) → "SCAN_SEPARATED 모드로 다시 시도하시겠습니까?".
 - `run_filters`, `Filter_condition_update`, 개별 filter 모듈 → 동기 실행 (전형적 < 3분, foreground 가능).
+- `run_backfill` (과거일 부분수집 SCAN_PAST, 조회전용) → 사용자 제공 목록의 소수 종목은 동기(foreground) 가능하나, **동결본 전체 유니버스는 `run_in_background:true` 필수** (종목 수 × 5 API — prefetch에 준하는 소요). 산출 위치는 `${KRT_ROOT}/reports_backfill/<date>/` (실스캔 이력 `reports/`와 분리) — `BACKFILL_META.json`의 `collected_at`이 실제 수집 시각의 진실(폴더명·.md 내부 표기는 기준일 기준으로 렌더됨).
 - 절대 금지: `source .venv/bin/activate && python …` 형태 (D-7 — 쉘 상태 비의존성). `.venv/bin/python` 직접 호출만 허용.
 
 ## Session Continuity (screener_state.json)

@@ -1,6 +1,6 @@
 ---
 name: stock-scan
-description: Kiwoom REST API 종목 스크리너 — 스캔 실행·결과 해석·탈락 분석·비교를 한국어 자연어로 수행. PG-1(screener execution chains) 전담. Trigger: SCAN_TODAY, SCAN_SEPARATED, SCAN_RANGE, SHOW_RESULTS, WHY_REJECTED, COMPARE, COMPARE_PARAMS, RERUN_FILTERS.
+description: Kiwoom REST API 종목 스크리너 — 스캔 실행·결과 해석·탈락 분석·비교를 한국어 자연어로 수행. PG-1(screener execution chains) 전담. Trigger: SCAN_TODAY, SCAN_SEPARATED, SCAN_RANGE, SCAN_PAST, SHOW_RESULTS, WHY_REJECTED, COMPARE, COMPARE_PARAMS, RERUN_FILTERS.
 model: opus
 tools: [Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion]
 maxTurns: 80
@@ -12,13 +12,14 @@ PG-1(screener execution chains) 전담 Skill. 5-Stage 필터 파이프라인 실
 
 ## §1. 트리거 조건
 
-CLAUDE.md `Intent Routing` 테이블의 다음 8개 클러스터가 본 Skill로 라우팅된다:
+CLAUDE.md `Intent Routing` 테이블의 다음 9개 클러스터가 본 Skill로 라우팅된다:
 
 | Cluster | → Chain |
 |---|---|
 | `SCAN_TODAY` | Chain 1 — `scan_today(date?)` |
 | `SCAN_SEPARATED` (트리거: "나눠서 해줘"/"단계별로 해줘") | Chain 2 — `scan_separated(date)` |
 | `SCAN_RANGE` | Chain 3 — `scan_range(start, end)` |
+| `SCAN_PAST` (트리거: 오늘보다 과거인 날짜 인자 + 수집 의도) | Chain 9 — `scan_past(date, stocks?)` (`run_backfill` 조회전용, `reports_backfill/<date>/`) |
 | `SHOW_RESULTS` | Chain 4 — `show_results(date)` |
 | `WHY_REJECTED` | Chain 5 — `why_rejected(stock_name, date)` |
 | `COMPARE` | Chain 6 — `compare(date_a, date_b)` |
@@ -102,6 +103,31 @@ CLAUDE.md `Path Constants` 섹션의 값을 그대로 사용한다 (재정의 �
 - 기존 `researchedCompany.md` 스냅샷 → `run_filters` 동기 실행 → 새 결과와 set diff → 변경 전/후 표.
 - ⚠️ `run_filters`는 `Filter_condition_update`를 호출하지 않음 → masterReference.log 미갱신. 후속 WHY_REJECTED는 Chain 5에서 독립적으로 갱신.
 
+### Chain 9 — SCAN_PAST(date, stocks?)
+- **트리거**: 오늘보다 **과거인 날짜 인자 + 수집 의도** ("지난 6월 18일 수집해줘", "{과거 YYYYMMDD} 백필", "6월 18일자 과거 수집", "과거 날짜로 돌려줘"). SCAN_TODAY와의 분기 규칙은 CLAUDE.md §Intent Routing `SCAN_PAST` 행이 정본 — **날짜가 오늘보다 과거면 SCAN_TODAY가 아니라 SCAN_PAST**로 라우팅하고, 사용자에게 1줄로 이유를 고지한다(과거 유니버스는 실시간 TR로 재현 불가 → 동결본 재사용 또는 사용자 목록; 재무 Stage 5 판정 제외).
+- **조회전용·분리루트**: `run_backfill`은 과거 기준일에 대해 5개 데이터 API(chart60·120·240·chartDay·investor)를 `base_dt` 앵커로 소급 수집한다(finance 미수집). 산출은 실스캔 이력(`${KRT_REPORTS}`)과 **분리된** `${KRT_ROOT}/reports_backfill/<date>/`.
+- **사전점검**: §4의 (a)(b)(c) + `${KRT_REPORTS}/filter-tune.lock` 존재 시 거부 (R-9, Chain 1 동일 메시지). 주말/비거래일 기준일은 `run_backfill`이 실행 전 거부(exit 1) → 거래일 재지정 안내(또는 `--allow-nonbusiness`).
+- **유니버스 확보(둘 중 하나)**: (1) **동결본 재사용** — `reports/<date>/organizedCompany.md`(당일 실스캔 결과)가 있으면 자동 재사용; (2) **사용자 제공 목록** — `--stocks-file F`(줄당 `CODE[,NAME]`). 둘 다 없으면 `BackfillError`.
+- **실행 명령**:
+  ```
+  # 사용자 제공 목록의 소수 종목 (동기 가능):
+  Bash(run_in_background: false): cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_backfill {date} --stocks-file {F}
+  # 동결본 전체 유니버스 (백그라운드 필수 — 종목수 × 5 API):
+  Bash(run_in_background: true):  cd ${KRT_ROOT} && ${KRT_PYTHON} -m scripts.run_backfill {date}
+  ```
+- **백그라운드 규칙**: 동결본 전체 유니버스(수백~수천 종목)는 prefetch에 준하는 소요이므로 `run_in_background:true` **필수**(ADR-012 준용). 사용자 제공 목록의 소수 종목만 foreground 허용.
+- **결과 해석 (CLI 요약 + 디스크 산출물)**:
+  - CLI 요약의 **`필터 퍼널(데이터 5단계)`** 블록 = Stage1 chart60_120 → Stage4 investor 통과 수(단조 비증가) + `필터 통과(최종)` 수.
+  - `reports_backfill/<date>/stage*_passed.md`(6개 slot) + `researchedCompany.md` = SHOW_RESULTS/WHY_REJECTED와 **동일 포맷**(단, 조회 대상 루트가 `reports_backfill/`).
+  - `reports_backfill/<date>/BACKFILL_META.json`의 `collected_at` = **실제 수집 시각의 진실**(폴더명·.md 내부 "수집시각" 표기는 기준일 기준으로 렌더 → 오도 주의; META가 정본).
+- **필수 고지(사용자 대면 — 결과 출력 시 함께 안내)**:
+  - **재무(Stage 5) 판정 제외** — ka10001은 당일 스냅샷 전용이라 과거 재무 복원 불가(N/A 처리).
+  - **분봉(60/120/240) 보존범위 실측 약 1~2년** — 그보다 오래된 기준일은 분봉 빈응답으로 수집 불가(일봉은 3년+).
+  - **수정주가는 오늘 기준으로 소급 조정된 값** — 과거 그 시점의 원주가와 다를 수 있음(액면분할·배당 소급 반영).
+  - **유니버스는 동결본 또는 사용자 제공 목록만** — 임의 과거일의 유니버스를 실시간 TR로 재현할 수는 없음.
+- **면책조항**: §5/CLAUDE.md 면책 정책 동일 — 결과 출력 시 세션 첫 회 풀버전, 이후 1줄 축약.
+- **에러 처리**: §6 `type(exc).__name__` STRING 분기 — `BackfillError`(CLAUDE.md §Error Classification 신규 행) 포함. exit 1 = 도메인 사유(루트충돌·유니버스 부재·보존범위 밖·비거래일).
+
 ### 체인 요약표
 
 | # | Chain | Background? | screener_state 쓰기 | masterReference.log 갱신 |
@@ -114,6 +140,7 @@ CLAUDE.md `Path Constants` 섹션의 값을 그대로 사용한다 (재정의 �
 | 6 | COMPARE | NO | ❌ | ❌ |
 | 7 | COMPARE_PARAMS | NO | ❌ | ❌ |
 | 8 | RERUN_FILTERS | NO | ✅ | ❌ |
+| 9 | SCAN_PAST | 동결본 전체=YES, 사용자목록 소수=NO | ❌ (backfill은 별도 루트 `reports_backfill/`, screener_state 미갱신) | ❌ (run_backfill은 Filter_condition_update 미호출) |
 
 ## §4. 사전 검증 통합 (B-13)
 
@@ -198,6 +225,7 @@ stock-scan은 PG-1(스크리너 실행) 전담이며 `Final` 상수를 절대 �
 ## §10. Skill-level Verification Self-Check
 
 - [x] 8개 체인 모두 §3에 요약 + `references/execution-chains.md`에 전체 상세 — Chain 1~8.
+- [x] Chain 9(SCAN_PAST) §3에 자족 기술(references/ 추가 없이) — `run_backfill` 조회전용·분리루트(`reports_backfill/`)·필터 퍼널 해석·4대 필수고지(재무제외/분봉보존/수정주가/유니버스) + `BackfillError` 처리.
 - [x] 사전점검 (a)~(e) §4에 시점별로 명시 — session-start/first-Bash/per-chain/out-of-scope 분류.
 - [x] §5에서 PRD §7.3 한국어 숫자 형식 verbatim — 가격/등락률/배수/횟수/금액/비율.
 - [x] §6에서 ADR-011 `type(exc).__name__` STRING 분기 명시 + pseudocode + isinstance 금지 사유.
