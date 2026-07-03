@@ -145,13 +145,16 @@ def _filter_stage_chart60_120(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> StageOutcome:
     """Stage 1 — chart60·chart120 .md 만 보고 chart60_120Filter 평가."""
     if status.chart60 != "ok":
         return _missing_data_outcome("chart60_120", status.chart60)
     if status.chart120 != "ok":
         return _missing_data_outcome("chart60_120", status.chart120)
-    r = chart60_120_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = chart60_120_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="chart60_120",
         selected=r.selected,
@@ -166,11 +169,14 @@ def _filter_stage_chart240(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> StageOutcome:
     """Stage 2 — chart240.md 만 보고 chart240Filter 평가."""
     if status.chart240 != "ok":
         return _missing_data_outcome("chart240", status.chart240)
-    r = chart240_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = chart240_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="chart240",
         selected=r.selected,
@@ -185,11 +191,14 @@ def _filter_stage_chartday_pre(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> StageOutcome:
     """Stage 2-1 — chartDay.md 만 보고 chartDayPreFilter 평가."""
     if status.chartDay != "ok":
         return _missing_data_outcome("chartDayPre", status.chartDay)
-    r = chartday_pre_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = chartday_pre_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="chartDayPre",
         selected=r.selected,
@@ -204,11 +213,14 @@ def _filter_stage_chartday(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> StageOutcome:
     """Stage 3 — chartDay.md 만 보고 chartDayFilter 평가."""
     if status.chartDay != "ok":
         return _missing_data_outcome("chartDay", status.chartDay)
-    r = chartday_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = chartday_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="chartDay",
         selected=r.selected,
@@ -223,11 +235,14 @@ def _filter_stage_investor(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
 ) -> StageOutcome:
     """Stage 4 — investor.md 만 보고 investorFilter 평가."""
     if status.investor != "ok":
         return _missing_data_outcome("investor", status.investor)
-    r = investor_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = investor_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="investor",
         selected=r.selected,
@@ -242,11 +257,30 @@ def _filter_stage_finance(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
+    finance_policy: str = "require",
 ) -> StageOutcome:
-    """Stage 5 — finance.md 만 보고 financeFilter 평가."""
+    """Stage 5 — finance.md 만 보고 financeFilter 평가.
+
+    ``finance_policy``:
+        - ``"require"`` (기본): 현행 동작. finance 상태가 ``"ok"`` 가 아니면
+          missing-data 탈락. 재무 데이터가 존재하는 정상 스캔용.
+        - ``"skip_na"``: backfill 등 과거 재무 미지원 상황. finance 상태가
+          ``"ok"`` 가 아니면(대개 ``"skipped"``) 탈락시키지 않고 Stage 5 판정에서
+          제외한다(``selected=True``, ``category="N/A"``).
+    """
     if status.finance != "ok":
+        if finance_policy == "skip_na":
+            return StageOutcome(
+                name="finance",
+                selected=True,
+                category="N/A",
+                reason="과거 재무 미지원(backfill) — Stage5 판정 제외",
+            )
         return _missing_data_outcome("finance", status.finance)
-    r = finance_filter_stock(cand.stk_cd, date_dir=date_dir)
+    r = finance_filter_stock(
+        cand.stk_cd, date_dir=date_dir, reports_root=reports_root,
+    )
     return StageOutcome(
         name="finance",
         selected=r.selected,
@@ -261,36 +295,51 @@ def _run_filter_pipeline(
     *,
     date_dir: str,
     status: PrefetchStatus,
+    reports_root: Path = _DEFAULT_REPORTS_ROOT,
+    finance_policy: str = "require",
 ) -> ResearchResult:
     """단일 종목에 대해 6 Stage 필터 순차 평가. 어느 단계든 False 면 break."""
     result = ResearchResult(candidate=cand)
 
-    stage1 = _filter_stage_chart60_120(cand, date_dir=date_dir, status=status)
+    stage1 = _filter_stage_chart60_120(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+    )
     result.stages.append(stage1)
     if not stage1.selected:
         return result
 
-    stage2 = _filter_stage_chart240(cand, date_dir=date_dir, status=status)
+    stage2 = _filter_stage_chart240(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+    )
     result.stages.append(stage2)
     if not stage2.selected:
         return result
 
-    stage2_1 = _filter_stage_chartday_pre(cand, date_dir=date_dir, status=status)
+    stage2_1 = _filter_stage_chartday_pre(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+    )
     result.stages.append(stage2_1)
     if not stage2_1.selected:
         return result
 
-    stage3 = _filter_stage_chartday(cand, date_dir=date_dir, status=status)
+    stage3 = _filter_stage_chartday(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+    )
     result.stages.append(stage3)
     if not stage3.selected:
         return result
 
-    stage4 = _filter_stage_investor(cand, date_dir=date_dir, status=status)
+    stage4 = _filter_stage_investor(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+    )
     result.stages.append(stage4)
     if not stage4.selected:
         return result
 
-    stage5 = _filter_stage_finance(cand, date_dir=date_dir, status=status)
+    stage5 = _filter_stage_finance(
+        cand, date_dir=date_dir, status=status, reports_root=reports_root,
+        finance_policy=finance_policy,
+    )
     result.stages.append(stage5)
     if not stage5.selected:
         return result
@@ -303,6 +352,8 @@ async def filter_today(
     date: str | None = None,
     *,
     reports_root: Path = _DEFAULT_REPORTS_ROOT,
+    finance_policy: str = "require",
+    code_map: dict[str, str] | None = None,
 ) -> list[ResearchResult]:
     """Stage 0 가 끝난 날짜에 대해 Stage 1~5 필터를 순수 평가.
 
@@ -312,6 +363,13 @@ async def filter_today(
     Args:
         date: ``YYYYMMDD``. ``None`` 이면 오늘.
         reports_root: 보고서 루트(기본 ``reports/``).
+        finance_policy: Stage 5 재무 판정 정책. ``"require"`` (기본)은 현행
+            동작 — finance 데이터가 없으면 탈락. ``"skip_na"`` 는 backfill 등
+            과거 재무 미지원 상황에서 Stage 5 판정을 제외(통과 처리)한다.
+        code_map: 종목명→종목코드 매핑을 명시적으로 주입. ``None`` (기본)이면
+            ``build_name_to_code_map(date_dir_path)`` 로 condition/upper.md 에서
+            복원한다. 사용자 제공 유니버스 backfill 처럼 그 두 원본이 없을 때
+            직접 매핑을 넘긴다.
 
     Returns:
         종목별 :class:`ResearchResult` 리스트 (입력 순서 보존).
@@ -339,16 +397,21 @@ async def filter_today(
             f"{exc}"
         ) from exc
 
-    code_map = build_name_to_code_map(date_dir_path)
+    name_to_code = (
+        code_map if code_map is not None
+        else build_name_to_code_map(date_dir_path)
+    )
 
     logger.info(
-        "filter_today 시작 date={d} 종목={n} 매핑코드={m} manifest종목={k}",
-        d=yyyymmdd, n=len(names), m=len(code_map), k=len(manifest.by_stock),
+        "filter_today 시작 date={d} 종목={n} 매핑코드={m} manifest종목={k} "
+        "재무정책={fp}",
+        d=yyyymmdd, n=len(names), m=len(name_to_code),
+        k=len(manifest.by_stock), fp=finance_policy,
     )
 
     results: list[ResearchResult] = []
     for idx, stk_nm in enumerate(names, start=1):
-        stk_cd = code_map.get(stk_nm, "")
+        stk_cd = name_to_code.get(stk_nm, "")
         cand = ResearchCandidate(stk_nm=stk_nm, stk_cd=stk_cd)
 
         if not stk_cd:
@@ -383,7 +446,10 @@ async def filter_today(
             continue
 
         try:
-            r = _run_filter_pipeline(cand, date_dir=yyyymmdd, status=status)
+            r = _run_filter_pipeline(
+                cand, date_dir=yyyymmdd, status=status,
+                reports_root=reports_root, finance_policy=finance_policy,
+            )
         except Exception as exc:
             logger.exception(
                 "[{i}/{n}] 필터 예외 — 스킵: {nm}({cd})",

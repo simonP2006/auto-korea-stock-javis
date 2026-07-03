@@ -38,4 +38,6 @@ reports/*/*
 !reports/*/masterReference.md
 !reports/*/masterReference.log
 !reports/tuning-log.md
+# backfill 산출물(과거일 부분수집)은 실스캔 이력과 분리된 조회전용 임시 데이터 — 전체 제외
+reports_backfill/
 data/.token_cache.json

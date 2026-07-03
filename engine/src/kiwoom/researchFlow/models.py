@@ -26,7 +26,10 @@ StageName = Literal[
 PrefetchApiName = Literal[
     "chart60", "chart120", "chart240", "chartDay", "investor", "finance"
 ]
-PrefetchApiStatus = Literal["ok", "empty", "error"]
+# ``"skipped"`` 는 backfill(과거일 부분수집)에서 finance API 를 의도적으로
+# 호출하지 않았음을 나타낸다 — ka10001 은 당일 스냅샷 전용이라 과거 재무를
+# 복원할 수 없기 때문. ``"empty"``/``"error"`` (호출은 했으나 실패) 와 구분된다.
+PrefetchApiStatus = Literal["ok", "empty", "error", "skipped"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,7 +88,9 @@ class PrefetchStatus:
     """한 종목에 대한 6개 API 호출 결과 상태.
 
     각 필드는 ``"ok"`` (정상 .md 저장 완료) / ``"empty"`` (빈 응답 — .md
-    미저장 또는 placeholder) / ``"error"`` (예외 발생 — .md 미저장) 중 하나.
+    미저장 또는 placeholder) / ``"error"`` (예외 발생 — .md 미저장) /
+    ``"skipped"`` (의도적 미호출 — backfill 에서 finance 처럼 과거 복원
+    불가한 API) 중 하나.
 
     Attributes:
         chart60·chart120·chart240·chartDay·investor·finance: 각 API 호출
