@@ -38,10 +38,29 @@ from loguru import logger
 
 from src.kiwoom.researchFlow.backfill import BackfillError, backfill_prefetch_all
 from src.kiwoom.researchFlow.facade import filter_today
-from src.kiwoom.researchFlow.models import PrefetchStatus, ResearchCandidate
-from src.kiwoom.researchFlow.saveReport import save_researched_company
+from src.kiwoom.researchFlow.models import (
+    PrefetchStatus,
+    ResearchCandidate,
+    ResearchResult,
+)
+from src.kiwoom.researchFlow.saveReport import (
+    save_all_stages_passed,
+    save_researched_company,
+)
 
 _DEFAULT_BACKFILL_ROOT: Final[Path] = Path("reports_backfill")
+
+# 필터 퍼널 라벨 — save_all_stages_passed 의 slot 1~5(데이터 5단계)과 1:1.
+# slot 6(finance/Stage5)은 backfill 에서 N/A 판정제외이므로 퍼널에 넣지 않고
+# 별도 요약 줄로 안내한다. render_stage_passed 와 동일 술어로 세므로 출력 카운트가
+# 디스크의 stage{N}_passed.md 파일과 정확히 일치한다.
+_STAGE_FUNNEL_LABELS: Final[dict[int, str]] = {
+    1: "Stage1 chart60_120",
+    2: "Stage2 chart240",
+    3: "Stage2-1 chartDayPre",
+    4: "Stage3 chartDay",
+    5: "Stage4 investor",
+}
 
 
 def _is_weekend(date: str) -> bool:
@@ -122,6 +141,24 @@ def _count_all_data_ok(by_stock: dict[str, PrefetchStatus]) -> int:
     )
 
 
+def _stage_funnel(results: list[ResearchResult]) -> list[tuple[str, int]]:
+    """데이터 5단계(slot 1~5) 통과 종목 수를 stage 순서대로 반환.
+
+    ``render_stage_passed`` 와 동일 술어(``len(stages) >= slot`` 그리고
+    ``stages[slot-1].selected``)로 세므로, 각 카운트는 디스크의
+    ``stage{N}_passed.md`` 파일 내용과 정확히 일치한다. 파이프라인이 첫 탈락에서
+    끊기므로 카운트는 단조 비증가(진짜 퍼널)이다.
+    """
+    out: list[tuple[str, int]] = []
+    for slot, label in _STAGE_FUNNEL_LABELS.items():
+        cnt = sum(
+            1 for r in results
+            if len(r.stages) >= slot and r.stages[slot - 1].selected
+        )
+        out.append((label, cnt))
+    return out
+
+
 async def _run(args: argparse.Namespace) -> int:
     date: str = args.date
     backfill_root: Path = args.reports_root
@@ -166,6 +203,7 @@ async def _run(args: argparse.Namespace) -> int:
     all_ok = _count_all_data_ok(manifest.by_stock)
 
     passed = -1
+    funnel: list[tuple[str, int]] = []
     if not args.no_filters:
         results = await filter_today(
             date,
@@ -173,8 +211,11 @@ async def _run(args: argparse.Namespace) -> int:
             finance_policy="skip_na",
             code_map=code_map,
         )
+        # run_filters.py 와 동일한 저장 시퀀스: researchedCompany + 전 stage passed.
         save_researched_company(results, date=date, reports_root=backfill_root)
+        save_all_stages_passed(results, date=date, reports_root=backfill_root)
         passed = sum(1 for r in results if r.final_selected)
+        funnel = _stage_funnel(results)
 
     print(f"date: {date}")
     print(f"유니버스           : {universe_label}")
@@ -183,7 +224,10 @@ async def _run(args: argparse.Namespace) -> int:
     if args.no_filters:
         print("필터               : SKIPPED (--no-filters)")
     else:
-        print(f"필터 통과          : {passed}/{collected} 종목")
+        print("필터 퍼널(데이터 5단계):")
+        for label, cnt in funnel:
+            print(f"  {label:<22}: {cnt}/{collected} 통과")
+        print(f"필터 통과(최종)     : {passed}/{collected} 종목")
     print("재무 Stage5        : 판정 제외(과거 미지원)")
     return 0
 
