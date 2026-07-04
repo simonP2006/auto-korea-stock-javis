@@ -11,9 +11,9 @@ chart240.saveReport.markdown` 가 생성)를 입력으로 받아 단일 장기�
     녹색(60일선)    = MA60
     검은색(306일선) = MA306
 
-봉 1개의 조건 (장기 추세 -2.5% 허용)::
+봉 1개의 조건 (장기 추세 -7.0% 허용)::
 
-    MA60 ≥ MA306 × 0.975
+    MA60 ≥ MA306 × 0.93
 
 판정 시점 — 최근 3봉(``bars[-3]``, ``bars[-2]``, ``bars[-1]``) 모두에서 위
 조건이 성립하면 선정. 봉 수 < 3, MA 결측, MA306=0, 또는 최근 3봉 중
@@ -22,7 +22,7 @@ chart240.saveReport.markdown` 가 생성)를 입력으로 받아 단일 장기�
 수식::
 
     선정 = (len(bars) >= 3) and all(
-        b.ma60 >= b.ma306 * 0.975
+        b.ma60 >= b.ma306 * 0.93
         for b in bars[-3:]
     )
 
@@ -73,9 +73,11 @@ _DEFAULT_REPORTS_ROOT: Final[Path] = Path("reports")
 _CHART240_FILENAME: Final[str] = "chart240.md"
 _OUTPUT_FILENAME: Final[str] = "chart240Filter.md"
 
-# 장기추세 허용오차 (비대칭, 상단 -2.5% 까지 허용).
+# 장기추세 허용오차 (비대칭, 상단 -7.0% 까지 허용).
 # 적용 식: MA60 >= MA306 * (1 - _MA60_MA306_TOLERANCE)
-_MA60_MA306_TOLERANCE: Final[float] = 0.025
+# 이전: 0.025 (Phase B 전문가픽 역설계 2026-07-05 — pre-breakout Stage1→2 전이 회수,
+# S2 사망 tol결박 37건 중 27건 회수. 근거: PHASE_B_PROPOSAL_20260704.md §1-B)
+_MA60_MA306_TOLERANCE: Final[float] = 0.07
 
 # 조건을 만족해야 하는 최근 봉 개수 (시간 오름차순 마지막 N봉).
 _REQUIRED_CONSECUTIVE_BARS: Final[int] = 3
@@ -270,7 +272,7 @@ def find_chart240_md(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 판정 로직 (단일 조건: MA60 ≥ MA306 × 0.98)
+# 판정 로직 (단일 조건: MA60 ≥ MA306 × (1 − tol); 현행 tol=0.07 → × 0.93)
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -291,7 +293,7 @@ def _check_bar(bar: Chart240Bar) -> tuple[bool, str | None]:
     if bar.ma306 == 0:
         return False, "MA306=0 (분모 0)"
 
-    t = 1.0 - _MA60_MA306_TOLERANCE  # = 0.98
+    t = 1.0 - _MA60_MA306_TOLERANCE  # = 0.93 (tol=0.07)
 
     if bar.ma60 < bar.ma306 * t:
         return False, (
@@ -309,7 +311,7 @@ def evaluate_chart240(
     판정식::
 
         선정 = (len(bars) >= 3) AND ∀ b ∈ bars[-3:]:
-                   b.MA60 ≥ b.MA306 × 0.98
+                   b.MA60 ≥ b.MA306 × 0.93
 
     Args:
         bars: ``parse_chart240_md`` 가 반환한 봉 리스트 (시간 오름차순).
@@ -518,8 +520,8 @@ def render_markdown(
         "# 종목 필터 리포트 — chart240 240분봉 장기추세",
         "",
         "## 판정 조건",
-        "- **장기추세 정의** (장기 추세 -2.5% 허용):",
-        "    - MA60 ≥ MA306 × 0.975",
+        "- **장기추세 정의** (장기 추세 -7.0% 허용):",
+        "    - MA60 ≥ MA306 × 0.93",
         "- **필요조건**: 최근 3봉(``bars[-3]``, ``bars[-2]``, ``bars[-1]``) "
         "모두 위 조건 만족",
         "- **제외 사유**: 봉 수 < 3 / MA60 또는 MA306 결측 / MA306=0 / "

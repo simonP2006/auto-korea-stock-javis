@@ -25,8 +25,8 @@ chartDay` 모듈이 생성)를 입력으로 받아 일봉 MA 4선 정배열 + MA
     (밴드)   최근 1봉 (bars[-1]) 의:
               - 양봉: bars[-1].close > bars[-2].close (어제 종가보다 오늘
                 종가가 높음)
-              - 종가 vs MA612: -15% ≤ (close - MA612) / MA612 ≤ +50.0%
-                즉 MA612 × 0.85 ≤ close ≤ MA612 × 1.50
+              - 종가 vs MA612: -30% ≤ (close - MA612) / MA612 ≤ +100.0%
+                즉 MA612 × 0.70 ≤ close ≤ MA612 × 2.00
               - MA612 결측 시: ``close > MA306`` 면 면제 통과
                 (MA306 도 결측이면 불통과)
 
@@ -63,10 +63,13 @@ _MA10_MA20_MA60_TOLERANCE: Final[float] = 0.05
 _MA60_MA306_LOWER_TOL: Final[float] = 0.15   # 하한 = MA306 × (1 − 0.15) = 0.85
 _MA60_MA306_UPPER_TOL: Final[float] = 0.45   # 상한 = MA306 × (1 + 0.45) = 1.45
 
-# 최근 1봉의 종가-MA612 밴드. -15% ≤ (close - MA612)/MA612 ≤ +50.0%.
+# 최근 1봉의 종가-MA612 밴드. -30% ≤ (close - MA612)/MA612 ≤ +100.0%.
 # master 종목은 본질적으로 MA612(장기바닥) 대비 큰 +이격을 가짐.
-_CLOSE_VS_MA612_LOWER: Final[float] = -0.15
-_CLOSE_VS_MA612_UPPER: Final[float] = 0.50
+# 이전: -0.15 / +0.50 (Phase B 전문가픽 역설계 2026-07-05 — 하단 확대='아직 안 오른'
+# pre-breakout 픽 회수(밴드하단 사망 41건 p50 -24%), 상단 확대=상단초과 23건 p50 +68%.
+# 근거: PHASE_B_PROPOSAL_20260704.md §1-B, PHASE_B_B2PREP §b)
+_CLOSE_VS_MA612_LOWER: Final[float] = -0.30
+_CLOSE_VS_MA612_UPPER: Final[float] = 1.00
 
 # 정배열을 "최근 3봉 중 N봉 이상" 만족해야 통과 (단일 봉 노이즈 완충).
 _REQUIRED_CONSECUTIVE_BARS: Final[int] = 3
@@ -412,7 +415,7 @@ def _is_close_in_ma612_band(
     조건::
 
         양봉:    bars[-1].close > bars[-2].close
-        밴드:    -15% ≤ (close - MA612) / MA612 ≤ +50.0%
+        밴드:    -30% ≤ (close - MA612) / MA612 ≤ +100.0%
 
     MA612 가 결측/0 인 경우(신규 상장·짧은 이력) 는 ``close > MA306`` 인
     한 면제 처리한다(MA306 도 결측이면 불통과).
@@ -480,7 +483,7 @@ def evaluate_chartday(
                  AND b.MA20 ≥ b.MA60 × 0.95
                  AND b.MA306 × 0.85 ≤ b.MA60 ≤ b.MA306 × 1.45} ≥ 2
         (밴드)   bars[-1].close > bars[-2].close                       (양봉)
-                 AND ( -15% ≤ (bars[-1].close - MA612) / MA612 ≤ +50%
+                 AND ( -30% ≤ (bars[-1].close - MA612) / MA612 ≤ +100%
                        OR (MA612 결측·0 이면 close > MA306 fallback) )
         선정 = (정배열) AND (밴드)
 
@@ -724,7 +727,7 @@ def render_markdown(
         "- **(정배열)** 최근 3봉(``bars[-3]``, ``bars[-2]``, ``bars[-1]``) **중 2봉 이상** 위 조건 만족",
         "- **(밴드)** 최근 1봉(``bars[-1]``):",
         "    - 양봉: 오늘 종가 > 어제 종가",
-        "    - 종가 vs MA612: **-15% ≤ (종가 - MA612)/MA612 ≤ +50.0%**",
+        "    - 종가 vs MA612: **-30% ≤ (종가 - MA612)/MA612 ≤ +100.0%**",
         "    - MA612 결측 시: ``close > MA306`` 면 면제 통과 (MA306 도 결측이면 불통과)",
         "- **선정** = (정배열) AND (밴드)",
         "- **제외 사유**: 봉 부족 / MA 결측 / 분모 0 / 정배열 2봉 미만 / 양봉 아님 / MA612 밴드 이탈",

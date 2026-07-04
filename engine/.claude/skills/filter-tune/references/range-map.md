@@ -93,7 +93,7 @@
 
 | param_id | physical_range | danger_zone | warning_korean | basis |
 |---|---|---|---|---|
-| `_MA60_MA306_TOLERANCE` | 0.000 ~ 0.200 | ≥ 0.080 | `"8% 이상은 240m 장기추세 'up' 의미 상실 (Weinstein)."` | Weinstein 240m base −2.5% canonical |
+| `_MA60_MA306_TOLERANCE` | 0.000 ~ 0.200 | ≥ 0.080 | `"8% 이상은 240m 장기추세 'up' 의미 상실 (Weinstein)."` | Weinstein 240m base −2.5% canonical · 현행 0.07 (Phase B 2026-07-05) |
 | `_REQUIRED_CONSECUTIVE_BARS` | 1 ~ 8 (정수) | ≤ 1 or ≥ 6 | `"1봉은 단일 240m 노이즈에 과민. 6봉 이상은 ~6일치 trend 시간 지연."` | 3-bar canonical |
 
 ### 튜닝 비대상 (3개)
@@ -157,7 +157,7 @@
 | param_id | physical_range | danger_zone | warning_korean | basis |
 |---|---|---|---|---|
 | `_REQUIRED_BARS` | 8 ~ 16 (정수) | ≤ 7 or ≥ 17 | `"8 미만은 sampling base 부족. 17 이상은 fixture 한계 초과."` | 16-day fixture |
-| `_THRESHOLD_FOREIGN_CONSEC_SELL` | 1 ~ 16 (정수) | ≤ 1 or ≥ 12 | `"1일은 통상 매도가 시그널이 아님 — 거의 모든 종목 탈락. 12일 이상은 거의 모든 종목 통과."` | Wyckoff Phase D — 2일 canonical |
+| `_THRESHOLD_FOREIGN_CONSEC_SELL` | 1 ~ 16 (정수) | ≤ 1 or ≥ 12 | `"1일은 통상 매도가 시그널이 아님 — 거의 모든 종목 탈락. 12일 이상은 거의 모든 종목 통과."` | Wyckoff Phase D — 2일 canonical · 현행 5 (Phase B 2026-07-05) |
 | `_THRESHOLD_INST_CONSEC_SELL` | 1 ~ 16 (정수) | ≤ 2 or ≥ 14 | `"2일 이하는 모든 종목 탈락. 14일 이상은 8일 분배 검출 의미 상실."` | 기관 unwinding 8일 canonical |
 | `_THRESHOLD_INDI_CONSEC_BUY` | 1 ~ 16 (정수) | ≤ 1 or ≥ 12 | `"1일은 통상 매수가 매수 시그널이 아님 — 거의 모든 종목 탈락. 12일 이상은 거의 모든 종목 통과."` | 역발상 시그널 — 3일 canonical |
 | `_THRESHOLD_FOREIGN_TOTAL_SELL` | 1 ~ `_REQUIRED_BARS` (정수) | ≤ 8 or ≥ 16 | `"8 이하면 절반 미만 매도도 탈락 = 과도. 16 (전체)는 사실상 통과만 허용 = 조건 무력화."` | long-term distribution 15/16 canonical |

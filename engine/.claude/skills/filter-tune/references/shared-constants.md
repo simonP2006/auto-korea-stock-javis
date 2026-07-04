@@ -69,7 +69,7 @@
 
 | Variable | File:Line | Value | Timeframe | 비고 |
 |---|---|---|---|---|
-| `_MA60_MA306_TOLERANCE` | chart240Filter.py:78 | `0.025` (-2.5%) | 240분 | Stage 2 long-term gate |
+| `_MA60_MA306_TOLERANCE` | chart240Filter.py:80 | `0.07` (-7.0%) | 240분 | Stage 2 long-term gate (Phase B 2026-07-05: 구 0.025) |
 | `_MA60_MA306_LOWER_TOL` | chartDayFilter.py:63 | `0.15` (-15%) | 일봉 | Stage 3 envelope floor (deep — daily volatility 반영) |
 | `_TYPE_E_MA60_OVER_MA306_TOL` | chart60_120Filter.py:156 | `0.035` (-3.5%) | 120분 (Type E 전용) | `_ALIGN_TOL_LOOSE`에서 split (Type E V-rebound 보호) |
 

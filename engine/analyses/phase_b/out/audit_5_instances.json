@@ -1,0 +1,382 @@
+[
+ {
+  "day": "20260522",
+  "code": "000430",
+  "name": "대원강업",
+  "folder": "/Users/tajun/spJavis/auto-korea-stock-javis/engine/reports/20260522/대원강업(000430)",
+  "funnel": [
+   [
+    "s1",
+    true,
+    "D"
+   ],
+   [
+    "s2",
+    true,
+    ""
+   ],
+   [
+    "s21",
+    true,
+    ""
+   ],
+   [
+    "s3",
+    true,
+    ""
+   ],
+   [
+    "s4",
+    true,
+    ""
+   ],
+   [
+    "s5",
+    true,
+    ""
+   ]
+  ],
+  "s1_type": "D",
+  "margins": {
+   "A_tol_star": 0.035326397622041816,
+   "C_spread_star": 0.03662005214505807,
+   "C_cross_ok": false,
+   "D_tol_star": 0.016969668753928135,
+   "D_ratio": 0.8125,
+   "E_t306_star": -0.033322129927497945,
+   "E_spread_star": 0.012034756749221734,
+   "E_close_gt_ma60": true,
+   "E_tSA_star": -0.001782326223193298,
+   "E_ratio60": 1.0,
+   "S2_t_star": -0.06260730115159663,
+   "S21_surge": 0.061843640606767794,
+   "S3_bars": [
+    {
+     "t3_star": 0.009935304990757898,
+     "lo_star": -0.06451728260092149,
+     "up_star": 0.06451728260092149
+    },
+    {
+     "t3_star": 0.007693642621623198,
+     "lo_star": -0.0642929359981208,
+     "up_star": 0.0642929359981208
+    },
+    {
+     "t3_star": 0.004215023962122477,
+     "lo_star": -0.06512853745905067,
+     "up_star": 0.06512853745905067
+    }
+   ],
+   "S3_bullish": true,
+   "S3_c612_pct": 0.04322146789285318,
+   "S4": {
+    "bar_count": 16,
+    "foreign_consec_sell": 0,
+    "inst_consec_sell": 3,
+    "indi_consec_buy": 0,
+    "foreign_total_sell": 7
+   },
+   "S5_cup_nga": 460.0
+  }
+ },
+ {
+  "day": "20260204",
+  "code": "067900",
+  "name": "와이엔텍",
+  "folder": "/Users/tajun/spJavis/auto-korea-stock-javis/engine/reports/20260204/와이엔텍(067900)",
+  "funnel": [
+   [
+    "s1",
+    true,
+    "A"
+   ],
+   [
+    "s2",
+    false,
+    ""
+   ]
+  ],
+  "s1_type": "A",
+  "margins": {
+   "A_tol_star": 0.011205535083101403,
+   "C_spread_star": 0.011400051260041595,
+   "C_cross_ok": false,
+   "D_tol_star": 0.003108651148684527,
+   "D_ratio": 0.4375,
+   "E_t306_star": -0.040704979829376375,
+   "E_spread_star": 0.006304723776842747,
+   "E_close_gt_ma60": true,
+   "E_tSA_star": 0.0028567132761990743,
+   "E_ratio60": 0.875,
+   "S2_t_star": null,
+   "S21_surge": 0.03048780487804878,
+   "S3_bars": [
+    {
+     "t3_star": 0.00030469226081653034,
+     "lo_star": 0.006616696580520887,
+     "up_star": -0.006616696580520887
+    },
+    {
+     "t3_star": -0.0010667479427004523,
+     "lo_star": 0.005187699556712944,
+     "up_star": -0.005187699556712944
+    },
+    {
+     "t3_star": -0.0056308020088267074,
+     "lo_star": 0.0030964022533377378,
+     "up_star": -0.0030964022533377378
+    }
+   ],
+   "S3_bullish": true,
+   "S3_c612_pct": -0.023761867214284266,
+   "S4": {
+    "bar_count": 16,
+    "foreign_consec_sell": 0,
+    "inst_consec_sell": 1,
+    "indi_consec_buy": 0,
+    "foreign_total_sell": 8
+   },
+   "S5_cup_nga": null
+  }
+ },
+ {
+  "day": "20260518",
+  "code": "102460",
+  "name": "이연제약",
+  "folder": "/Users/tajun/spJavis/auto-korea-stock-javis/engine/reports/20260518/이연제약(102460)",
+  "funnel": [
+   [
+    "s1",
+    true,
+    "A"
+   ],
+   [
+    "s2",
+    true,
+    ""
+   ],
+   [
+    "s21",
+    true,
+    ""
+   ],
+   [
+    "s3",
+    true,
+    ""
+   ],
+   [
+    "s4",
+    true,
+    ""
+   ],
+   [
+    "s5",
+    false,
+    ""
+   ]
+  ],
+  "s1_type": "A",
+  "margins": {
+   "A_tol_star": 0.00418299502443753,
+   "C_spread_star": 0.02375120738069464,
+   "C_cross_ok": false,
+   "D_tol_star": -0.016982382677843688,
+   "D_ratio": 1.0,
+   "E_t306_star": -0.03354281953597882,
+   "E_spread_star": 0.02375120738069464,
+   "E_close_gt_ma60": true,
+   "E_tSA_star": -0.0060814383923850635,
+   "E_ratio60": 1.0,
+   "S2_t_star": 0.023972602739726012,
+   "S21_surge": 0.01774622892635315,
+   "S3_bars": [
+    {
+     "t3_star": -0.008913142337426017,
+     "lo_star": 0.052644756150694194,
+     "up_star": -0.052644756150694194
+    },
+    {
+     "t3_star": -0.004115970871590768,
+     "lo_star": 0.05256481909840238,
+     "up_star": -0.05256481909840238
+    },
+    {
+     "t3_star": -0.004677941705649502,
+     "lo_star": 0.05210269288805014,
+     "up_star": -0.05210269288805014
+    }
+   ],
+   "S3_bullish": true,
+   "S3_c612_pct": -0.10562931103046785,
+   "S4": {
+    "bar_count": 16,
+    "foreign_consec_sell": 0,
+    "inst_consec_sell": 1,
+    "indi_consec_buy": 0,
+    "foreign_total_sell": 8
+   },
+   "S5_cup_nga": -296.0
+  }
+ },
+ {
+  "day": "20260521",
+  "code": "018260",
+  "name": "삼성에스디에스",
+  "folder": "/Users/tajun/spJavis/auto-korea-stock-javis/engine/reports/20260521/삼성에스디에스(018260)",
+  "funnel": [
+   [
+    "s1",
+    true,
+    "E"
+   ],
+   [
+    "s2",
+    true,
+    ""
+   ],
+   [
+    "s21",
+    true,
+    ""
+   ],
+   [
+    "s3",
+    true,
+    ""
+   ],
+   [
+    "s4",
+    true,
+    ""
+   ],
+   [
+    "s5",
+    true,
+    ""
+   ]
+  ],
+  "s1_type": "E",
+  "margins": {
+   "A_tol_star": 0.05138615513882594,
+   "C_spread_star": 0.06877539144519774,
+   "C_cross_ok": false,
+   "D_tol_star": 0.06434971463199546,
+   "D_ratio": 0.6875,
+   "E_t306_star": -0.07498378537080663,
+   "E_spread_star": 0.031225410544511743,
+   "E_close_gt_ma60": true,
+   "E_tSA_star": -0.013944108326130689,
+   "E_ratio60": 1.0,
+   "S2_t_star": -0.032032151659463715,
+   "S21_surge": 0.10755287009063444,
+   "S3_bars": [
+    {
+     "t3_star": -0.0175904977375565,
+     "lo_star": -0.0702041263602664,
+     "up_star": 0.0702041263602664
+    },
+    {
+     "t3_star": -0.018313978250376284,
+     "lo_star": -0.06864854905596918,
+     "up_star": 0.06864854905596918
+    },
+    {
+     "t3_star": -0.02102664510087693,
+     "lo_star": -0.06826147102555602,
+     "up_star": 0.06826147102555602
+    }
+   ],
+   "S3_bullish": true,
+   "S3_c612_pct": 0.19003116154702243,
+   "S4": {
+    "bar_count": 16,
+    "foreign_consec_sell": 0,
+    "inst_consec_sell": 0,
+    "indi_consec_buy": 0,
+    "foreign_total_sell": 13
+   },
+   "S5_cup_nga": 7827.0
+  }
+ },
+ {
+  "day": "20260408",
+  "code": "055490",
+  "name": "테이팩스",
+  "folder": "/Users/tajun/spJavis/auto-korea-stock-javis/engine/reports/20260408/테이팩스(055490)",
+  "funnel": [
+   [
+    "s1",
+    true,
+    "A"
+   ],
+   [
+    "s2",
+    true,
+    ""
+   ],
+   [
+    "s21",
+    true,
+    ""
+   ],
+   [
+    "s3",
+    true,
+    ""
+   ],
+   [
+    "s4",
+    true,
+    ""
+   ],
+   [
+    "s5",
+    true,
+    "N/A"
+   ]
+  ],
+  "s1_type": "A",
+  "margins": {
+   "A_tol_star": 0.005389575999252272,
+   "C_spread_star": 0.03734923227872514,
+   "C_cross_ok": false,
+   "D_tol_star": -0.028019548402600458,
+   "D_ratio": 0.75,
+   "E_t306_star": -0.03967603438727707,
+   "E_spread_star": 0.03126433650187426,
+   "E_close_gt_ma60": true,
+   "E_tSA_star": -0.003156348635894979,
+   "E_ratio60": 1.0,
+   "S2_t_star": -0.01041519804762192,
+   "S21_surge": 0.021929824561403508,
+   "S3_bars": [
+    {
+     "t3_star": -0.012478842388238043,
+     "lo_star": -0.034555691446880976,
+     "up_star": 0.034555691446880976
+    },
+    {
+     "t3_star": -0.014481140478386889,
+     "lo_star": -0.036193943818929375,
+     "up_star": 0.036193943818929375
+    },
+    {
+     "t3_star": -0.016602303858467726,
+     "lo_star": -0.03862846329473224,
+     "up_star": 0.03862846329473224
+    }
+   ],
+   "S3_bullish": true,
+   "S3_c612_pct": -0.1375485756860613,
+   "S4": {
+    "bar_count": 16,
+    "foreign_consec_sell": 0,
+    "inst_consec_sell": 0,
+    "indi_consec_buy": 0,
+    "foreign_total_sell": 4
+   },
+   "S5_cup_nga": null
+  }
+ }
+]

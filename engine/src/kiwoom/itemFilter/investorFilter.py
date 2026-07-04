@@ -12,7 +12,7 @@ investor` 모듈이 생성, ka10059)를 입력으로 받아 투자자 수급 조
         매도(-) := value < 0
         매수(+) := value ≥ 0       (0 은 매수로 처리)
 
-    [(2) 외국인 연속 매도]   최근일부터 역순으로 외국인 매도가 ≥ 2회 → 제외
+    [(2) 외국인 연속 매도]   최근일부터 역순으로 외국인 매도가 ≥ 5회 → 제외
     [(3) 기관계 연속 매도]   최근일부터 역순으로 기관계 매도가 ≥ 8회 → 제외
     [(4) 개인 연속 매수]     최근일부터 역순으로 개인   매수가 ≥ 3회 → 제외
     [(5) 외국인 매도 일수]   16일 중 외국인 매도가 ≥ 15일                → 제외
@@ -43,7 +43,9 @@ _OUTPUT_FILENAME: Final[str] = "investorFilter.md"
 _REQUIRED_BARS: Final[int] = 16
 
 # 임계값.
-_THRESHOLD_FOREIGN_CONSEC_SELL: Final[int] = 2
+# _THRESHOLD_FOREIGN_CONSEC_SELL 이전: 2 (Phase B 전문가픽 역설계 2026-07-05 —
+# 전문가는 단기(≤4일) 외국인 연속매도를 용인. 근거: PHASE_B_PROPOSAL_20260704.md §1-B)
+_THRESHOLD_FOREIGN_CONSEC_SELL: Final[int] = 5
 _THRESHOLD_INST_CONSEC_SELL: Final[int] = 8
 _THRESHOLD_INDI_CONSEC_BUY: Final[int] = 3
 _THRESHOLD_FOREIGN_TOTAL_SELL: Final[int] = 15

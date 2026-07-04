@@ -1,0 +1,584 @@
+{
+ "20260105": {
+  "stratum": "S1",
+  "n_labels": 2,
+  "orgn": 2,
+  "ndirs": 2
+ },
+ "20260106": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260107": {
+  "stratum": "S1",
+  "n_labels": 2,
+  "orgn": 2,
+  "ndirs": 2
+ },
+ "20260108": {
+  "stratum": "S1",
+  "n_labels": 3,
+  "orgn": 3,
+  "ndirs": 3
+ },
+ "20260109": {
+  "stratum": "S1",
+  "n_labels": 9,
+  "orgn": 9,
+  "ndirs": 9
+ },
+ "20260112": {
+  "stratum": "ORPHAN",
+  "n_labels": 9,
+  "orgn": 0,
+  "ndirs": 0
+ },
+ "20260113": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260115": {
+  "stratum": "S1",
+  "n_labels": 6,
+  "orgn": 6,
+  "ndirs": 6
+ },
+ "20260116": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260119": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260120": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260122": {
+  "stratum": "S1",
+  "n_labels": 13,
+  "orgn": 13,
+  "ndirs": 13
+ },
+ "20260123": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260126": {
+  "stratum": "S1",
+  "n_labels": 15,
+  "orgn": 15,
+  "ndirs": 15
+ },
+ "20260127": {
+  "stratum": "S1",
+  "n_labels": 4,
+  "orgn": 4,
+  "ndirs": 4
+ },
+ "20260128": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260129": {
+  "stratum": "S1",
+  "n_labels": 6,
+  "orgn": 6,
+  "ndirs": 6
+ },
+ "20260130": {
+  "stratum": "S1",
+  "n_labels": 3,
+  "orgn": 3,
+  "ndirs": 3
+ },
+ "20260203": {
+  "stratum": "S1",
+  "n_labels": 18,
+  "orgn": 18,
+  "ndirs": 18
+ },
+ "20260204": {
+  "stratum": "S1",
+  "n_labels": 14,
+  "orgn": 14,
+  "ndirs": 14
+ },
+ "20260205": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260206": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260209": {
+  "stratum": "S1",
+  "n_labels": 17,
+  "orgn": 17,
+  "ndirs": 17
+ },
+ "20260210": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260211": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260212": {
+  "stratum": "S1",
+  "n_labels": 15,
+  "orgn": 15,
+  "ndirs": 15
+ },
+ "20260213": {
+  "stratum": "S1",
+  "n_labels": 7,
+  "orgn": 7,
+  "ndirs": 7
+ },
+ "20260220": {
+  "stratum": "S1",
+  "n_labels": 13,
+  "orgn": 13,
+  "ndirs": 13
+ },
+ "20260223": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260224": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260225": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260227": {
+  "stratum": "S1",
+  "n_labels": 8,
+  "orgn": 8,
+  "ndirs": 8
+ },
+ "20260306": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260310": {
+  "stratum": "S1",
+  "n_labels": 9,
+  "orgn": 9,
+  "ndirs": 9
+ },
+ "20260311": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260312": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260313": {
+  "stratum": "S1",
+  "n_labels": 3,
+  "orgn": 3,
+  "ndirs": 3
+ },
+ "20260316": {
+  "stratum": "S1",
+  "n_labels": 9,
+  "orgn": 9,
+  "ndirs": 9
+ },
+ "20260317": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260318": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260319": {
+  "stratum": "S1",
+  "n_labels": 13,
+  "orgn": 13,
+  "ndirs": 13
+ },
+ "20260320": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260323": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260324": {
+  "stratum": "S1",
+  "n_labels": 9,
+  "orgn": 9,
+  "ndirs": 9
+ },
+ "20260327": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260330": {
+  "stratum": "S1",
+  "n_labels": 7,
+  "orgn": 7,
+  "ndirs": 7
+ },
+ "20260401": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260406": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260407": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260408": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260409": {
+  "stratum": "S1",
+  "n_labels": 4,
+  "orgn": 4,
+  "ndirs": 4
+ },
+ "20260410": {
+  "stratum": "S1",
+  "n_labels": 16,
+  "orgn": 16,
+  "ndirs": 16
+ },
+ "20260413": {
+  "stratum": "S1",
+  "n_labels": 10,
+  "orgn": 10,
+  "ndirs": 10
+ },
+ "20260414": {
+  "stratum": "S1",
+  "n_labels": 13,
+  "orgn": 13,
+  "ndirs": 13
+ },
+ "20260415": {
+  "stratum": "S1",
+  "n_labels": 12,
+  "orgn": 12,
+  "ndirs": 12
+ },
+ "20260416": {
+  "stratum": "S1",
+  "n_labels": 9,
+  "orgn": 9,
+  "ndirs": 9
+ },
+ "20260417": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260430": {
+  "stratum": "S1",
+  "n_labels": 7,
+  "orgn": 7,
+  "ndirs": 7
+ },
+ "20260504": {
+  "stratum": "S1",
+  "n_labels": 11,
+  "orgn": 11,
+  "ndirs": 11
+ },
+ "20260506": {
+  "stratum": "S1",
+  "n_labels": 5,
+  "orgn": 5,
+  "ndirs": 5
+ },
+ "20260507": {
+  "stratum": "S1",
+  "n_labels": 8,
+  "orgn": 8,
+  "ndirs": 8
+ },
+ "20260514": {
+  "stratum": "S2",
+  "n_labels": 10,
+  "orgn": 1403,
+  "ndirs": 1380
+ },
+ "20260515": {
+  "stratum": "S2",
+  "n_labels": 10,
+  "orgn": 354,
+  "ndirs": 354
+ },
+ "20260516": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 354,
+  "ndirs": 354
+ },
+ "20260518": {
+  "stratum": "S2",
+  "n_labels": 10,
+  "orgn": 584,
+  "ndirs": 584
+ },
+ "20260519": {
+  "stratum": "S2",
+  "n_labels": 5,
+  "orgn": 512,
+  "ndirs": 512
+ },
+ "20260520": {
+  "stratum": "S2",
+  "n_labels": 3,
+  "orgn": 303,
+  "ndirs": 303
+ },
+ "20260521": {
+  "stratum": "S2",
+  "n_labels": 9,
+  "orgn": 1626,
+  "ndirs": 1626
+ },
+ "20260522": {
+  "stratum": "S2",
+  "n_labels": 10,
+  "orgn": 2003,
+  "ndirs": 2003
+ },
+ "20260526": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 739,
+  "ndirs": 739
+ },
+ "20260527": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 260,
+  "ndirs": 260
+ },
+ "20260528": {
+  "stratum": "S2",
+  "n_labels": 7,
+  "orgn": 500,
+  "ndirs": 500
+ },
+ "20260529": {
+  "stratum": "S2",
+  "n_labels": 6,
+  "orgn": 489,
+  "ndirs": 489
+ },
+ "20260601": {
+  "stratum": "S2",
+  "n_labels": 4,
+  "orgn": 413,
+  "ndirs": 413
+ },
+ "20260602": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 622,
+  "ndirs": 622
+ },
+ "20260604": {
+  "stratum": "S2",
+  "n_labels": 5,
+  "orgn": 983,
+  "ndirs": 983
+ },
+ "20260605": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 497,
+  "ndirs": 497
+ },
+ "20260608": {
+  "stratum": "S2",
+  "n_labels": 2,
+  "orgn": 90,
+  "ndirs": 91
+ },
+ "20260609": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1974,
+  "ndirs": 1974
+ },
+ "20260610": {
+  "stratum": "S2",
+  "n_labels": 1,
+  "orgn": 648,
+  "ndirs": 648
+ },
+ "20260611": {
+  "stratum": "S2",
+  "n_labels": 3,
+  "orgn": 1601,
+  "ndirs": 1601
+ },
+ "20260612": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1833,
+  "ndirs": 1833
+ },
+ "20260615": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1492,
+  "ndirs": 1492
+ },
+ "20260616": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1151,
+  "ndirs": 1151
+ },
+ "20260617": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1257,
+  "ndirs": 1257
+ },
+ "20260618": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 321,
+  "ndirs": 321
+ },
+ "20260619": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 276,
+  "ndirs": 276
+ },
+ "20260622": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 466,
+  "ndirs": 466
+ },
+ "20260623": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 143,
+  "ndirs": 143
+ },
+ "20260624": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1195,
+  "ndirs": 1195
+ },
+ "20260625": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 569,
+  "ndirs": 569
+ },
+ "20260626": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 260,
+  "ndirs": 260
+ },
+ "20260629": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 2037,
+  "ndirs": 2037
+ },
+ "20260630": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 771,
+  "ndirs": 771
+ },
+ "20260701": {
+  "stratum": "S2",
+  "n_labels": 1,
+  "orgn": 1583,
+  "ndirs": 1583
+ },
+ "20260702": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 557,
+  "ndirs": 557
+ },
+ "20260703": {
+  "stratum": "S3",
+  "n_labels": 0,
+  "orgn": 1443,
+  "ndirs": 1443
+ }
+}

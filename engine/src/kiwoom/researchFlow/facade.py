@@ -24,7 +24,7 @@ filter_today 흐름 (6 Stage 묶음):
     4. 각 종목에 대해 다음 6 Stage 순차 평가:
         Stage 1   chart60_120Filter
         Stage 2   chart240Filter
-        Stage 2-1 chartDayPreFilter   (금일 일봉 +10% 이상 사전 차단)
+        Stage 2-1 chartDayPreFilter   (금일 일봉 +15% 이상 사전 차단)
         Stage 3   chartDayFilter
         Stage 4   investorFilter
         Stage 5   financeFilter        (당기순이익 < 0 적자 제외)

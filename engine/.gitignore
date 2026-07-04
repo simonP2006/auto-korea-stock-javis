@@ -41,3 +41,12 @@ reports/*/*
 # backfill 산출물(과거일 부분수집)은 실스캔 이력과 분리된 조회전용 임시 데이터 — 전체 제외
 reports_backfill/
 data/.token_cache.json
+
+# Phase B 분석 산출물 — 대용량·재생성가능분 제외 (margin_extract.py로 재생성)
+analyses/phase_b/out/prims/
+analyses/phase_b/out/instances.json
+analyses/phase_b/out/labels_audit_pool.json
+analyses/phase_b/out/*.log
+analyses/phase_b/out/extract_full.out
+reports_eval/
+src/**/*.bak.*

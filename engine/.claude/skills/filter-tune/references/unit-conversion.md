@@ -19,7 +19,7 @@
 | "-3.5%" (현재 `_TYPE_A_ALIGN_TOL`) | `0.035` | `0.965` | `-3.5% (×0.965)` |
 | "-15%" (Stage 3 `_MA60_MA306_LOWER_TOL`) | `0.15` | `0.85` | `-15.0% (×0.85)` |
 | "+45%" (Stage 3 `_MA60_MA306_UPPER_TOL`) | `0.45` (literal) | `1.45` | `+45.0% (×1.45)` |
-| "+50%" (Stage 3 `_CLOSE_VS_MA612_UPPER`) | `0.50` | `1.50` | `+50.0% (×1.50)` |
+| "+100%" (Stage 3 `_CLOSE_VS_MA612_UPPER`) | `1.00` | `2.00` | `+100.0% (×2.00)` (Phase B 2026-07-05: 구 0.50) |
 
 ## Ratio constants (NOT tolerances) — 부호 컨벤션 없음
 
@@ -39,7 +39,7 @@
 
 ## Lower-band tolerance (signed `Final[float]`, 음수 raw 가능)
 
-`_CLOSE_VS_MA612_LOWER`: raw `-0.15` → display `-15.0% (×0.85)`. **음수 부호가 literal에 포함된 유일한 케이스** — Edit 시 `: Final[float] = -0.15` 라인 그대로 매칭.
+`_CLOSE_VS_MA612_LOWER`: raw `-0.30` → display `-30.0% (×0.70)` (Phase B 2026-07-05: 구 -0.15). **음수 부호가 literal에 포함된 유일한 케이스** — Edit 시 `: Final[float] = -0.30` 라인 그대로 매칭.
 
 ## Integer thresholds (변환 없음)
 

@@ -14,7 +14,7 @@
 
     정적 구조 조건(정배열·이격·수렴)  → bars[-8:]  (최근 8봉 모두)
     동적 이벤트 조건(돌파·교차)        → bars[-1]   (최근 1봉, 또는 [-2:-1] 비교)
-    Type D 보조(close > MA60 비율)     → bars60[-16:] 중 60% 이상
+    Type D 보조(close > MA60 비율)     → bars60[-16:] 중 50% 이상(분모=실제 봉수)
     Type E 60분 지지 비율              → bars60[-8:]  중 75% 이상
 
 판정 우선순위: **A → B → C → D → E** (첫 매칭으로 분류).
@@ -38,7 +38,7 @@
 
     Type C — 120분 수렴 + 60분 60일선 골든크로스
         120분 bars[-8:]:
-            (max(MA10,MA20,MA60) − min(MA10,MA20,MA60)) / min ≤ 0.02
+            (max(MA10,MA20,MA60) − min(MA10,MA20,MA60)) / min ≤ 0.035
             MA60 ≥ MA306 × 0.985
         60분  교차:
             bars60[-2].close ≤ bars60[-2].ma60
@@ -52,13 +52,13 @@
             MA60 ≥ MA306 × 0.985
         60분 — 다음 둘 중 하나:
             (a) bars60[-8:] 4선 정배열(-1.5%)
-            (b) count(close > ma60 for b in bars60[-16:]) / 16 ≥ 0.60
+            (b) count(close > ma60 for b in bars60[-16:]) / len(윈도우) ≥ 0.50
 
     Type E — 정배열 직전 + MA60 위 지지 (fresh breakout)
         120분 bars[-1]:
-            MA60 ≥ MA306 × 0.985
+            MA60 ≥ MA306 × 0.965
             close > MA60                       (현재 봉이 60선 위)
-            (max(MA10,MA20,MA60) − min) / min ≤ 0.07   (수렴 중)
+            (max(MA10,MA20,MA60) − min) / min ≤ 0.10   (수렴 중)
         120분 bars[-2:] 중 ≥1봉:
             MA10 ≥ MA20 × 0.984                (단기 정렬 직전 — 1.6% tol)
         60분 bars[-8:]:
@@ -477,7 +477,7 @@ def _check_type_d(
     if not ok120:
         return False, f"120분 엉킴 조건 실패: {r120}"
 
-    # 60분 — (a) 4선 정배열 또는 (b) close>MA60 비율 ≥ 75%.
+    # 60분 — (a) 4선 정배열 또는 (b) close>MA60 비율 ≥ 50%.
     ok60a, _ = _all_static(
         bars60, lambda b: _is_4ma_aligned(b, _ALIGN_TOL_LOOSE)
     )
@@ -505,7 +505,7 @@ def _check_type_e(
     """Type E — "정배열 직전 + MA60 위 지지(fresh breakout)" 신선 돌파 직후.
 
     120분 최근 1봉:
-        MA60 ≥ MA306 × 0.985 (장기 추세 양호)
+        MA60 ≥ MA306 × 0.965 (장기 추세 양호)
         close > MA60 (현재 봉이 60선 위)
         (max(MA10,MA20,MA60) − min)/min ≤ _TYPE_E_SPREAD_PCT (수렴 중)
     120분 최근 _TYPE_E_SHORT_ALIGN_WINDOW 봉:
@@ -581,7 +581,7 @@ _TYPE_CHECKERS: Final[tuple[tuple[str, object], ...]] = (
 def evaluate_chart60_120(
     bars60: list[Chart60Bar], bars120: list[Chart120Bar]
 ) -> tuple[bool, str, str, dict[str, object]]:
-    """Type A→B→C→D 순으로 검사하여 첫 매칭으로 분류.
+    """Type A→B→C→D→E 순으로 검사하여 첫 매칭으로 분류.
 
     Args:
         bars60: chart60.md 16봉 (시간 오름차순).
@@ -854,7 +854,7 @@ def render_markdown(
         by_category[r.category] = by_category.get(r.category, 0) + 1
 
     lines: list[str] = [
-        "# 종목 필터 리포트 — chart60 + chart120 (4 Type 매칭)",
+        "# 종목 필터 리포트 — chart60 + chart120 (5 Type 매칭)",
         "",
         "## 판정 조건",
         "- **Type A** — 양 시간대 4선 완전 정배열 (-3.5% 허용)",
@@ -863,11 +863,11 @@ def render_markdown(
         "    - 120분 bars[-8:]: MA10 ≥ MA20·0.985, MA10·MA20 ≤ MA60·0.97, MA60 ≥ MA306·0.985",
         "    - 60분  bars[-8:]: MA10 ≥ MA20·0.985 ≥ MA60·0.985, MA60 ≥ MA306·0.985",
         "- **Type C** — 120분 수렴 + 60분 60일선 골든크로스",
-        "    - 120분 bars[-8:]: (max−min)/min(MA10,MA20,MA60) ≤ 2.0%, MA60 ≥ MA306·0.985",
+        "    - 120분 bars[-8:]: (max−min)/min(MA10,MA20,MA60) ≤ 3.5%, MA60 ≥ MA306·0.985",
         "    - 60분 교차: bars[-2].close ≤ MA60 AND bars[-1].close > MA60",
         "- **Type D** — 120분 엉킴(Type A 미충족) + 60분 정배열 또는 돌파 우세",
         "    - 120분 bars[-8:]: MA10 ≥ MA60·0.98 AND MA20 ≥ MA60·0.98, MA60 ≥ MA306·0.985",
-        "    - 60분: bars[-8:] 4선 정배열 또는 bars[-16:] 중 close>MA60 비율 ≥ 60%",
+        "    - 60분: bars[-8:] 4선 정배열 또는 bars[-16:] 중 close>MA60 비율 ≥ 50%",
         "- **Type E** — 정배열 직전 + MA60 위 지지 (fresh breakout)",
         "    - 120분 bars[-1]: MA60 ≥ MA306·0.965, close > MA60,"
         " (max−min)/min(MA10,MA20,MA60) ≤ 10%",

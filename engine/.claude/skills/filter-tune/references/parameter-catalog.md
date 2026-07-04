@@ -103,7 +103,7 @@
 
 | param_id | Final[type] | 현재 값 | 한국어 의미 | File:Line | 이론적 근거 |
 |---|---|---|---|---|---|
-| `_MA60_MA306_TOLERANCE` | `Final[float]` | `0.025` (×0.975, −2.5%) | 240m 장기추세 허용오차 — `MA60 ≥ MA306×(1−0.025)` | chart240Filter.py:78 | Weinstein 240m base |
+| `_MA60_MA306_TOLERANCE` | `Final[float]` | `0.07` (×0.93, −7.0%) | 240m 장기추세 허용오차 — `MA60 ≥ MA306×(1−0.07)` | chart240Filter.py:80 | Weinstein 240m base (Phase B 2026-07-05: 0.025→0.07) |
 | `_REQUIRED_CONSECUTIVE_BARS` | `Final[int]` | `3` | 윈도우: 최근 3 240m bar 모두 만족 | chart240Filter.py:81 | 3-bar 확정 |
 
 ### 튜닝 비대상 (3개)
@@ -147,8 +147,8 @@
 | `_MA10_MA20_MA60_TOLERANCE` | `Final[float]` | `0.05` (×0.95, −5.0%) | 일봉 정렬 허용오차 — MA10 ≥ MA20×0.95, MA20 ≥ MA60×0.95 (intraday보다 넓음) | chartDayFilter.py:61 | Minervini daily SEPA |
 | `_MA60_MA306_LOWER_TOL` | `Final[float]` | `0.15` (lower ×0.85) | MA60-MA306 envelope 하한 — `MA60 ≥ MA306×(1−0.15)` | chartDayFilter.py:63 | Stage 3 envelope floor |
 | `_MA60_MA306_UPPER_TOL` | `Final[float]` | `0.45` (upper ×1.45) | MA60-MA306 envelope 상한 — `MA60 ≤ MA306×(1+0.45)` | chartDayFilter.py:64 | strong uptrend 허용 |
-| `_CLOSE_VS_MA612_LOWER` | `Final[float]` | `-0.15` (×0.85) | close-MA612 envelope 하한 — `(close − MA612)/MA612 ≥ −0.15` | chartDayFilter.py:68 | 장기 base 이탈 방지 |
-| `_CLOSE_VS_MA612_UPPER` | `Final[float]` | `0.50` (×1.50) | close-MA612 envelope 상한 — `(close − MA612)/MA612 ≤ 0.50` | chartDayFilter.py:69 | master 위치 허용 |
+| `_CLOSE_VS_MA612_LOWER` | `Final[float]` | `-0.30` (×0.70) | close-MA612 envelope 하한 — `(close − MA612)/MA612 ≥ −0.30` | chartDayFilter.py:71 | 장기 base 이탈 방지 (Phase B 2026-07-05: −0.15→−0.30) |
+| `_CLOSE_VS_MA612_UPPER` | `Final[float]` | `1.00` (×2.00) | close-MA612 envelope 상한 — `(close − MA612)/MA612 ≤ 1.00` | chartDayFilter.py:72 | master 위치 허용 (Phase B 2026-07-05: 0.50→1.00) |
 | `_REQUIRED_CONSECUTIVE_BARS` | `Final[int]` | `3` | sample 윈도우: 최근 3 daily bar | chartDayFilter.py:72 | 3-bar voting frame |
 | `_REQUIRED_ALIGNED_BARS` | `Final[int]` | `2` | voting threshold: 3개 중 ≥2개 정렬 (noise buffer) | chartDayFilter.py:73 | 단일 bar noise 흡수 |
 
@@ -173,7 +173,7 @@
 | param_id | Final[type] | 현재 값 | 한국어 의미 | File:Line | 이론적 근거 |
 |---|---|---|---|---|---|
 | `_REQUIRED_BARS` | `Final[int]` | `16` | 최소 거래일 행 수 (부족 시 "데이터 부족" 제외) | investorFilter.py:43 | 16-day sampling base |
-| `_THRESHOLD_FOREIGN_CONSEC_SELL` | `Final[int]` | `2` | 외국인 ≥2일 연속 매도 → 제외 (스마트머니 분배 시그널) | investorFilter.py:46 | Wyckoff Phase D |
+| `_THRESHOLD_FOREIGN_CONSEC_SELL` | `Final[int]` | `5` | 외국인 ≥5일 연속 매도 → 제외 (스마트머니 분배 시그널) | investorFilter.py:48 | Wyckoff Phase D (Phase B 2026-07-05: 2→5) |
 | `_THRESHOLD_INST_CONSEC_SELL` | `Final[int]` | `8` | 기관 ≥8일 연속 매도 → 제외 (느린 분배) | investorFilter.py:47 | sustained 기관 unwinding |
 | `_THRESHOLD_INDI_CONSEC_BUY` | `Final[int]` | `3` | 개인 ≥3일 연속 매수 → 제외 (역발상 시그널) | investorFilter.py:48 | retail 과매수 = 분배 |
 | `_THRESHOLD_FOREIGN_TOTAL_SELL` | `Final[int]` | `15` | 외국인 16일 중 ≥15일 매도 → 제외 (장기 분배 패턴) | investorFilter.py:49 | long-term distribution |
