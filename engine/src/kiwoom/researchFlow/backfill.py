@@ -138,16 +138,36 @@ def _all_data_ok(status: PrefetchStatus) -> bool:
 # ──────────────────────────────────────────────────────────────────────
 
 
-def _guard_roots(reports_root: Path, universe_reports_root: Path) -> None:
+def _guard_roots(
+    reports_root: Path,
+    universe_reports_root: Path,
+    *,
+    allow_universe_root: bool = False,
+) -> None:
     """backfill 출력 루트가 실스캔 이력을 덮어쓰지 못하도록 강제.
 
+    Args:
+        allow_universe_root: True 면 ``reports/`` 직접 출력을 허용한다(기본 False =
+            실스캔 오염 방지 가드 유지). **expert-pick 라벨 흐름 전용 opt-in** —
+            이 흐름은 종목을 명시(user-list)로 넘겨 유니버스 복원·매핑원본 복사
+            경로를 타지 않으므로 reports/ 쓰기가 안전하고, masterReference 라벨은
+            설계상 reports/* 에 상주한다.
+
     Raises:
-        BackfillError: 출력 루트가 유니버스 루트와 동일하거나, 실제 ``reports``
-            디렉터리를 가리킬 때.
+        BackfillError: (allow_universe_root=False 일 때) 출력 루트가 유니버스
+            루트와 동일하거나, 실제 ``reports`` 디렉터리를 가리킬 때.
     """
     rr = reports_root.resolve()
     ur = universe_reports_root.resolve()
     real_reports = _DEFAULT_UNIVERSE_ROOT.resolve()
+
+    if allow_universe_root:
+        logger.warning(
+            "allow_universe_root=True — reports/ 직접 출력 허용"
+            "(expert-pick 라벨 흐름 전용): {rr}",
+            rr=rr,
+        )
+        return
 
     if rr == ur:
         raise BackfillError(
@@ -526,6 +546,7 @@ async def backfill_prefetch_all(
     reports_root: Path = _DEFAULT_BACKFILL_ROOT,
     universe_reports_root: Path = _DEFAULT_UNIVERSE_ROOT,
     allow_nonbusiness: bool = False,
+    allow_universe_root: bool = False,
 ) -> PrefetchManifest:
     """과거 기준일 ``date`` 에 대해 5 개 데이터 API 를 부분수집(조회전용).
 
@@ -545,7 +566,10 @@ async def backfill_prefetch_all(
     Raises:
         BackfillError: 루트 충돌·유니버스 복원 불가·보존범위 밖·비거래일 등.
     """
-    _guard_roots(reports_root, universe_reports_root)
+    _guard_roots(
+        reports_root, universe_reports_root,
+        allow_universe_root=allow_universe_root,
+    )
 
     candidates, universe_source = _resolve_universe(
         date,
