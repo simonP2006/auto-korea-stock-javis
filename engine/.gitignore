@@ -42,11 +42,7 @@ reports/*/*
 reports_backfill/
 data/.token_cache.json
 
-# Phase B 분석 산출물 — 대용량·재생성가능분 제외 (margin_extract.py로 재생성)
-analyses/phase_b/out/prims/
-analyses/phase_b/out/instances.json
-analyses/phase_b/out/labels_audit_pool.json
-analyses/phase_b/out/*.log
-analyses/phase_b/out/extract_full.out
+# Phase B 분석 산출물 — out/ 전체 재생성가능(recall_ab·full_universe_ab·fragility_sweep 등으로 재생성) → 제외, 스크립트만 추적
+analyses/phase_b/out/
 reports_eval/
 src/**/*.bak.*
